@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Argent.Api.Core/Argent.Api.Core.csproj" />
+  <Project Path="Argent.Api.Domain/Argent.Api.Domain.csproj" />
+  <Project Path="Argent.Api.Infrastructure/Argent.Api.Infrastructure.csproj" />
+  <Project Path="Argent.Api/Argent.Api.csproj" />
+</Solution>
