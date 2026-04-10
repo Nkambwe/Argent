@@ -1,70 +1,88 @@
 using Argent.Api.Extensions;
 using Argent.Api.Infrastructure.Extensions;
+using System.Diagnostics;
 
-var builder = WebApplication.CreateBuilder(args);
-
-//..services
-
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options =>
+namespace Argent.Api
 {
-    options.SwaggerDoc("v1", new()
-    {
-        Title = "Sacco API",
-        Version = "v1",
-        Description = "Core API for the Sacco management platform"
-    });
-});
+    public class Program {
+        public static void Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(new WebApplicationOptions()
+            {
+                Args = args,
+                ContentRootPath = AppContext.BaseDirectory,
+                ApplicationName = Process.GetCurrentProcess().ProcessName
+            });
 
-// Infrastructure (PostgreSQL, EF Core, UoW, Repositories)
-builder.Services.AddInfrastructure(builder.Configuration);
+            //..services
+            builder.Services.AddControllers();
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.CustomSchemaIds(t => t.FullName);
+                options.SwaggerDoc("v1", new()
+                {
+                    Title = "Argent API",
+                    Version = "v1",
+                    Description = "Core API for the Argent MFI management platform"
+                });
+            });
 
-// ── Module service registrations go here as modules are built ──────────────
-// Example:
-// builder.Services.AddScoped<IOrganizationService, OrganizationService>();
-// builder.Services.AddScoped<ICustomerService, CustomerService>();
+            //..enable logging
+            builder.Logging.ClearProviders();
+            builder.Logging.AddConsole();
+            builder.Logging.AddDebug();
 
-// ── MediatR (CQRS) — uncomment when you add your first Command/Query ───────
-// builder.Services.AddMediatR(cfg =>
-//     cfg.RegisterServicesFromAssembly(typeof(SaccoApi.Application.AssemblyReference).Assembly));
+            // register ASP.NET built-in health checks
+            builder.Services.AddHealthChecks();
 
-// ── FluentValidation — uncomment when validators are added ─────────────────
-// builder.Services.AddValidatorsFromAssembly(
-//     typeof(SaccoApi.Application.AssemblyReference).Assembly);
+            // Infrastructure (PostgreSQL, EF Core, UoW, Repositories)
+            builder.Services.AddInfrastructure(builder.Configuration);
 
-// CORS — tighten before production
-builder.Services.AddCors(options =>
-{
-options.AddPolicy("AllowAll", policy =>
-    policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
-});
+            //..service registration
+            builder.Services.ConfigureServices(builder.Configuration);
 
-var app = builder.Build();
+            //..MediatR (CQRS)
+            // builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Argent.Api.Core.AssemblyReference).Assembly));
 
-//..middleware pipeline
+            //..FluentValidation
+            // builder.Services.AddValidatorsFromAssembly(typeof(Argent.Api.Core.AssemblyReference).Assembly);
 
-app.UseGlobalExceptionHandler();
+            //..CORS
+            builder.Services.AddCors(options => {
+                options.AddPolicy("AllowAll", policy => 
+                policy.AllowAnyOrigin()
+                      .AllowAnyHeader()
+                      .AllowAnyMethod());
+            });
 
-if (app.Environment.IsDevelopment())
-{
-app.UseSwagger();
-app.UseSwaggerUI(c =>
-{
-c.SwaggerEndpoint("/swagger/v1/swagger.json", "Sacco API v1");
-c.RoutePrefix = string.Empty; // Swagger UI at root in dev
-});
+            var app = builder.Build();
+
+            //..middleware pipeline
+            app.UseGlobalExceptionHandler();
+
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Argent MFI API v1");
+                    c.RoutePrefix = "swagger";
+                });
+            }
+
+            app.UseCors("AllowAll");
+            app.UseHttpsRedirection();
+            app.UseAuthorization();
+            app.MapControllers();
+
+            //..add built-in probe endpoint, separate from our custom /api/health
+            app.MapHealthChecks("/health/ready");
+            app.Run();
+
+        }
+    }
 }
 
-app.UseCors("AllowAll");
-app.UseHttpsRedirection();
-app.UseAuthorization();
-app.MapControllers();
 
-//..add built-in probe endpoint, separate from our custom /api/health
-app.MapHealthChecks("/health/ready");
 
-app.Run();
-
-// Expose Program for integration test projects
-public partial class Program { }

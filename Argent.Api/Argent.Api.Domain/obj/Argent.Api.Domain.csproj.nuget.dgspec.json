@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Projects\\Argent\\Argent.Api\\Argent.Api.Domain\\Argent.Api.Domain.csproj": {}
+    "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Domain\\Argent.Api.Domain.csproj": {}
   },
   "projects": {
-    "C:\\Projects\\Argent\\Argent.Api\\Argent.Api.Domain\\Argent.Api.Domain.csproj": {
+    "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Domain\\Argent.Api.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projects\\Argent\\Argent.Api\\Argent.Api.Domain\\Argent.Api.Domain.csproj",
+        "projectUniqueName": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Domain\\Argent.Api.Domain.csproj",
         "projectName": "Argent.Api.Domain",
-        "projectPath": "C:\\Projects\\Argent\\Argent.Api\\Argent.Api.Domain\\Argent.Api.Domain.csproj",
+        "projectPath": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Domain\\Argent.Api.Domain.csproj",
         "packagesPath": "C:\\Users\\Macjohnan\\.nuget\\packages\\",
-        "outputPath": "C:\\Projects\\Argent\\Argent.Api\\Argent.Api.Domain\\obj\\",
+        "outputPath": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

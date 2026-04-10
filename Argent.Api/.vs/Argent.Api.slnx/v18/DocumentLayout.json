@@ -1,14 +1,18 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Projects\\Argent\\Argent.Api\\",
+  "WorkspaceRootPath": "C:\\Projects\\Argent\\Argent\\Argent.Api\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{BA1B9581-8110-450F-8833-6BB1D758B3A7}|Argent.Api\\Argent.Api.csproj|c:\\projects\\argent\\argent.api\\argent.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BA1B9581-8110-450F-8833-6BB1D758B3A7}|Argent.Api\\Argent.Api.csproj|solutionrelative:argent.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F6C3E7A1-B44D-0AE3-5E55-311EA8D3CF8E}|Argent.Api\\Argent.Api.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6C3E7A1-B44D-0AE3-5E55-311EA8D3CF8E}|Argent.Api\\Argent.Api.csproj|solutionrelative:argent.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BA1B9581-8110-450F-8833-6BB1D758B3A7}|Argent.Api\\Argent.Api.csproj|c:\\projects\\argent\\argent.api\\argent.api\\controllers\\healthcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BA1B9581-8110-450F-8833-6BB1D758B3A7}|Argent.Api\\Argent.Api.csproj|solutionrelative:argent.api\\controllers\\healthcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api.infrastructure\\extensions\\servicecollectionextension.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|solutionrelative:argent.api.infrastructure\\extensions\\servicecollectionextension.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6C3E7A1-B44D-0AE3-5E55-311EA8D3CF8E}|Argent.Api\\Argent.Api.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{F6C3E7A1-B44D-0AE3-5E55-311EA8D3CF8E}|Argent.Api\\Argent.Api.csproj|solutionrelative:argent.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,32 +22,45 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Projects\\Argent\\Argent.Api\\Argent.Api\\Program.cs",
-              "RelativeDocumentMoniker": "Argent.Api\\Program.cs",
-              "ToolTip": "C:\\Projects\\Argent\\Argent.Api\\Argent.Api\\Program.cs",
-              "RelativeToolTip": "Argent.Api\\Program.cs",
-              "ViewState": "AgIAADcAAAAAAAAAAAAqwDAAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-09T09:58:37.178Z",
+              "DocumentIndex": 2,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "Argent.Api\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api\\Properties\\launchSettings.json",
+              "RelativeToolTip": "Argent.Api\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAUwCoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-04-10T02:19:17.565Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "HealthController.cs",
-              "DocumentMoniker": "C:\\Projects\\Argent\\Argent.Api\\Argent.Api\\Controllers\\HealthController.cs",
-              "RelativeDocumentMoniker": "Argent.Api\\Controllers\\HealthController.cs",
-              "ToolTip": "C:\\Projects\\Argent\\Argent.Api\\Argent.Api\\Controllers\\HealthController.cs",
-              "RelativeToolTip": "Argent.Api\\Controllers\\HealthController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAWAAAAAAAAAA==",
+              "Title": "ServiceCollectionExtension.cs",
+              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Extensions\\ServiceCollectionExtension.cs",
+              "RelativeDocumentMoniker": "Argent.Api.Infrastructure\\Extensions\\ServiceCollectionExtension.cs",
+              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Extensions\\ServiceCollectionExtension.cs",
+              "RelativeToolTip": "Argent.Api.Infrastructure\\Extensions\\ServiceCollectionExtension.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAgwCAAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-09T09:52:13.228Z",
+              "WhenOpened": "2026-04-10T01:58:57.074Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api\\Program.cs",
+              "RelativeDocumentMoniker": "Argent.Api\\Program.cs",
+              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api\\Program.cs",
+              "RelativeToolTip": "Argent.Api\\Program.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAowDUAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-09T09:58:37.178Z",
               "EditorCaption": ""
             }
           ]

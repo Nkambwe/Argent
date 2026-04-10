@@ -1,0 +1,12 @@
+C:\Projects\Argent\Argent\Argent.Api\Argent.Api.Domain\bin\Debug\net10.0\Argent.Api.Domain.deps.json
+C:\Projects\Argent\Argent\Argent.Api\Argent.Api.Domain\bin\Debug\net10.0\Argent.Api.Domain.dll
+C:\Projects\Argent\Argent\Argent.Api\Argent.Api.Domain\bin\Debug\net10.0\Argent.Api.Domain.pdb
+C:\Projects\Argent\Argent\Argent.Api\Argent.Api.Domain\obj\Debug\net10.0\Argent.Api.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\Argent\Argent\Argent.Api\Argent.Api.Domain\obj\Debug\net10.0\Argent.Api.Domain.AssemblyInfoInputs.cache
+C:\Projects\Argent\Argent\Argent.Api\Argent.Api.Domain\obj\Debug\net10.0\Argent.Api.Domain.AssemblyInfo.cs
+C:\Projects\Argent\Argent\Argent.Api\Argent.Api.Domain\obj\Debug\net10.0\Argent.Api.Domain.csproj.CoreCompileInputs.cache
+C:\Projects\Argent\Argent\Argent.Api\Argent.Api.Domain\obj\Debug\net10.0\Argent.Api.Domain.sourcelink.json
+C:\Projects\Argent\Argent\Argent.Api\Argent.Api.Domain\obj\Debug\net10.0\Argent.Api.Domain.dll
+C:\Projects\Argent\Argent\Argent.Api\Argent.Api.Domain\obj\Debug\net10.0\refint\Argent.Api.Domain.dll
+C:\Projects\Argent\Argent\Argent.Api\Argent.Api.Domain\obj\Debug\net10.0\Argent.Api.Domain.pdb
+C:\Projects\Argent\Argent\Argent.Api\Argent.Api.Domain\obj\Debug\net10.0\ref\Argent.Api.Domain.dll

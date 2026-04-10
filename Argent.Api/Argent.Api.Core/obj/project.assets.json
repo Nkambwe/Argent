@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Projects\\Argent\\Argent.Api\\Argent.Api.Core\\Argent.Api.Core.csproj",
+      "projectUniqueName": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Core\\Argent.Api.Core.csproj",
       "projectName": "Argent.Api.Core",
-      "projectPath": "C:\\Projects\\Argent\\Argent.Api\\Argent.Api.Core\\Argent.Api.Core.csproj",
+      "projectPath": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Core\\Argent.Api.Core.csproj",
       "packagesPath": "C:\\Users\\Macjohnan\\.nuget\\packages\\",
-      "outputPath": "C:\\Projects\\Argent\\Argent.Api\\Argent.Api.Core\\obj\\",
+      "outputPath": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Core\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

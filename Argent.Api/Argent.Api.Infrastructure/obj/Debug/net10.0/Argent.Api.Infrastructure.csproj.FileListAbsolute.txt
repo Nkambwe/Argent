@@ -1,0 +1,16 @@
+C:\Projects\Argent\Argent\Argent.Api\Argent.Api.Infrastructure\bin\Debug\net10.0\Argent.Api.Infrastructure.deps.json
+C:\Projects\Argent\Argent\Argent.Api\Argent.Api.Infrastructure\bin\Debug\net10.0\Argent.Api.Infrastructure.dll
+C:\Projects\Argent\Argent\Argent.Api\Argent.Api.Infrastructure\bin\Debug\net10.0\Argent.Api.Infrastructure.pdb
+C:\Projects\Argent\Argent\Argent.Api\Argent.Api.Infrastructure\bin\Debug\net10.0\Argent.Api.Domain.dll
+C:\Projects\Argent\Argent\Argent.Api\Argent.Api.Infrastructure\bin\Debug\net10.0\Argent.Api.Domain.pdb
+C:\Projects\Argent\Argent\Argent.Api\Argent.Api.Infrastructure\obj\Debug\net10.0\Argent.Api.Infrastructure.csproj.AssemblyReference.cache
+C:\Projects\Argent\Argent\Argent.Api\Argent.Api.Infrastructure\obj\Debug\net10.0\Argent.Api.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\Argent\Argent\Argent.Api\Argent.Api.Infrastructure\obj\Debug\net10.0\Argent.Api.Infrastructure.AssemblyInfoInputs.cache
+C:\Projects\Argent\Argent\Argent.Api\Argent.Api.Infrastructure\obj\Debug\net10.0\Argent.Api.Infrastructure.AssemblyInfo.cs
+C:\Projects\Argent\Argent\Argent.Api\Argent.Api.Infrastructure\obj\Debug\net10.0\Argent.Api.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Projects\Argent\Argent\Argent.Api\Argent.Api.Infrastructure\obj\Debug\net10.0\Argent.Api.Infrastructure.sourcelink.json
+C:\Projects\Argent\Argent\Argent.Api\Argent.Api.Infrastructure\obj\Debug\net10.0\Argent.A.F1CDDDFF.Up2Date
+C:\Projects\Argent\Argent\Argent.Api\Argent.Api.Infrastructure\obj\Debug\net10.0\Argent.Api.Infrastructure.dll
+C:\Projects\Argent\Argent\Argent.Api\Argent.Api.Infrastructure\obj\Debug\net10.0\refint\Argent.Api.Infrastructure.dll
+C:\Projects\Argent\Argent\Argent.Api\Argent.Api.Infrastructure\obj\Debug\net10.0\Argent.Api.Infrastructure.pdb
+C:\Projects\Argent\Argent\Argent.Api\Argent.Api.Infrastructure\obj\Debug\net10.0\ref\Argent.Api.Infrastructure.dll

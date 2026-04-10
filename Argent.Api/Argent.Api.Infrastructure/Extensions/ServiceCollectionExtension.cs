@@ -32,5 +32,13 @@ namespace Argent.Api.Infrastructure.Extensions
 
             return services;
         }
+
+        public static IServiceCollection ConfigureServices(this IServiceCollection services, IConfiguration configuration) {
+            // services.AddScoped<IOrganizationService, OrganizationService>();
+            // services.AddScoped<ICustomerService, CustomerService>();
+
+            return services;
+        }
+
     }
 }
