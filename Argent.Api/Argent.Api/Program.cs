@@ -1,6 +1,8 @@
 using Argent.Api.Extensions;
 using Argent.Api.Infrastructure.Extensions;
+using FluentValidation;
 using System.Diagnostics;
+using System.Reflection.Metadata;
 
 namespace Argent.Api
 {
@@ -43,10 +45,10 @@ namespace Argent.Api
             builder.Services.ConfigureServices(builder.Configuration);
 
             //..MediatR (CQRS)
-            // builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Argent.Api.Core.AssemblyReference).Assembly));
+             builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(AssemblyReference).Assembly));
 
             //..FluentValidation
-            // builder.Services.AddValidatorsFromAssembly(typeof(Argent.Api.Core.AssemblyReference).Assembly);
+            builder.Services.AddValidatorsFromAssembly(typeof(AssemblyReference).Assembly);
 
             //..CORS
             builder.Services.AddCors(options => {

@@ -1,9 +1,9 @@
-﻿using Argent.Api.Domain.Entities;
+﻿using Argent.Api.Domain.Common;
 using System.Linq.Expressions;
 
 namespace Argent.Api.Infrastructure.Repositories {
-    public interface IRepository<T> where T: BaseEntity {
 
+    public interface IRepository<T> where T: BaseEntity {
         Task<T?> GetByIdAsync(long id, CancellationToken token = default);
         Task<T?> GetFirstOrDefaultAsync(Expression<Func<T, bool>> predicate, CancellationToken token = default);
         Task<T?> GetFirstOrDefaultAsync(Expression<Func<T, bool>> predicate, CancellationToken token = default, params Expression<Func<T, object>>[] includes);

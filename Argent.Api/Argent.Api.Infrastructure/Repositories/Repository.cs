@@ -1,4 +1,4 @@
-﻿using Argent.Api.Domain.Entities;
+﻿using Argent.Api.Domain.Common;
 using Argent.Api.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
