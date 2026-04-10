@@ -1,10 +1,15 @@
 ﻿using System.Net;
 using System.Text.Json;
 
-namespace Argent.Api.Extensions
-{
-    public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
-    {
+namespace Argent.Api.Extensions {
+
+    /// <summary>
+    /// Global exception middleware that catches anything unhandled and returns a clean JSON error.
+    /// This avoids any stack trace from leaking into the clients
+    /// </summary>
+    /// <param name="next"></param>
+    /// <param name="logger"></param>
+    public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger) {
         private readonly RequestDelegate _next = next;
         private readonly ILogger<ExceptionMiddleware> _logger = logger;
 
