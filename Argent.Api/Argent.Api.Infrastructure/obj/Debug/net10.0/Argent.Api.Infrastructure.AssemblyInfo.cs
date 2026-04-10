@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Argent.Api.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+94d23619f0371084b38c978194d5716c4ccf1844")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+20152c826f8dab0a56f55831783a0445db5c1642")]
 [assembly: System.Reflection.AssemblyProductAttribute("Argent.Api.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Argent.Api.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
