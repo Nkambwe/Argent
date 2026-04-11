@@ -10,7 +10,7 @@ namespace Argent.Api.Infrastructure.Core.Queries {
     /// Since there is typically one organization per deployment,
     /// this query accepts an optional Id, if omitted, returns the first active org.
     /// </remarks>
-    public record GetOrganizationQuery(long? OrganizationId = 0)
+    public record GetOrganizationQuery(long? OrganizationId = null)
         : IRequest<Result<OrganizationDto>>;
 
 }

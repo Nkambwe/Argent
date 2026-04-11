@@ -42,7 +42,8 @@ namespace Argent.Api.Controllers {
         [ProducesResponseType(401)]
         public async Task<IActionResult> Refresh([FromBody] RefreshTokenRequest request, CancellationToken ct) {
             var ip = Request.Headers["X-Forwarded-For"].FirstOrDefault() ?? HttpContext.Connection.RemoteIpAddress?.ToString();
-            var result = await _mediator.Send(new RefreshTokenCommand(request.RefreshToken, ip), ct);
+            var result = await _mediator.Send(new RefreshTokenCommand(request.AccessToken, request.RefreshToken, ip), ct);
+
             return result.IsSuccess ? Ok(result.Data) : Unauthorized(new { result.Error });
         }
 
@@ -60,6 +61,7 @@ namespace Argent.Api.Controllers {
                 request.Email,
                 request.Password,
                 request.FirstName,
+                request.MiddleName,
                 request.LastName,
                 request.PhoneNumber,
                 request.DefualtBranchId,
@@ -71,6 +73,23 @@ namespace Argent.Api.Controllers {
                 "NOT_FOUND" => NotFound(new { result.Error }),
                 _ => BadRequest(new { result.Error })
             };
+        }
+
+        /// <summary>
+        /// Returns the calling user's resolved context from the JWT.
+        /// </summary>
+        [HttpGet("me")]
+        [Authorize]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        public IActionResult Me() {
+            return Ok(new {
+                userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value,
+                username = User.FindFirst("username")?.Value,
+                fullName = User.FindFirst("fullname")?.Value,
+                homeBranchId = User.FindFirst("homebranch")?.Value,
+                permissions = User.FindFirst("permissions")?.Value?.Split(',') ?? []
+            });
         }
     }
 }

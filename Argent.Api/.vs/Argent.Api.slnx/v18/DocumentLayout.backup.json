@@ -3,20 +3,16 @@
   "WorkspaceRootPath": "C:\\Projects\\Argent\\Argent\\Argent.Api\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api.infrastructure\\extensions\\servicecollectionextension.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|solutionrelative:argent.api.infrastructure\\extensions\\servicecollectionextension.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F6C3E7A1-B44D-0AE3-5E55-311EA8D3CF8E}|Argent.Api\\Argent.Api.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api\\controllers\\organizationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6C3E7A1-B44D-0AE3-5E55-311EA8D3CF8E}|Argent.Api\\Argent.Api.csproj|solutionrelative:argent.api\\controllers\\organizationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F6C3E7A1-B44D-0AE3-5E55-311EA8D3CF8E}|Argent.Api\\Argent.Api.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api\\controllers\\healthcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F6C3E7A1-B44D-0AE3-5E55-311EA8D3CF8E}|Argent.Api\\Argent.Api.csproj|solutionrelative:argent.api\\controllers\\healthcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api.infrastructure\\transactions\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|solutionrelative:argent.api.infrastructure\\transactions\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api.infrastructure\\repositories\\organizationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|solutionrelative:argent.api.infrastructure\\repositories\\organizationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api.infrastructure\\services\\organizationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|solutionrelative:argent.api.infrastructure\\services\\organizationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api.infrastructure\\core\\commands\\organization\\createorganizationcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|solutionrelative:argent.api.infrastructure\\core\\commands\\organization\\createorganizationcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -31,74 +27,40 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ServiceCollectionExtension.cs",
-              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Extensions\\ServiceCollectionExtension.cs",
-              "RelativeDocumentMoniker": "Argent.Api.Infrastructure\\Extensions\\ServiceCollectionExtension.cs",
-              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Extensions\\ServiceCollectionExtension.cs",
-              "RelativeToolTip": "Argent.Api.Infrastructure\\Extensions\\ServiceCollectionExtension.cs",
-              "ViewState": "AgIAAF0AAAAAAAAAAAAAAGQAAABBAAAAAAAAAA==",
+              "Title": "OrganizationController.cs",
+              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api\\Controllers\\OrganizationController.cs",
+              "RelativeDocumentMoniker": "Argent.Api\\Controllers\\OrganizationController.cs",
+              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api\\Controllers\\OrganizationController.cs",
+              "RelativeToolTip": "Argent.Api\\Controllers\\OrganizationController.cs",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAgwDIAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-10T14:17:16.12Z",
+              "WhenOpened": "2026-04-11T14:52:56.361Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "HealthController.cs",
-              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api\\Controllers\\HealthController.cs",
-              "RelativeDocumentMoniker": "Argent.Api\\Controllers\\HealthController.cs",
-              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api\\Controllers\\HealthController.cs",
-              "RelativeToolTip": "Argent.Api\\Controllers\\HealthController.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAQwB8AAAAzAAAAAAAAAA==",
+              "Title": "UnitOfWork.cs",
+              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Transactions\\UnitOfWork.cs",
+              "RelativeDocumentMoniker": "Argent.Api.Infrastructure\\Transactions\\UnitOfWork.cs",
+              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Transactions\\UnitOfWork.cs",
+              "RelativeToolTip": "Argent.Api.Infrastructure\\Transactions\\UnitOfWork.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAcwCsAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-10T13:44:50.931Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "Orientation": 0,
-      "VerticalTabListWidth": 256,
-      "FloatingWindowState": {
-        "Id": "81309605-ceb6-4645-b19f-b353345d7841",
-        "Display": 1,
-        "X": 199,
-        "Y": 438,
-        "Width": 706,
-        "Height": 928,
-        "WindowState": 2
-      },
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "OrganizationRepository.cs",
-              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Repositories\\OrganizationRepository.cs",
-              "RelativeDocumentMoniker": "Argent.Api.Infrastructure\\Repositories\\OrganizationRepository.cs",
-              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Repositories\\OrganizationRepository.cs",
-              "RelativeToolTip": "Argent.Api.Infrastructure\\Repositories\\OrganizationRepository.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAAA4wD4AAAAzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-10T14:17:18.969Z",
+              "WhenOpened": "2026-04-11T14:41:37.518Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "OrganizationService.cs",
-              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Services\\OrganizationService.cs",
-              "RelativeDocumentMoniker": "Argent.Api.Infrastructure\\Services\\OrganizationService.cs",
-              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Services\\OrganizationService.cs",
-              "RelativeToolTip": "Argent.Api.Infrastructure\\Services\\OrganizationService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwCIAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "CreateOrganizationCommandHandler.cs",
+              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Core\\Commands\\Organization\\CreateOrganizationCommandHandler.cs",
+              "RelativeDocumentMoniker": "Argent.Api.Infrastructure\\Core\\Commands\\Organization\\CreateOrganizationCommandHandler.cs",
+              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Core\\Commands\\Organization\\CreateOrganizationCommandHandler.cs",
+              "RelativeToolTip": "Argent.Api.Infrastructure\\Core\\Commands\\Organization\\CreateOrganizationCommandHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-10T13:56:04.571Z",
+              "WhenOpened": "2026-04-11T14:39:27.812Z",
               "EditorCaption": ""
             }
           ]

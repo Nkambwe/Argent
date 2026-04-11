@@ -1,6 +1,5 @@
 ﻿using Argent.Api.Domain.Entities.Access;
 using Argent.Api.Infrastructure.Core.Common;
-using Argent.Api.Infrastructure.Core.Modules.Access;
 using Argent.Api.Infrastructure.Core.Modules.Access.DataObjects;
 using Argent.Api.Infrastructure.Identity;
 using Argent.Api.Infrastructure.Logging;
@@ -9,99 +8,126 @@ using MediatR;
 
 
 namespace Argent.Api.Infrastructure.Core.Commands.Access {
-    public class LoginCommandHandler(
-        IUnitOfWork uow,
-        IJwtTokenService jwtService,
-        IServiceLoggerFactory loggerFactory) : IRequestHandler<LoginCommand, Result<AuthResponse>> {
+    public class LoginCommandHandler(IUnitOfWork uow, IJwtTokenService tokenService, IServiceLoggerFactory loggerFactory) 
+        : IRequestHandler<LoginCommand, Result<AuthResponseDto>> {
+
         private readonly IUnitOfWork _uow = uow;
-        private readonly IJwtTokenService _jwtService = jwtService;
+        private readonly IJwtTokenService _tokenService = tokenService;
         private readonly IServiceLoggerFactory _loggerFactory = loggerFactory;
 
-        public async Task<Result<AuthResponse>> Handle(LoginCommand command, CancellationToken ct) {
-            var logger = _loggerFactory.CreateLogger("auth");
+        private const int MaxFailedAttempts = 5;
+        private const int LockoutMinutes = 15;
+        private const int RefreshExpiryDays = 7;
+
+        public async Task<Result<AuthResponseDto>> Handle(LoginCommand command, CancellationToken ct) {
+            var logger = _loggerFactory.CreateLogger("access");
             logger.Channel = $"LOGIN-{command.Username}";
-            logger.Log($"Login attempt from IP {command.IpAddress}", "AUTH");
+            logger.Log($"Login attempt from IP: {command.IpAddress ?? "unknown"}", "AUTH");
 
+            //..find user
             var user = await _uow.Access.GetUserByUsernameAsync(command.Username, ct);
-
-            // Deliberate: same error for wrong username or wrong password (prevents enumeration)
             if (user is null) {
-                logger.Log($"Login failed — username not found: {command.Username}", "AUTH-FAIL");
-                return Result<AuthResponse>.Failure("Invalid username or password.", "INVALID_CREDENTIALS");
+                logger.Log($"Login failed — unknown username: {command.Username}", "AUTH-FAIL");
+                // Generic message prevents username enumeration
+                return Result<AuthResponseDto>.Failure("Invalid username or password.", "INVALID_CREDENTIALS");
             }
 
-            // Account lockout check
+            //.. check if user is active
+            if (!user.IsActive) {
+                logger.Log($"Login failed — account inactive: {command.Username}", "AUTH-FAIL");
+                return Result<AuthResponseDto>.Failure(
+                    "Account is inactive. Contact your administrator.", "ACCOUNT_INACTIVE");
+            }
+
+            //..check if user is locked
             if (user.LockedUntil.HasValue && user.LockedUntil > DateTime.UtcNow) {
-                logger.Log($"Login blocked — account locked until {user.LockedUntil:u}", "AUTH-FAIL");
-                return Result<AuthResponse>.Failure(
-                    $"Account is locked. Try again after {user.LockedUntil:HH:mm UTC}.",
-                    "ACCOUNT_LOCKED");
+                var remaining = (int)Math.Ceiling((user.LockedUntil.Value - DateTime.UtcNow).TotalMinutes);
+                logger.Log($"Login failed — account locked: {command.Username}", "AUTH-FAIL");
+                return Result<AuthResponseDto>.Failure(
+                    $"Account is locked. Try again in {remaining} minute(s).", "ACCOUNT_LOCKED");
             }
 
+            //..verify password
             if (!BCrypt.Net.BCrypt.Verify(command.Password, user.PasswordHash)) {
                 user.FailedLoginAttempts++;
 
-                // Lock after 5 failed attempts — 15 minute lockout
-                if (user.FailedLoginAttempts >= 5) {
-                    user.LockedUntil = DateTime.UtcNow.AddMinutes(15);
-                    logger.Log($"Account locked after {user.FailedLoginAttempts} failed attempts", "AUTH-FAIL");
+                if (user.FailedLoginAttempts >= MaxFailedAttempts) {
+                    user.LockedUntil = DateTime.UtcNow.AddMinutes(LockoutMinutes);
+                    logger.Log(
+                        $"Account locked after {MaxFailedAttempts} failed attempts: {command.Username}",
+                        "AUTH-FAIL");
                 }
 
                 _uow.Access.UpdateUser(user);
                 await _uow.CommitAsync(ct);
 
-                return Result<AuthResponse>.Failure("Invalid username or password.", "INVALID_CREDENTIALS");
+                return Result<AuthResponseDto>.Failure("Invalid username or password.", "INVALID_CREDENTIALS");
             }
 
-            // Credentials valid — load full permissions
-            var permissions = await _uow.Access.GetPermissionsByUserAsync(user.Id, ct);
-            var permissionNames = permissions.Select(p => p.Name).ToList();
+            //..resolve permissions and branch access
+            var permissions = await _uow.Access.GetUserPermissionsAsync(user.Id, ct);
+            var branchAccess = (await _uow.Access.GetUserBranchAccessAsync(user.Id, ct)).ToList();
 
-            // Generate tokens
-            var accessToken = _jwtService.GenerateAccessToken(user, permissionNames);
-            var refreshToken = _jwtService.GenerateRefreshToken();
+            //..generate tokens
+            var accessToken = _tokenService.GenerateAccessToken(user, permissions, branchAccess);
+            var rawRefresh = _tokenService.GenerateRefreshToken();
 
-            var refreshTokenEntity = new RefreshToken
+            var refreshToken = new RefreshToken
             {
                 UserId = user.Id,
-                Token = refreshToken,
-                ExpiresAt = DateTime.UtcNow.AddDays(7),
+                Token = rawRefresh,
+                ExpiresAt = DateTime.UtcNow.AddDays(RefreshExpiryDays),
                 CreatedByIp = command.IpAddress
             };
 
-            // Update user login metadata
-            user.LastLoginAt = DateTime.UtcNow;
+            // 7. Reset failure counters, record login, persist tokens
             user.FailedLoginAttempts = 0;
             user.LockedUntil = null;
+            user.LastLoginOn = DateTime.Now;
 
-            await _uow.Access.AddRefreshTokenAsync(refreshTokenEntity, ct);
-            _uow.Access.UpdateUser(user);
-            await _uow.CommitAsync(ct);
+            await _uow.BeginTransactionAsync(ct);
+            try {
+                _uow.Access.UpdateUser(user);
+                await _uow.Access.AddRefreshTokenAsync(refreshToken, ct);
+                await _uow.CommitAsync(ct);
+            }
+            catch {
+                await _uow.RollbackAsync(ct);
+                throw;
+            }
 
-            logger.Log($"Login successful for user {user.Username}", "AUTH");
+            logger.Log($"Login successful: {command.Username} | HomeBranch: {user.DefaultBranchId}", "AUTH-OK");
 
-            var jwtExpiry = DateTime.UtcNow.AddMinutes(60); // mirrors JwtSettings
+            // Build accessible branches list — home branch always included
+            var homeAccess = new BranchAccessDto
+            {
+                BranchId = user.DefaultBranchId,
+                BranchName = user.DefaultBranch?.BranchName ?? string.Empty,
+                CanPost = true
+            };
 
-            return Result<AuthResponse>.Success(new AuthResponse
+            var additionalBranches = branchAccess
+                .Where(ba => ba.BranchId != user.DefaultBranchId)
+                .Select(ba => new BranchAccessDto
+                {
+                    BranchId = ba.BranchId,
+                    BranchName = ba.Branch?.BranchName ?? string.Empty,
+                    CanPost = ba.CanPost
+                });
+
+            return Result<AuthResponseDto>.Success(new AuthResponseDto
             {
                 AccessToken = accessToken,
-                RefreshToken = refreshToken,
-                AccessTokenExpiry = jwtExpiry,
-                User = new UserDto
-                {
-                    Id = user.Id,
-                    Username = user.Username,
-                    Email = user.Email,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    PhoneNumber = user.PhoneNumber,
-                    DefaultBranchId = user.DefaultBranchId,
-                    HomeBranchName = user.DefaultBranch?.BranchName ?? string.Empty,
-                    Permissions = permissionNames,
-                    IsActive = user.IsActive,
-                    LastLoginAt = user.LastLoginAt
-                }
+                RefreshToken = rawRefresh,
+                ExpiresOn = DateTime.UtcNow.AddMinutes(60),
+                UserId = user.Id,
+                Username = user.Username,
+                FullName = $"{user.FirstName} {user.LastName}".Trim(),
+                DefaultBranchId = user.DefaultBranchId,
+                Permissions = permissions,
+                AccessibleBranches = additionalBranches.Prepend(homeAccess).ToList()
             });
         }
+
     }
 }

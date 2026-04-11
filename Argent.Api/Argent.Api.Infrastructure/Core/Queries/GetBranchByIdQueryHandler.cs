@@ -18,6 +18,7 @@ namespace Argent.Api.Infrastructure.Core.Queries {
             {
                 Id = branch.Id,
                 OrganizationId = branch.OrganizationId,
+                BranchCode = branch.BranchCode,
                 BranchName = branch.BranchName,
                 Address = branch.Address,
                 EmailAddress = branch.EmailAddress,

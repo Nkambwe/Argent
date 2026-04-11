@@ -1,7 +1,7 @@
 ﻿using Argent.Api.Infrastructure.Core.Commands.Organization;
 using FluentValidation;
 
-namespace Argent.Api.Infrastructure.Core.Validation {
+namespace Argent.Api.Infrastructure.Core.Validation.Organization {
     public class SetDefaultBranchCommandValidator : AbstractValidator<SetDefaultBranchCommand> {
         public SetDefaultBranchCommandValidator() {
             RuleFor(x => x.OrganizationId)

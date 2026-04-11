@@ -41,6 +41,7 @@ namespace Argent.Api.Infrastructure.Core.Commands.Organization {
                 {
                     Id = updated!.Id,
                     OrganizationId = updated.OrganizationId,
+                    BranchCode = updated.BranchCode,
                     BranchName = updated.BranchName,
                     Address = updated.Address,
                     EmailAddress = updated.EmailAddress,

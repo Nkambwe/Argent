@@ -16,6 +16,7 @@ namespace Argent.Api.Infrastructure.Data {
         //..system access objects
         public DbSet<AppUser> Users => Set<AppUser>();
         public DbSet<Role> Roles => Set<Role>();
+        public DbSet<RoleGroup> RoleGroups => Set<RoleGroup>();
         public DbSet<Permission> Permissions => Set<Permission>();
         public DbSet<UserRole> UserRoles => Set<UserRole>();
         public DbSet<RolePermission> RolePermissions => Set<RolePermission>();
@@ -50,10 +51,10 @@ namespace Argent.Api.Infrastructure.Data {
             foreach (var entry in ChangeTracker.Entries<BaseEntity>()) {
                 switch (entry.State) {
                     case EntityState.Added:
-                        entry.Entity.CreatedOn = DateTime.Now;
+                        entry.Entity.CreatedOn = DateTime.UtcNow;
                         break;
                     case EntityState.Modified:
-                        entry.Entity.UpdatedOn = DateTime.Now;
+                        entry.Entity.UpdatedOn = DateTime.UtcNow;
                         break;
                 }
             }

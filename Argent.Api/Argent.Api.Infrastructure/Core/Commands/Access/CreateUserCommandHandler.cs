@@ -35,6 +35,7 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
                     Email = command.Email,
                     PasswordHash = BCrypt.Net.BCrypt.HashPassword(command.Password, workFactor: 12),
                     FirstName = command.FirstName,
+                    MiddleName = command.MiddleName,
                     LastName = command.LastName,
                     PhoneNumber = command.PhoneNumber,
                     DefaultBranchId = command.DefaultBranchId,
@@ -61,10 +62,11 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
                     Username = user.Username,
                     Email = user.Email,
                     FirstName = user.FirstName,
+                    MiddleName = user.MiddleName,
                     LastName = user.LastName,
                     PhoneNumber = user.PhoneNumber,
                     DefaultBranchId = user.DefaultBranchId,
-                    HomeBranchName = branch.BranchName,
+                    DefaultBranchName = branch.BranchName,
                     IsActive = user.IsActive
                 });
             } catch {

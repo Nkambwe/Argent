@@ -19,5 +19,6 @@ namespace Argent.Api.Infrastructure.Transactions {
         Task RollbackAsync(CancellationToken token = default);
         Task CommitAuditAsync(CancellationToken ct = default);
         Task BeginTransactionAsync(CancellationToken token = default);
+        Task<T> ExecuteInTransactionAsync<T>(Func<CancellationToken, Task<T>> operation, CancellationToken token = default);
     }
 }

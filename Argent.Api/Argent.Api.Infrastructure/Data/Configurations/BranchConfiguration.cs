@@ -7,6 +7,7 @@ namespace Argent.Api.Infrastructure.Data.Configurations {
         public void Configure(EntityTypeBuilder<Branch> builder) {
             builder.ToTable("branches");
             builder.HasKey(b => b.Id);
+            builder.Property(b => b.BranchCode).IsRequired().HasMaxLength(10);
             builder.Property(b => b.BranchName).IsRequired().HasMaxLength(200);
             builder.Property(b => b.Address).IsRequired().HasMaxLength(300);
             builder.Property(b => b.EmailAddress).IsRequired().HasMaxLength(500);

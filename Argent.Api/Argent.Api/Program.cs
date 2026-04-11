@@ -1,4 +1,6 @@
 using Argent.Api.Extensions;
+using Argent.Api.Infrastructure.Core.Common.Behaviour;
+using Argent.Api.Infrastructure.Data;
 using Argent.Api.Infrastructure.Extensions;
 using FluentValidation;
 using System.Diagnostics;
@@ -7,7 +9,7 @@ using System.Reflection.Metadata;
 namespace Argent.Api
 {
     public class Program {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(new WebApplicationOptions()
             {
@@ -28,6 +30,7 @@ namespace Argent.Api
                     Version = "v1",
                     Description = "Core API for the Argent MFI management platform"
                 });
+
             });
 
             //..enable logging
@@ -38,17 +41,24 @@ namespace Argent.Api
             // register ASP.NET built-in health checks
             builder.Services.AddHealthChecks();
 
-            // Infrastructure (PostgreSQL, EF Core, UoW, Repositories)
+            //..FluentValidation
+            builder.Services.AddValidatorsFromAssembly(typeof(AssemblyReference).Assembly);
+
+            // Infrastructure
             builder.Services.AddInfrastructure(builder.Configuration);
 
             //..service registration
             builder.Services.ConfigureServices(builder.Configuration);
 
-            //..MediatR (CQRS)
-             builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(AssemblyReference).Assembly));
-
-            //..FluentValidation
-            builder.Services.AddValidatorsFromAssembly(typeof(AssemblyReference).Assembly);
+            //..MediatR ordered pipeline behaviours
+            builder.Services.AddMediatR(cfg =>
+            {
+                cfg.RegisterServicesFromAssembly(typeof(Infrastructure.AssemblyReference).Assembly);
+                cfg.AddOpenBehavior(typeof(LoggingPipelineBehavior<,>));
+                cfg.AddOpenBehavior(typeof(ValidationPipelineBehavior<,>));
+                cfg.AddOpenBehavior(typeof(BranchPolicyBehavior<,>));
+                cfg.AddOpenBehavior(typeof(AuditPipelineBehavior<,>));
+            });
 
             //..CORS
             builder.Services.AddCors(options => {
@@ -60,6 +70,10 @@ namespace Argent.Api
 
             var app = builder.Build();
 
+            //..seed permissions and default roles
+            // Safe to run every startup — idempotent, skips existing records
+            await DatabaseSeeder.SeedAsync(app.Services);
+
             //..middleware pipeline
             app.UseGlobalExceptionHandler();
 
@@ -69,12 +83,13 @@ namespace Argent.Api
                 app.UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Argent MFI API v1");
-                    c.RoutePrefix = "swagger";
+                    c.RoutePrefix = "swagger"; // set c.RoutePrefix = string.Empty; for Production
                 });
             }
 
             app.UseCors("AllowAll");
             app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();
 

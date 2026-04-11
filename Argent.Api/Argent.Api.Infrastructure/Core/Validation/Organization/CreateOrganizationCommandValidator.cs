@@ -1,7 +1,7 @@
 ﻿using Argent.Api.Infrastructure.Core.Commands.Organization;
 using FluentValidation;
 
-namespace Argent.Api.Infrastructure.Core.Validation {
+namespace Argent.Api.Infrastructure.Core.Validation.Organization {
     public class CreateOrganizationCommandValidator : AbstractValidator<CreateOrganizationCommand> {
         public CreateOrganizationCommandValidator() {
             RuleFor(x => x.RegisteredName)
@@ -26,9 +26,13 @@ namespace Argent.Api.Infrastructure.Core.Validation {
                 .MaximumLength(150);
 
             //..default branch must be provided
+            RuleFor(x => x.DefaultBranchCode)
+                .NotEmpty().WithMessage("Default branch code is required.")
+                .MaximumLength(10);
+
             RuleFor(x => x.DefaultBranchName)
-                .NotEmpty().WithMessage("Default branch name is required.")
-                .MaximumLength(150);
+               .NotEmpty().WithMessage("Default branch name is required.")
+               .MaximumLength(150);
 
             RuleFor(x => x.DefaultBranchAddress)
                 .NotEmpty().WithMessage("Default branch address is required.")

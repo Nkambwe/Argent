@@ -2,9 +2,12 @@
 
 namespace Argent.Api.Infrastructure.Repositories.Access {
     public interface IAccessRepository {
+        Task<AppUser?> GetByIdAsync(long userId, CancellationToken token = default);
         Task<AppUser?> GetUserByUsernameAsync(string username, CancellationToken token = default);
         Task<AppUser?> GetUserByIdAsync(long userId, CancellationToken token = default);
         Task<AppUser?> GetUserWithAccessAsync(long userId, CancellationToken token = default);
+        Task<IEnumerable<AppUser>> GetAllUsersAsync(CancellationToken token = default);
+        Task<AppUser?> GetByIdWithAccessAsync(long userId, CancellationToken token = default);
         Task<bool> UsernameExistsAsync(string username, CancellationToken token = default);
         Task<bool> EmailExistsAsync(string email, CancellationToken token = default);
         Task AddUserAsync(AppUser user, CancellationToken token = default);
@@ -15,6 +18,20 @@ namespace Argent.Api.Infrastructure.Repositories.Access {
         Task<IEnumerable<Permission>> GetPermissionsByUserAsync(long userId, CancellationToken token = default);
         Task<Permission?> GetPermissionByNameAsync(string name, CancellationToken token = default);
         Task AddPermissionAsync(Permission permission, CancellationToken token = default);
+        Task<Role?> GetRoleByIdAsync(long roleId, CancellationToken token = default);
+        Task<IEnumerable<Permission>> GetAllPermissionsAsync(CancellationToken token = default);
+        Task AddRolePermissionAsync(RolePermission rolePermission, CancellationToken token = default);
+        Task AddUserRoleAsync(UserRole userRole, CancellationToken ctokent = default);
+
+        /// <summary>
+        /// Flat list of permission names for a user, resolved through all assigned roles.
+        /// </summary>
+        Task<IReadOnlyList<string>> GetUserPermissionsAsync(long userId, CancellationToken token = default);
+
+        Task<IEnumerable<UserBranchAccess>> GetUserBranchAccessAsync(long userId, CancellationToken token = default);
+
+        Task AddUserBranchAccessAsync(UserBranchAccess access, CancellationToken token = default);
+
         Task SeedPermissionsAsync(IEnumerable<Permission> permissions, CancellationToken token = default);
         Task<RefreshToken?> GetRefreshTokenAsync(string token, CancellationToken cToken = default);
         Task AddRefreshTokenAsync(RefreshToken token, CancellationToken cToken = default);

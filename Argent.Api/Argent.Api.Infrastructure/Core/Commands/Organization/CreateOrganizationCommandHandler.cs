@@ -4,32 +4,23 @@ using Argent.Api.Infrastructure.Transactions;
 using MediatR;
 
 namespace Argent.Api.Infrastructure.Core.Commands.Organization {
+
     /// <summary>
     /// Command handler for create new organization
     /// </summary>
-    public class CreateOrganizationCommandHandler(IUnitOfWork uow)
-        : IRequestHandler<CreateOrganizationCommand, Result<OrganizationDto>> {
+    public class CreateOrganizationCommandHandler(IUnitOfWork uow) : IRequestHandler<CreateOrganizationCommand, Result<OrganizationDto>> {
         private readonly IUnitOfWork _uow = uow;
 
-        public async Task<Result<OrganizationDto>> Handle(
-            CreateOrganizationCommand command,
-            CancellationToken ct) {
-            //check if organization exists, only one organization allowed in this deployment
-            var existing = await _uow.Organizations.GetAllAsync(ct);
+        public async Task<Result<OrganizationDto>> Handle(CreateOrganizationCommand command, CancellationToken token) {
+            var existing = await _uow.Organizations.GetAllAsync(token);
             if (existing.Any())
-                return Result<OrganizationDto>.Failure(
-                    "An organization already exists. Use the update endpoint to modify it.",
-                    "ORGANIZATION_EXISTS");
+                return Result<OrganizationDto>.Failure("An organization already exists. Use the update endpoint to modify it.", "ORGANIZATION_EXISTS");
 
-            //..check duplicate registration number
-            if (await _uow.Organizations.RegistrationNumberExistsAsync(command.RegistrationNumber, ct))
-                return Result<OrganizationDto>.Failure(
-                    $"Registration number '{command.RegistrationNumber}' is already in use.",
-                    "DUPLICATE_REGISTRATION_NUMBER");
+            if (await _uow.Organizations.RegistrationNumberExistsAsync(command.RegistrationNumber, token))
+                return Result<OrganizationDto>.Failure($"Registration number '{command.RegistrationNumber}' is already in use.", "DUPLICATE_REGISTRATION_NUMBER");
 
-            await _uow.BeginTransactionAsync(ct);
-            try {
-                //..create organization
+            return await _uow.ExecuteInTransactionAsync(async token =>
+            {
                 var organization = new Domain.Entities.Organization
                 {
                     RegisteredName = command.RegisteredName,
@@ -39,11 +30,12 @@ namespace Argent.Api.Infrastructure.Core.Commands.Organization {
                     ContactEmail = command.ContactEmail,
                     IsActive = true
                 };
-                await _uow.Organizations.AddAsync(organization, ct);
 
-                //..create the mandatory default branch in the same transaction
-                var defaultBranch = new Domain.Entities.Branch {
-                    OrganizationId = organization.Id,
+                await _uow.Organizations.AddAsync(organization, token);
+
+                var defaultBranch = new Domain.Entities.Branch
+                {
+                    BranchCode = command.DefaultBranchCode,
                     BranchName = command.DefaultBranchName,
                     Address = command.DefaultBranchAddress,
                     EmailAddress = command.DefaultBranchEmail,
@@ -51,16 +43,10 @@ namespace Argent.Api.Infrastructure.Core.Commands.Organization {
                     IsDefault = true,
                     IsActive = true
                 };
+
                 organization.Branches.Add(defaultBranch);
-
-                await _uow.CommitAsync(ct);
-
                 return Result<OrganizationDto>.Success(MapToDto(organization));
-            }
-            catch {
-                await _uow.RollbackAsync(ct);
-                throw;
-            }
+            }, token);
         }
 
         private static OrganizationDto MapToDto(Domain.Entities.Organization org) => new()
@@ -77,6 +63,7 @@ namespace Argent.Api.Infrastructure.Core.Commands.Organization {
             {
                 Id = b.Id,
                 OrganizationId = b.OrganizationId,
+                BranchCode = b.BranchCode,
                 BranchName = b.BranchName,
                 Address = b.Address,
                 EmailAddress = b.EmailAddress,

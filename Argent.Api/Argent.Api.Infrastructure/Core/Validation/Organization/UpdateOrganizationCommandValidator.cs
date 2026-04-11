@@ -1,7 +1,7 @@
 ﻿using Argent.Api.Infrastructure.Core.Commands.Organization;
 using FluentValidation;
 
-namespace Argent.Api.Infrastructure.Core.Validation {
+namespace Argent.Api.Infrastructure.Core.Validation.Organization {
     public class UpdateOrganizationCommandValidator : AbstractValidator<UpdateOrganizationCommand> {
         public UpdateOrganizationCommandValidator() {
             RuleFor(x => x.OrganizationId)

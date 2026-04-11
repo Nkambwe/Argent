@@ -14,6 +14,7 @@ namespace Argent.Api.Infrastructure.Core.Commands.Organization {
     /// <param name="MakeDefault">Mark as default branch</param>
     public record CreateBranchCommand(
         long OrganizationId,
+        string BranchCode,
         string BranchName,
         string Address,
         string EmailAddress,

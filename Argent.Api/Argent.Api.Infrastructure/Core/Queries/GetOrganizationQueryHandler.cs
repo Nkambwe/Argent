@@ -38,6 +38,7 @@ namespace Argent.Api.Infrastructure.Core.Queries {
                 {
                     Id = b.Id,
                     OrganizationId = b.OrganizationId,
+                    BranchCode = b.BranchCode,
                     BranchName = b.BranchName,
                     Address = b.Address,
                     EmailAddress = b.EmailAddress,
@@ -45,7 +46,7 @@ namespace Argent.Api.Infrastructure.Core.Queries {
                     IsDefault = b.IsDefault,
                     IsActive = b.IsActive,
                     CreatedOn = b.CreatedOn
-                }).OrderByDescending(b => b.IsDefault).ThenBy(b => b.BranchName)
+                }).OrderByDescending(b => b.IsDefault).ThenBy(b => b.BranchCode)
             });
         }
     }

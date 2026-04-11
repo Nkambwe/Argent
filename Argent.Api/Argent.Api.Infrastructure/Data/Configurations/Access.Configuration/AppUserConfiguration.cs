@@ -13,6 +13,7 @@ namespace Argent.Api.Infrastructure.Data.Configurations.Access.Configuration {
             builder.Property(u => u.Email).IsRequired().HasMaxLength(150);
             builder.Property(u => u.PasswordHash).IsRequired().HasMaxLength(512);
             builder.Property(u => u.FirstName).IsRequired().HasMaxLength(100);
+            builder.Property(u => u.MiddleName).IsRequired(false).HasMaxLength(100);
             builder.Property(u => u.LastName).IsRequired().HasMaxLength(100);
             builder.Property(u => u.PhoneNumber).HasMaxLength(20);
             builder.Property(u => u.CreatedBy).HasMaxLength(100);

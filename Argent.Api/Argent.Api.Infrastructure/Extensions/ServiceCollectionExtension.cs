@@ -27,13 +27,13 @@ namespace Argent.Api.Infrastructure.Extensions {
 
             //..register appSettings provider
             services.AddScoped<IEnvironmentProvider, EnvironmentProvider>();
-            services.AddScoped<IServiceLoggerFactory, ServiceLoggerFactory>();
+            services.AddSingleton<IServiceLoggerFactory, ServiceLoggerFactory>();
             services.AddSingleton<ILoggerProvider, ServiceLoggerProvider>();
             services.AddSingleton<ILoggerConfigurationProvider, LoggerConfigurationProvider>();
 
             //..database connection
             services.ConfigureDatabaseConnection(configuration);
-            
+
             //..unit of work
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUnitOfWorkFactory, UnitOfWorkFactory>();
@@ -43,8 +43,13 @@ namespace Argent.Api.Infrastructure.Extensions {
             services.AddScoped<IAccessRepository, AccessRepository>();
             services.AddScoped<IAuditRepository, AuditRepository>();
 
+            //..identity
+            services.AddHttpContextAccessor();
+            services.AddScoped<IUserContext, HttpContextUserContext>();
+            services.AddScoped<IJwtTokenService, JwtTokenService>();
+
             //..JWT Bearer authentication
-            services.ConfigureJWTAuthentication(configuration);
+            services.AddJWTAuthentication(configuration);
             return services;
         }
 
@@ -55,14 +60,13 @@ namespace Argent.Api.Infrastructure.Extensions {
             return services;
         }
 
-        private static IServiceCollection ConfigureJWTAuthentication(this IServiceCollection services, IConfiguration configuration) {
-            services.AddHttpContextAccessor();
-            services.AddScoped<IUserContext, HttpContextUserContext>();
-            services.AddScoped<IJwtTokenService, JwtTokenService>();
+        private static IServiceCollection AddJWTAuthentication(this IServiceCollection services, IConfiguration configuration) {
+            
+            var jwtSettings = configuration.GetSection("JwtSettings") ?? throw new InvalidOperationException("Jwt:Secret is not configured.");
+            var secretKey = jwtSettings["SecretKey"] ?? throw new InvalidOperationException("JwtSettings:SecretKey must be configured.");
+            var issuer = jwtSettings["Issuer"] ?? "Argent.Api";
+            var audience = jwtSettings["Audience"] ?? "Argent.Client";
 
-            var jwtSettings = configuration.GetSection("JwtSettings");
-            var secretKey = jwtSettings["SecretKey"]
-                ?? throw new InvalidOperationException("JwtSettings:SecretKey must be configured.");
 
             services.AddAuthentication(options =>
             {
@@ -74,9 +78,9 @@ namespace Argent.Api.Infrastructure.Extensions {
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)),
                     ValidateIssuer = true,
-                    ValidIssuer = jwtSettings["Issuer"],
+                    ValidIssuer = issuer,
                     ValidateAudience = true,
-                    ValidAudience = jwtSettings["Audience"],
+                    ValidAudience = audience,
                     ValidateLifetime = true,
                     ClockSkew = TimeSpan.FromSeconds(30)
                 };
@@ -97,7 +101,7 @@ namespace Argent.Api.Infrastructure.Extensions {
             using var provider = services.BuildServiceProvider();
             var loggerFactory = provider.GetRequiredService<IServiceLoggerFactory>();
             var _logger = loggerFactory.CreateLogger("mfi");
-            _logger.Channel = $"DBCONNECTION-{DateTime.Now:yyyyMMddHHmmss}";
+            _logger.Channel = $"STARTUP-{DateTime.Now:yyyyMMddHHmmss}";
             _logger.Log("Attempting DB Connection...", "Config");
 
             try {

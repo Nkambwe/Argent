@@ -1,11 +1,15 @@
 ﻿using Argent.Api.Infrastructure.Core.Commands.Organization;
 using FluentValidation;
 
-namespace Argent.Api.Infrastructure.Core.Validation {
+namespace Argent.Api.Infrastructure.Core.Validation.Organization {
     public class CreateBranchCommandValidator : AbstractValidator<CreateBranchCommand> {
         public CreateBranchCommandValidator() {
             RuleFor(x => x.OrganizationId)
                 .NotEmpty().WithMessage("Organization ID is required.");
+
+            RuleFor(x => x.BranchCode)
+                .NotEmpty().WithMessage("Branch code is required.")
+                .MaximumLength(10);
 
             RuleFor(x => x.BranchName)
                 .NotEmpty().WithMessage("Branch name is required.")

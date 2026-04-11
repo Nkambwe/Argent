@@ -2,6 +2,7 @@
 using Argent.Api.Infrastructure.Data;
 using Argent.Api.Infrastructure.Repositories;
 using Argent.Api.Infrastructure.Repositories.Access;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Argent.Api.Infrastructure.Transactions {
@@ -34,6 +35,31 @@ namespace Argent.Api.Infrastructure.Transactions {
 
         public async Task CommitAuditAsync(CancellationToken token = default)
             => await _context.SaveChangesAsync(token);
+
+        /// <summary>
+        /// Use for multi-entity business operations
+        /// </summary>
+        /// <typeparam name="T">Transaction object type</typeparam>
+        /// <param name="operation">Operation to handle</param>
+        /// <param name="token">Cancellation token</param>
+        /// <returns></returns>
+        public async Task<T> ExecuteInTransactionAsync<T>(Func<CancellationToken, Task<T>> operation, CancellationToken token = default) {
+            var strategy = _context.Database.CreateExecutionStrategy();
+
+            return await strategy.ExecuteAsync(async () => {
+                await using var transaction = await _context.Database.BeginTransactionAsync(token);
+
+                try {
+                    var result = await operation(token);
+                    await _context.SaveChangesAsync(token);
+                    await transaction.CommitAsync(token);
+                    return result;
+                } catch {
+                    await transaction.RollbackAsync(token);
+                    throw;
+                }
+            });
+        }
 
         public void Dispose() {
             if (!_disposed) {

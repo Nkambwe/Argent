@@ -24,6 +24,7 @@ namespace Argent.Api.Infrastructure.Core.Queries {
             var dtos = branches.Select(b => new BranchDto {
                 Id = b.Id,
                 OrganizationId = b.OrganizationId,
+                BranchCode = b.BranchCode,
                 BranchName = b.BranchName,
                 Address = b.Address,
                 EmailAddress = b.EmailAddress,

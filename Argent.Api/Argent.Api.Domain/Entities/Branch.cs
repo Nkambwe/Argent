@@ -6,6 +6,7 @@ namespace Argent.Api.Domain.Entities {
     /// </summary>
     public class Branch : BaseEntity {
         public long OrganizationId { get; set; }
+        public string BranchCode { get; set; } = string.Empty;
         public string BranchName { get; set; } = string.Empty;
         public string Address { get; set; } = string.Empty;
         public string EmailAddress { get; set; } = string.Empty;

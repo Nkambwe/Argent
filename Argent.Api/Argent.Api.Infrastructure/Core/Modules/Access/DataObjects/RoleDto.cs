@@ -6,4 +6,5 @@
         public bool IsSystemRole { get; set; }
         public IEnumerable<string> Permissions { get; set; } = [];
     }
+
 }

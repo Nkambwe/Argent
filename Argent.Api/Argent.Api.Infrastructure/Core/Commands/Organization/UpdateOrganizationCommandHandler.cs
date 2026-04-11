@@ -40,6 +40,7 @@ namespace Argent.Api.Infrastructure.Core.Commands.Organization {
                 {
                     Id = b.Id,
                     OrganizationId = b.OrganizationId,
+                    BranchCode = b.BranchCode,
                     BranchName = b.BranchName,
                     Address = b.Address,
                     EmailAddress = b.EmailAddress,

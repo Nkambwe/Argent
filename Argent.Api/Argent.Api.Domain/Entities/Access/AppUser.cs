@@ -11,7 +11,7 @@ namespace Argent.Api.Domain.Entities.Access {
         public string? PhoneNumber { get; set; }
         public string PasswordHash { get; set; } = string.Empty;
         public bool IsActive { get; set; } = true;
-        public DateTime? LastLoginAt { get; set; }
+        public DateTime? LastLoginOn { get; set; }
         public int FailedLoginAttempts { get; set; } = 0;
         public DateTime? LockedUntil { get; set; }
         /// <summary>

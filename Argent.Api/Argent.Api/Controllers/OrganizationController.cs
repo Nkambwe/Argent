@@ -29,7 +29,7 @@ namespace Argent.Api.Controllers {
         [HttpGet("{id:long}")]
         [ProducesResponseType(typeof(OrganizationDto), 200)]
         [ProducesResponseType(404)]
-        public async Task<IActionResult> GetById(Guid id, CancellationToken ct) {
+        public async Task<IActionResult> GetById(long id, CancellationToken ct) {
             var result = await _mediator.Send(new GetOrganizationQuery(id), ct);
             return result.IsSuccess ? Ok(result.Data) : NotFound(new { result.Error });
         }
@@ -49,6 +49,7 @@ namespace Argent.Api.Controllers {
                 request.RegistrationNumber,
                 request.BusinessLine,
                 request.ContactEmail,
+                request.DefaultBranch.BranchCode,
                 request.DefaultBranch.BranchName,
                 request.DefaultBranch.Address,
                 request.DefaultBranch.EmailAddress,
@@ -120,6 +121,7 @@ namespace Argent.Api.Controllers {
             CancellationToken ct) {
             var result = await _mediator.Send(new CreateBranchCommand(
                 organizationId,
+                request.BranchCode,
                 request.BranchName,
                 request.Address,
                 request.EmailAddress,

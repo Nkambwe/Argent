@@ -29,6 +29,7 @@ namespace Argent.Api.Infrastructure.Core.Commands.Organization {
                 var branch = new Branch
                 {
                     OrganizationId = command.OrganizationId,
+                    BranchCode = command.BranchCode,
                     BranchName = command.BranchName,
                     Address = command.Address,
                     EmailAddress = command.EmailAddress,
@@ -47,6 +48,7 @@ namespace Argent.Api.Infrastructure.Core.Commands.Organization {
                 return Result<BranchDto>.Success(new BranchDto {
                     Id = branch.Id,
                     OrganizationId = branch.OrganizationId,
+                    BranchCode = command.BranchCode,
                     BranchName = branch.BranchName,
                     Address = branch.Address,
                     EmailAddress = branch.EmailAddress,
