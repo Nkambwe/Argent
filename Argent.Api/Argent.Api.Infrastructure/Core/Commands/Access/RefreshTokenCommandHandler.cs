@@ -1,7 +1,6 @@
 ﻿
 using Argent.Api.Domain.Entities.Access;
 using Argent.Api.Infrastructure.Core.Common;
-using Argent.Api.Infrastructure.Core.Modules.Access;
 using Argent.Api.Infrastructure.Core.Modules.Access.DataObjects;
 using Argent.Api.Infrastructure.Identity;
 using Argent.Api.Infrastructure.Logging;
@@ -10,10 +9,9 @@ using MediatR;
 
 
 namespace Argent.Api.Infrastructure.Core.Commands.Access {
-    public class RefreshTokenCommandHandler(
-        IUnitOfWork uow,
-        IJwtTokenService tokenService,
-        IServiceLoggerFactory loggerFactory) : IRequestHandler<RefreshTokenCommand, Result<AuthResponseDto>> {
+    public class RefreshTokenCommandHandler(IUnitOfWork uow, IJwtTokenService tokenService, IServiceLoggerFactory loggerFactory) 
+        : IRequestHandler<RefreshTokenCommand, Result<AuthResponseDto>> {
+
         private readonly IUnitOfWork _uow = uow;
         private readonly IJwtTokenService _tokenService = tokenService;
         private readonly IServiceLoggerFactory _loggerFactory = loggerFactory;
@@ -43,7 +41,7 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
                 return Result<AuthResponseDto>.Failure("Refresh token has been revoked.", "TOKEN_REVOKED");
             }
 
-            if (storedToken.ExpiresAt < DateTime.UtcNow)
+            if (storedToken.ExpiresOn < DateTime.UtcNow)
                 return Result<AuthResponseDto>.Failure(
                     "Refresh token has expired. Please log in again.", "TOKEN_EXPIRED");
 
@@ -66,7 +64,7 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
             {
                 UserId = userId,
                 Token = newRefreshRaw,
-                ExpiresAt = DateTime.UtcNow.AddDays(RefreshExpiryDays),
+                ExpiresOn = DateTime.UtcNow.AddDays(RefreshExpiryDays),
                 CreatedByIp = command.IpAddress
             };
 
@@ -84,6 +82,7 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
             logger.Log($"Token refreshed: {user.Username}", "AUTH-OK");
             var homeAccess = new BranchAccessDto {
                 BranchId = user.DefaultBranchId,
+                BranchCode = user.DefaultBranch?.BranchCode ?? string.Empty,
                 BranchName = user.DefaultBranch?.BranchName ?? string.Empty,
                 CanPost = true
             };
@@ -94,19 +93,17 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
                 ExpiresOn = DateTime.UtcNow.AddMinutes(60),
                 UserId = user.Id,
                 Username = user.Username,
-                FullName = $"{user.FirstName} {user.LastName}".Trim(),
+                FullName = !string.IsNullOrWhiteSpace(user.MiddleName) ? $"{user.FirstName} {user.MiddleName} {user.LastName}".Trim(): $"{user.FirstName} {user.LastName}".Trim(),
                 DefaultBranchId = user.DefaultBranchId,
                 Permissions = permissions,
-                AccessibleBranches = branchAccess
+                AccessibleBranches = [.. branchAccess
                     .Where(ba => ba.BranchId != user.DefaultBranchId)
-                    .Select(ba => new BranchAccessDto
-                    {
+                    .Select(ba => new BranchAccessDto {
                         BranchId = ba.BranchId,
+                        BranchCode = ba.Branch?.BranchCode ?? string.Empty,
                         BranchName = ba.Branch?.BranchName ?? string.Empty,
                         CanPost = ba.CanPost
-                    })
-                    .Prepend(homeAccess)
-                    .ToList()
+                    }).Prepend(homeAccess)]
             });
         }
     }

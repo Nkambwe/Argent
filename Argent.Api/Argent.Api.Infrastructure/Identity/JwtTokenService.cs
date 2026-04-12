@@ -44,9 +44,7 @@ namespace Argent.Api.Infrastructure.Identity {
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(GetRequiredSetting("Jwt:Secret")));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var expires = DateTime.UtcNow.AddMinutes(
-                _configuration.GetValue<int>("Jwt:AccessTokenExpiryMinutes", 60));
-
+            var expires = DateTime.UtcNow.AddMinutes(_configuration.GetValue<int>("Jwt:AccessTokenExpiryMinutes", 60));
             var token = new JwtSecurityToken(
                 issuer: GetRequiredSetting("Jwt:Issuer"),
                 audience: GetRequiredSetting("Jwt:Audience"),

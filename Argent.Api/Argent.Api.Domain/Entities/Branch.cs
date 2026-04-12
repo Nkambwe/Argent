@@ -22,5 +22,6 @@ namespace Argent.Api.Domain.Entities {
         public bool IsDefault { get; set; } = false;
         public bool IsActive { get; set; } = true;
         public Organization Organization { get; set; } = null!;
+        public ICollection<BranchHoliday> Holidays { get; set; } = [];
     }
 }

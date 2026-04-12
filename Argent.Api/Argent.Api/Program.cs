@@ -24,10 +24,10 @@ namespace Argent.Api
             builder.Services.AddSwaggerGen(options =>
             {
                 options.CustomSchemaIds(t => t.FullName);
-                options.SwaggerDoc("v1", new()
+                options.SwaggerDoc("v3", new()
                 {
                     Title = "Argent API",
-                    Version = "v1",
+                    Version = "v3",
                     Description = "Core API for the Argent MFI management platform"
                 });
 
@@ -54,6 +54,7 @@ namespace Argent.Api
             builder.Services.AddMediatR(cfg =>
             {
                 cfg.RegisterServicesFromAssembly(typeof(Infrastructure.AssemblyReference).Assembly);
+                cfg.AddOpenBehavior(typeof(SanitizationPipelineBehavior<,>));
                 cfg.AddOpenBehavior(typeof(LoggingPipelineBehavior<,>));
                 cfg.AddOpenBehavior(typeof(ValidationPipelineBehavior<,>));
                 cfg.AddOpenBehavior(typeof(BranchPolicyBehavior<,>));

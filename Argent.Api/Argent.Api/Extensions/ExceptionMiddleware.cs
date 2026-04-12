@@ -17,8 +17,7 @@ namespace Argent.Api.Extensions {
         public async Task InvokeAsync(HttpContext context) {
             try {
                 await _next(context);
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 var logger = _loggerFactory.CreateLogger("exceptions");
                 logger.Channel = $"EXCEPTION-{context.Request.Path}";
                 logger.Log($"{ex.GetType().Name}: {ex.Message}", "ERROR");

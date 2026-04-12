@@ -814,6 +814,10 @@
               "target": "Package",
               "version": "[10.0.5, )"
             },
+            "Microsoft.OpenApi": {
+              "target": "Package",
+              "version": "[3.5.1, )"
+            },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[10.0.1, )"

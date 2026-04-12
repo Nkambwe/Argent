@@ -23,5 +23,8 @@ namespace Argent.Api.Domain.Entities.Access {
         public ICollection<UserBranchAccess> BranchAccess { get; set; } = [];
         public ICollection<RefreshToken> RefreshTokens { get; set; } = [];
 
+        //..password history
+        public ICollection<PasswordHistory> PasswordHistory { get; set; } = [];
+
     }
 }

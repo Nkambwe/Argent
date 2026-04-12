@@ -22,14 +22,14 @@ namespace Argent.Api.Infrastructure.Data.Configurations {
 
             //..unique constraint for allowing only one default branch per organization
             // Uses a partial unique index so it only applies to active records.
-            builder.HasIndex(b => new { b.OrganizationId, b.IsDefault })
-                   .HasFilter("\"IsDefault\" = true AND \"IsDeleted\" = false")
-                   .IsUnique()
-                   .HasDatabaseName("ux_branches_org_default");
+            builder.HasIndex(b => new { b.OrganizationId, b.IsDefault }).HasFilter("\"IsDefault\" = true AND \"IsDeleted\" = false").IsUnique().HasDatabaseName("ux_branches_org_default");
 
             //..add an index for common lookup patterns
-            builder.HasIndex(b => b.OrganizationId)
-                .HasDatabaseName("ix_branches_organization_id");
+            builder.HasIndex(b => b.OrganizationId).HasDatabaseName("ix_branches_organization_id");
+            builder.HasIndex(b => b.BranchCode).IsUnique().HasFilter("IsDeleted = false").HasDatabaseName("ux_branches_sol_id");
+            builder.HasIndex(b => b.OrganizationId).HasDatabaseName("ix_branches_organization_id");
+
+            builder.HasMany(b => b.Holidays).WithOne(h => h.Branch).HasForeignKey(h => h.BranchId).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

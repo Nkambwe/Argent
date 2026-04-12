@@ -76,32 +76,31 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
             {
                 UserId = user.Id,
                 Token = rawRefresh,
-                ExpiresAt = DateTime.UtcNow.AddDays(RefreshExpiryDays),
+                ExpiresOn = DateTime.UtcNow.AddDays(RefreshExpiryDays),
                 CreatedByIp = command.IpAddress
             };
 
-            // 7. Reset failure counters, record login, persist tokens
+            //..reset failure counters, record login, persist tokens
             user.FailedLoginAttempts = 0;
             user.LockedUntil = null;
-            user.LastLoginOn = DateTime.Now;
+            user.LastLoginOn = DateTime.UtcNow;
 
             await _uow.BeginTransactionAsync(ct);
             try {
                 _uow.Access.UpdateUser(user);
                 await _uow.Access.AddRefreshTokenAsync(refreshToken, ct);
                 await _uow.CommitAsync(ct);
-            }
-            catch {
+            } catch {
                 await _uow.RollbackAsync(ct);
                 throw;
             }
 
             logger.Log($"Login successful: {command.Username} | HomeBranch: {user.DefaultBranchId}", "AUTH-OK");
 
-            // Build accessible branches list — home branch always included
-            var homeAccess = new BranchAccessDto
-            {
+            //..build accessible branches list, default branch always included
+            var defaultAccess = new BranchAccessDto {
                 BranchId = user.DefaultBranchId,
+                BranchCode = user.DefaultBranch.BranchCode ?? string.Empty,
                 BranchName = user.DefaultBranch?.BranchName ?? string.Empty,
                 CanPost = true
             };
@@ -111,6 +110,7 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
                 .Select(ba => new BranchAccessDto
                 {
                     BranchId = ba.BranchId,
+                    BranchCode = ba.Branch?.BranchCode ?? string.Empty, 
                     BranchName = ba.Branch?.BranchName ?? string.Empty,
                     CanPost = ba.CanPost
                 });
@@ -122,10 +122,10 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
                 ExpiresOn = DateTime.UtcNow.AddMinutes(60),
                 UserId = user.Id,
                 Username = user.Username,
-                FullName = $"{user.FirstName} {user.LastName}".Trim(),
+                FullName = !string.IsNullOrWhiteSpace(user.MiddleName) ? $"{user.FirstName} {user.MiddleName} {user.LastName}".Trim(): $"{user.FirstName} {user.LastName}".Trim(),
                 DefaultBranchId = user.DefaultBranchId,
                 Permissions = permissions,
-                AccessibleBranches = additionalBranches.Prepend(homeAccess).ToList()
+                AccessibleBranches = additionalBranches.Prepend(defaultAccess).ToList()
             });
         }
 

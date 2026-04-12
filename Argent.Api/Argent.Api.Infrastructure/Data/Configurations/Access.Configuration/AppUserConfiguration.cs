@@ -25,6 +25,9 @@ namespace Argent.Api.Infrastructure.Data.Configurations.Access.Configuration {
             builder.HasIndex(u => u.Email).IsUnique().HasDatabaseName("ux_users_email");
             builder.HasIndex(u => u.DefaultBranchId).HasDatabaseName("ix_users_home_branch");
             builder.HasOne(u => u.DefaultBranch).WithMany().HasForeignKey(u => u.DefaultBranchId).OnDelete(DeleteBehavior.Restrict);
+            builder.HasMany(u => u.UserRoles).WithOne(ur => ur.User).HasForeignKey(ur => ur.UserId).OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(u => u.BranchAccess).WithOne(ba => ba.User).HasForeignKey(ba => ba.UserId).OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(u => u.RefreshTokens).WithOne(rt => rt.User).HasForeignKey(rt => rt.UserId).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

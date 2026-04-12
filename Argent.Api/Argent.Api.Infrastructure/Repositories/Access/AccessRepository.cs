@@ -154,6 +154,7 @@ namespace Argent.Api.Infrastructure.Repositories.Access {
                 existing.UpdatedOn = DateTime.UtcNow;
             }
         }
+
     }
 
 }

@@ -34,6 +34,7 @@ namespace Argent.Api.Controllers {
                 LastName = u.LastName,
                 PhoneNumber = u.PhoneNumber,
                 DefaultBranchId = u.DefaultBranchId,
+                DefaultBranchCode = u.DefaultBranch?.BranchCode ?? string.Empty,
                 DefaultBranchName = u.DefaultBranch?.BranchName ?? string.Empty,
                 IsActive = u.IsActive,
                 LastLoginOn = u.LastLoginOn,
@@ -67,6 +68,7 @@ namespace Argent.Api.Controllers {
                 LastName = user.LastName,
                 PhoneNumber = user.PhoneNumber,
                 DefaultBranchId = user.DefaultBranchId,
+                DefaultBranchCode = user.DefaultBranch?.BranchCode ?? string.Empty,
                 DefaultBranchName = user.DefaultBranch?.BranchName ?? string.Empty,
                 IsActive = user.IsActive,
                 LastLoginOn = user.LastLoginOn,
@@ -77,6 +79,7 @@ namespace Argent.Api.Controllers {
                 BranchAccess = branchAccess.Select(ba => new BranchAccessDto
                 {
                     BranchId = ba.BranchId,
+                    BranchCode = ba.Branch?.BranchCode ?? string.Empty,
                     BranchName = ba.Branch?.BranchName ?? string.Empty,
                     CanPost = ba.CanPost
                 })
@@ -156,6 +159,7 @@ namespace Argent.Api.Controllers {
             return Ok(new {
                 Message = $"Access to '{branch.BranchName}' granted to '{user.Username}'.",
                 BranchId = branch.Id,
+                branch.BranchCode,
                 branch.BranchName,
                 request.CanPost
             });

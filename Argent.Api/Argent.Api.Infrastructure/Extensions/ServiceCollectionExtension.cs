@@ -7,6 +7,7 @@ using Argent.Api.Infrastructure.Identity;
 using Argent.Api.Infrastructure.Logging;
 using Argent.Api.Infrastructure.Repositories;
 using Argent.Api.Infrastructure.Repositories.Access;
+using Argent.Api.Infrastructure.Repositories.Settings;
 using Argent.Api.Infrastructure.Services;
 using Argent.Api.Infrastructure.Transactions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -42,6 +43,9 @@ namespace Argent.Api.Infrastructure.Extensions {
             services.AddScoped<IOrganizationRepository, OrganizationRepository>();
             services.AddScoped<IAccessRepository, AccessRepository>();
             services.AddScoped<IAuditRepository, AuditRepository>();
+            services.AddScoped<IConfigurationRepository, ConfigurationRepository>();
+
+            
 
             //..identity
             services.AddHttpContextAccessor();
@@ -55,6 +59,11 @@ namespace Argent.Api.Infrastructure.Extensions {
 
         public static IServiceCollection ConfigureServices(this IServiceCollection services, IConfiguration configuration) {
              services.AddScoped<IOrganizationService, OrganizationService>();
+
+            //..system Configuration Service with in-memory cache
+            services.AddMemoryCache();
+            services.AddScoped<ISystemConfigurationService, SystemConfigurationService>();
+
             // services.AddScoped<ICustomerService, CustomerService>();
 
             return services;

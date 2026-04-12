@@ -2,6 +2,7 @@
 using Argent.Api.Infrastructure.Data;
 using Argent.Api.Infrastructure.Repositories;
 using Argent.Api.Infrastructure.Repositories.Access;
+using Argent.Api.Infrastructure.Repositories.Settings;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 
@@ -15,6 +16,7 @@ namespace Argent.Api.Infrastructure.Transactions {
         public IOrganizationRepository Organizations => new OrganizationRepository(_context);
         public IAccessRepository Access => new AccessRepository(_context);
         public IAuditRepository Audits => new AuditRepository(_context);
+        public IConfigurationRepository Configs => new ConfigurationRepository(_context);
 
         public async Task BeginTransactionAsync(CancellationToken token = default)
             => _transaction = await _context.Database.BeginTransactionAsync(token);

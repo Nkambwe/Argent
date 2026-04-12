@@ -3,7 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Argent.Api.Infrastructure.Data.Configurations.Access.Configuration {
+
     public class PermissionConfiguration : IEntityTypeConfiguration<Permission> {
+
         public void Configure(EntityTypeBuilder<Permission> builder) {
             builder.ToTable("permissions");
             builder.HasKey(p => p.Id);

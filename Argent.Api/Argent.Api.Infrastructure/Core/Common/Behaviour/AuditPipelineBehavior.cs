@@ -15,26 +15,13 @@ namespace Argent.Api.Infrastructure.Core.Common.Behaviour {
     /// The audit record is written in a separate SaveChanges call so a business
     /// rollback does not suppress the audit trail — you always know what was attempted.
     /// </summary>
-    public class AuditPipelineBehavior<TRequest, TResponse>
-        : IPipelineBehavior<TRequest, TResponse>
+    public class AuditPipelineBehavior<TRequest, TResponse>( IUserContext userContext, IUnitOfWork uow, IServiceLoggerFactory loggerFactory) : IPipelineBehavior<TRequest, TResponse>
         where TRequest : notnull {
-        private readonly IUserContext _userContext;
-        private readonly IUnitOfWork _uow;
-        private readonly IServiceLoggerFactory _loggerFactory;
+        private readonly IUserContext _userContext = userContext;
+        private readonly IUnitOfWork _uow = uow;
+        private readonly IServiceLoggerFactory _loggerFactory = loggerFactory;
 
-        public AuditPipelineBehavior(
-            IUserContext userContext,
-            IUnitOfWork uow,
-            IServiceLoggerFactory loggerFactory) {
-            _userContext = userContext;
-            _uow = uow;
-            _loggerFactory = loggerFactory;
-        }
-
-        public async Task<TResponse> Handle(
-            TRequest request,
-            RequestHandlerDelegate<TResponse> next,
-            CancellationToken ct) {
+        public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken ct) {
             if (request is not IAuditableCommand auditableCommand)
                 return await next();
 
@@ -71,14 +58,12 @@ namespace Argent.Api.Infrastructure.Core.Common.Behaviour {
                 audit.EntityId = TryExtractEntityId(response);
 
                 return response;
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 sw.Stop();
                 failureReason = ex.Message;
                 logger.Log($"Command failed: {ex.Message}", "AUDIT-ERROR");
                 throw;
-            }
-            finally {
+            } finally {
                 audit.Succeeded = succeeded;
                 audit.FailureReason = failureReason;
                 audit.DurationMs = sw.ElapsedMilliseconds;
@@ -92,9 +77,8 @@ namespace Argent.Api.Infrastructure.Core.Common.Behaviour {
                         $"Audit written: {audit.Module}.{audit.Action} | User: {audit.Username} | " +
                         $"Branch: {audit.BranchId} | Succeeded: {audit.Succeeded} | {audit.DurationMs}ms",
                         "AUDIT");
-                }
-                catch (Exception auditEx) {
-                    // Never let audit failure break the business operation
+                } catch (Exception auditEx) {
+                    //..never let audit failure break the business operation
                     logger.Log($"Failed to write audit log: {auditEx.Message}", "AUDIT-ERROR");
                 }
             }
