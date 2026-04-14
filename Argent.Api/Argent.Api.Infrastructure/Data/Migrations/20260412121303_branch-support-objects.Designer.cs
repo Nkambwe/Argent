@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Argent.Api.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    [Migration("20260411071241_Update_Access_objects")]
-    partial class Update_Access_objects
+    [Migration("20260412121303_branch-support-objects")]
+    partial class branchsupportobjects
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -117,13 +117,66 @@ namespace Argent.Api.Infrastructure.Data.Migrations
 
                     b.HasIndex("Email")
                         .IsUnique()
-                        .HasDatabaseName("ux_users_email");
+                        .HasDatabaseName("ux_users_email")
+                        .HasFilter("\"IsDeleted\" = false");
 
                     b.HasIndex("Username")
                         .IsUnique()
-                        .HasDatabaseName("ux_users_username");
+                        .HasDatabaseName("ux_users_username")
+                        .HasFilter("\"IsDeleted\" = false");
 
                     b.ToTable("users", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Access.PasswordHistory", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("ChangedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId", "ChangedOn")
+                        .HasDatabaseName("ix_password_history_user_changed");
+
+                    b.ToTable("password_history", "mfi");
                 });
 
             modelBuilder.Entity("Argent.Api.Domain.Entities.Access.Permission", b =>
@@ -198,7 +251,8 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<string>("CreatedBy")
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("CreatedByIp")
                         .HasMaxLength(50)
@@ -208,12 +262,13 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("DeletedBy")
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTime>("ExpiresAt")
+                    b.Property<DateTime>("ExpiresOn")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("IsDeleted")
@@ -232,7 +287,8 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .HasColumnType("character varying(512)");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<DateTime?>("UpdatedOn")
                         .HasColumnType("timestamp with time zone");
@@ -288,9 +344,6 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<long>("RoleGroupId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("UpdatedBy")
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
@@ -302,9 +355,8 @@ namespace Argent.Api.Infrastructure.Data.Migrations
 
                     b.HasIndex("Name")
                         .IsUnique()
-                        .HasDatabaseName("ux_roles_name");
-
-                    b.HasIndex("RoleGroupId");
+                        .HasDatabaseName("ux_roles_name")
+                        .HasFilter("\"IsDeleted\" = false");
 
                     b.ToTable("roles", "mfi");
                 });
@@ -335,16 +387,16 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("character varying(300)");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
-                    b.Property<bool>("IsSystemGroup")
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("UpdatedBy")
                         .HasMaxLength(100)
@@ -355,7 +407,62 @@ namespace Argent.Api.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("role_group", "mfi");
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("ux_role_groups_name")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("role_groups", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Access.RoleGroupMember", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("RoleGroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("RoleId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.HasIndex("RoleGroupId", "RoleId")
+                        .IsUnique()
+                        .HasDatabaseName("ux_role_group_members_group_role")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("role_group_members", "mfi");
                 });
 
             modelBuilder.Entity("Argent.Api.Domain.Entities.Access.RolePermission", b =>
@@ -367,13 +474,15 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<string>("CreatedBy")
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("DeletedBy")
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("timestamp with time zone");
@@ -388,7 +497,8 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<DateTime?>("UpdatedOn")
                         .HasColumnType("timestamp with time zone");
@@ -421,13 +531,15 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .HasDefaultValue(true);
 
                     b.Property<string>("CreatedBy")
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("DeletedBy")
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("timestamp with time zone");
@@ -436,7 +548,8 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<DateTime?>("UpdatedOn")
                         .HasColumnType("timestamp with time zone");
@@ -468,13 +581,15 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<string>("CreatedBy")
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("DeletedBy")
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("timestamp with time zone");
@@ -486,7 +601,8 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<DateTime?>("UpdatedOn")
                         .HasColumnType("timestamp with time zone");
@@ -500,7 +616,8 @@ namespace Argent.Api.Infrastructure.Data.Migrations
 
                     b.HasIndex("UserId", "RoleId")
                         .IsUnique()
-                        .HasDatabaseName("ux_user_roles_user_role");
+                        .HasDatabaseName("ux_user_roles_user_role")
+                        .HasFilter("\"IsDeleted\" = false");
 
                     b.ToTable("user_roles", "mfi");
                 });
@@ -610,6 +727,11 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("character varying(300)");
 
+                    b.Property<string>("BranchCode")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
                     b.Property<string>("BranchName")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -663,6 +785,11 @@ namespace Argent.Api.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BranchCode")
+                        .IsUnique()
+                        .HasDatabaseName("ux_branches_sol_id")
+                        .HasFilter("\"IsDeleted\" = false");
+
                     b.HasIndex("OrganizationId")
                         .HasDatabaseName("ix_branches_organization_id");
 
@@ -672,6 +799,74 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .HasFilter("\"IsDefault\" = true AND \"IsDeleted\" = false");
 
                     b.ToTable("branches", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.BranchHoliday", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("BranchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateOnly>("HolidayDate")
+                        .HasColumnType("date");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.Property<string>("Notes")
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)");
+
+                    b.Property<int>("Recurrence")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HolidayDate")
+                        .HasDatabaseName("ix_branch_holidays_date");
+
+                    b.HasIndex("BranchId", "HolidayDate")
+                        .IsUnique()
+                        .HasDatabaseName("ux_branch_holidays_branch_date");
+
+                    b.ToTable("branch_holidays", "mfi");
                 });
 
             modelBuilder.Entity("Argent.Api.Domain.Entities.Organization", b =>
@@ -744,6 +939,200 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     b.ToTable("organizations", "mfi");
                 });
 
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Settings.RoleGroupPolicyOverride", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("OverrideValue")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("Reason")
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)");
+
+                    b.Property<long>("RoleGroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("SystemPolicyId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SystemPolicyId");
+
+                    b.HasIndex("RoleGroupId", "SystemPolicyId")
+                        .IsUnique()
+                        .HasDatabaseName("ux_role_group_policy_overrides_group_policy")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("role_group_policy_overrides", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Settings.SystemConfiguration", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("DataType")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsEditable")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Key")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("Module")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Module", "Key")
+                        .IsUnique()
+                        .HasDatabaseName("ux_system_configs_module_key")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("system_configs", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Settings.SystemPolicy", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("DataType")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("DefaultValue")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsOverridable")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Module")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Module", "Name")
+                        .IsUnique()
+                        .HasDatabaseName("ux_system_policies_module_name")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("system_policies", "mfi");
+                });
+
             modelBuilder.Entity("Argent.Api.Domain.Entities.Access.AppUser", b =>
                 {
                     b.HasOne("Argent.Api.Domain.Entities.Branch", "DefaultBranch")
@@ -753,6 +1142,17 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("DefaultBranch");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Access.PasswordHistory", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Access.AppUser", "User")
+                        .WithMany("PasswordHistory")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Argent.Api.Domain.Entities.Access.RefreshToken", b =>
@@ -766,13 +1166,21 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Argent.Api.Domain.Entities.Access.Role", b =>
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Access.RoleGroupMember", b =>
                 {
                     b.HasOne("Argent.Api.Domain.Entities.Access.RoleGroup", "RoleGroup")
-                        .WithMany("Roles")
+                        .WithMany("Members")
                         .HasForeignKey("RoleGroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Access.Role", "Role")
+                        .WithMany("RoleGroupMembers")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Role");
 
                     b.Navigation("RoleGroup");
                 });
@@ -782,7 +1190,7 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     b.HasOne("Argent.Api.Domain.Entities.Access.Permission", "Permission")
                         .WithMany("RolePermissions")
                         .HasForeignKey("PermissionId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Argent.Api.Domain.Entities.Access.Role", "Role")
@@ -820,7 +1228,7 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     b.HasOne("Argent.Api.Domain.Entities.Access.Role", "Role")
                         .WithMany("UserRoles")
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Argent.Api.Domain.Entities.Access.AppUser", "User")
@@ -845,9 +1253,41 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     b.Navigation("Organization");
                 });
 
+            modelBuilder.Entity("Argent.Api.Domain.Entities.BranchHoliday", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Branch", "Branch")
+                        .WithMany("Holidays")
+                        .HasForeignKey("BranchId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Branch");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Settings.RoleGroupPolicyOverride", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Access.RoleGroup", "RoleGroup")
+                        .WithMany("PolicyOverrides")
+                        .HasForeignKey("RoleGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Settings.SystemPolicy", "SystemPolicy")
+                        .WithMany("Overrides")
+                        .HasForeignKey("SystemPolicyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("RoleGroup");
+
+                    b.Navigation("SystemPolicy");
+                });
+
             modelBuilder.Entity("Argent.Api.Domain.Entities.Access.AppUser", b =>
                 {
                     b.Navigation("BranchAccess");
+
+                    b.Navigation("PasswordHistory");
 
                     b.Navigation("RefreshTokens");
 
@@ -861,6 +1301,8 @@ namespace Argent.Api.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Argent.Api.Domain.Entities.Access.Role", b =>
                 {
+                    b.Navigation("RoleGroupMembers");
+
                     b.Navigation("RolePermissions");
 
                     b.Navigation("UserRoles");
@@ -868,12 +1310,24 @@ namespace Argent.Api.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Argent.Api.Domain.Entities.Access.RoleGroup", b =>
                 {
-                    b.Navigation("Roles");
+                    b.Navigation("Members");
+
+                    b.Navigation("PolicyOverrides");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Branch", b =>
+                {
+                    b.Navigation("Holidays");
                 });
 
             modelBuilder.Entity("Argent.Api.Domain.Entities.Organization", b =>
                 {
                     b.Navigation("Branches");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Settings.SystemPolicy", b =>
+                {
+                    b.Navigation("Overrides");
                 });
 #pragma warning restore 612, 618
         }

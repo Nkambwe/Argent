@@ -3,20 +3,8 @@
   "WorkspaceRootPath": "C:\\Projects\\Argent\\Argent\\Argent.Api\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F6C3E7A1-B44D-0AE3-5E55-311EA8D3CF8E}|Argent.Api\\Argent.Api.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api\\extensions\\exceptionmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F6C3E7A1-B44D-0AE3-5E55-311EA8D3CF8E}|Argent.Api\\Argent.Api.csproj|solutionrelative:argent.api\\extensions\\exceptionmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F6C3E7A1-B44D-0AE3-5E55-311EA8D3CF8E}|Argent.Api\\Argent.Api.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F6C3E7A1-B44D-0AE3-5E55-311EA8D3CF8E}|Argent.Api\\Argent.Api.csproj|solutionrelative:argent.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api.infrastructure\\extensions\\servicecollectionextension.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|solutionrelative:argent.api.infrastructure\\extensions\\servicecollectionextension.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F6C3E7A1-B44D-0AE3-5E55-311EA8D3CF8E}|Argent.Api\\Argent.Api.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{F6C3E7A1-B44D-0AE3-5E55-311EA8D3CF8E}|Argent.Api\\Argent.Api.csproj|solutionrelative:argent.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api.infrastructure\\data\\databaseseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|solutionrelative:argent.api.infrastructure\\data\\databaseseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,56 +14,39 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
+          "SelectedChildIndex": -1,
+          "Children": []
+        }
+      ]
+    },
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "FloatingWindowState": {
+        "Id": "fa81045e-a50b-47da-86d9-13384e965bac",
+        "Display": 1,
+        "X": 106,
+        "Y": 212,
+        "Width": 781,
+        "Height": 928,
+        "WindowState": 2
+      },
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
           "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ExceptionMiddleware.cs",
-              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api\\Extensions\\ExceptionMiddleware.cs",
-              "RelativeDocumentMoniker": "Argent.Api\\Extensions\\ExceptionMiddleware.cs",
-              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api\\Extensions\\ExceptionMiddleware.cs",
-              "RelativeToolTip": "Argent.Api\\Extensions\\ExceptionMiddleware.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAQwBgAAAAAAAAAAAAAAA==",
+              "Title": "DatabaseSeeder.cs",
+              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Data\\DatabaseSeeder.cs",
+              "RelativeDocumentMoniker": "Argent.Api.Infrastructure\\Data\\DatabaseSeeder.cs",
+              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Data\\DatabaseSeeder.cs",
+              "RelativeToolTip": "Argent.Api.Infrastructure\\Data\\DatabaseSeeder.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAgwEoAAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-12T10:37:46.073Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api\\appsettings.json",
-              "RelativeDocumentMoniker": "Argent.Api\\appsettings.json",
-              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api\\appsettings.json",
-              "RelativeToolTip": "Argent.Api\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-04-11T20:37:29.169Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ServiceCollectionExtension.cs",
-              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Extensions\\ServiceCollectionExtension.cs",
-              "RelativeDocumentMoniker": "Argent.Api.Infrastructure\\Extensions\\ServiceCollectionExtension.cs",
-              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Extensions\\ServiceCollectionExtension.cs",
-              "RelativeToolTip": "Argent.Api.Infrastructure\\Extensions\\ServiceCollectionExtension.cs",
-              "ViewState": "AgIAADcAAAAAAAAAAAAgwEMAAABGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-11T20:35:50.946Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api\\Program.cs",
-              "RelativeDocumentMoniker": "Argent.Api\\Program.cs",
-              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api\\Program.cs",
-              "RelativeToolTip": "Argent.Api\\Program.cs",
-              "ViewState": "AgIAADkAAAAAAAAAAAAgwDsAAABFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-11T20:34:03.168Z",
+              "WhenOpened": "2026-04-12T11:45:04.968Z",
               "EditorCaption": ""
             }
           ]

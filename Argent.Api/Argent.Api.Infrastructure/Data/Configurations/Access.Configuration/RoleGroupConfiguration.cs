@@ -11,7 +11,7 @@ namespace Argent.Api.Infrastructure.Data.Configurations.Access.Configuration {
             builder.Property(rg => rg.CreatedBy).HasMaxLength(100);
             builder.Property(rg => rg.UpdatedBy).HasMaxLength(100);
             builder.Property(rg => rg.DeletedBy).HasMaxLength(100);
-            builder.HasIndex(rg => rg.Name).IsUnique().HasDatabaseName("ux_role_groups_name");
+            builder.HasIndex(rg => rg.Name).IsUnique().HasFilter("\"IsDeleted\" = false").HasDatabaseName("ux_role_groups_name");
         }
     }
 }

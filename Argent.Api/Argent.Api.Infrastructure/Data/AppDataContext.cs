@@ -9,20 +9,20 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq.Expressions;
 
 namespace Argent.Api.Infrastructure.Data {
-    public class AppDataContext(DbContextOptions<AppDataContext> options, IUserContext? userContext = null)
+    public class AppDataContext(DbContextOptions<AppDataContext> options, ICurrentActor? userContext = null)
         : DbContext(options) {
 
         //..add user context to handle created or updated status
-        private readonly IUserContext? _userContext = userContext;
+        private readonly ICurrentActor? _userContext = userContext;
 
         //..organization objects
         public DbSet<Organization> Organizations => Set<Organization>();
         public DbSet<Branch> Branches => Set<Branch>();
         public DbSet<BranchHoliday> BranchHolidays => Set<BranchHoliday>();
 
-
         //..system access objects
         public DbSet<AppUser> Users => Set<AppUser>();
+        public DbSet<PasswordHistory> PasswordHistories => Set<PasswordHistory>();
         public DbSet<Role> Roles => Set<Role>();
         public DbSet<RoleGroup> RoleGroups => Set<RoleGroup>();
         public DbSet<RoleGroupMember> RoleGroupMembers => Set<RoleGroupMember>();
@@ -63,7 +63,7 @@ namespace Argent.Api.Infrastructure.Data {
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) {
             var actor = _userContext?.IsAuthenticated == true
                 ? _userContext.Username
-                : "system";
+                : "SYSTEM";
 
             foreach (var entry in ChangeTracker.Entries<BaseEntity>()) {
                 switch (entry.State) {

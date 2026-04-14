@@ -50,6 +50,7 @@ namespace Argent.Api.Infrastructure.Extensions {
             //..identity
             services.AddHttpContextAccessor();
             services.AddScoped<IUserContext, HttpContextUserContext>();
+            services.AddScoped<ICurrentActor, HttpCurrentActor>();
             services.AddScoped<IJwtTokenService, JwtTokenService>();
 
             //..JWT Bearer authentication

@@ -26,7 +26,7 @@ namespace Argent.Api.Infrastructure.Data.Configurations {
 
             //..add an index for common lookup patterns
             builder.HasIndex(b => b.OrganizationId).HasDatabaseName("ix_branches_organization_id");
-            builder.HasIndex(b => b.BranchCode).IsUnique().HasFilter("IsDeleted = false").HasDatabaseName("ux_branches_sol_id");
+            builder.HasIndex(b => b.BranchCode).IsUnique().HasFilter("\"IsDeleted\" = false").HasDatabaseName("ux_branches_sol_id");
             builder.HasIndex(b => b.OrganizationId).HasDatabaseName("ix_branches_organization_id");
 
             builder.HasMany(b => b.Holidays).WithOne(h => h.Branch).HasForeignKey(h => h.BranchId).OnDelete(DeleteBehavior.Cascade);

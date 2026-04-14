@@ -21,8 +21,8 @@ namespace Argent.Api.Infrastructure.Data.Configurations.Access.Configuration {
             builder.Property(u => u.DeletedBy).HasMaxLength(100);
             builder.Property(u => u.IsActive).HasDefaultValue(true);
             builder.Property(u => u.FailedLoginAttempts).HasDefaultValue(0);
-            builder.HasIndex(u => u.Username).IsUnique().HasDatabaseName("ux_users_username");
-            builder.HasIndex(u => u.Email).IsUnique().HasDatabaseName("ux_users_email");
+            builder.HasIndex(u => u.Username).IsUnique().HasFilter("\"IsDeleted\" = false").HasDatabaseName("ux_users_username");
+            builder.HasIndex(u => u.Email).IsUnique().HasFilter("\"IsDeleted\" = false").HasDatabaseName("ux_users_email");
             builder.HasIndex(u => u.DefaultBranchId).HasDatabaseName("ix_users_home_branch");
             builder.HasOne(u => u.DefaultBranch).WithMany().HasForeignKey(u => u.DefaultBranchId).OnDelete(DeleteBehavior.Restrict);
             builder.HasMany(u => u.UserRoles).WithOne(ur => ur.User).HasForeignKey(ur => ur.UserId).OnDelete(DeleteBehavior.Cascade);

@@ -805,18 +805,10 @@
               "target": "Package",
               "version": "[14.1.0, )"
             },
-            "Microsoft.AspNetCore.OpenApi": {
-              "target": "Package",
-              "version": "[10.0.5, )"
-            },
             "Microsoft.EntityFrameworkCore.Design": {
               "suppressParent": "All",
               "target": "Package",
               "version": "[10.0.5, )"
-            },
-            "Microsoft.OpenApi": {
-              "target": "Package",
-              "version": "[3.5.1, )"
             },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",

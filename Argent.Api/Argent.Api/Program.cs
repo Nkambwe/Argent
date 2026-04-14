@@ -83,7 +83,7 @@ namespace Argent.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Argent MFI API v1");
+                    c.SwaggerEndpoint("/swagger/v3/swagger.json", "Argent MFI API Version 3");
                     c.RoutePrefix = "swagger"; // set c.RoutePrefix = string.Empty; for Production
                 });
             }

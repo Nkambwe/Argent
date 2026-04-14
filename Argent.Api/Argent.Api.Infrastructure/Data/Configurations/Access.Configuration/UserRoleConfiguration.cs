@@ -9,7 +9,7 @@ namespace Argent.Api.Infrastructure.Data.Configurations.Access.Configuration {
             builder.Property(ur => ur.CreatedBy).HasMaxLength(100);
             builder.Property(ur => ur.UpdatedBy).HasMaxLength(100);
             builder.Property(ur => ur.DeletedBy).HasMaxLength(100);
-            builder.HasIndex(ur => new { ur.UserId, ur.RoleId }).IsUnique().HasDatabaseName("ux_user_roles_user_role");
+            builder.HasIndex(ur => new { ur.UserId, ur.RoleId }).IsUnique().HasFilter("\"IsDeleted\" = false").HasDatabaseName("ux_user_roles_user_role");
             builder.HasOne(ur => ur.Role).WithMany(r => r.UserRoles).HasForeignKey(ur => ur.RoleId).OnDelete(DeleteBehavior.Restrict);
         }
     }
