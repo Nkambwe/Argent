@@ -3,8 +3,16 @@
   "WorkspaceRootPath": "C:\\Projects\\Argent\\Argent\\Argent.Api\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api.infrastructure\\repositories\\kyc\\customerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|solutionrelative:argent.api.infrastructure\\repositories\\kyc\\customerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api.infrastructure\\data\\databaseseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|solutionrelative:argent.api.infrastructure\\data\\databaseseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api.infrastructure\\data\\appdatacontextfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|solutionrelative:argent.api.infrastructure\\data\\appdatacontextfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -33,12 +41,38 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "CustomerRepository.cs",
+              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Repositories\\Kyc\\CustomerRepository.cs",
+              "RelativeDocumentMoniker": "Argent.Api.Infrastructure\\Repositories\\Kyc\\CustomerRepository.cs",
+              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Repositories\\Kyc\\CustomerRepository.cs",
+              "RelativeToolTip": "Argent.Api.Infrastructure\\Repositories\\Kyc\\CustomerRepository.cs",
+              "ViewState": "AgIAADgAAAAAAAAAAAAIwEcAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-15T01:44:41.318Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AppDataContextFactory.cs",
+              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Data\\AppDataContextFactory.cs",
+              "RelativeDocumentMoniker": "Argent.Api.Infrastructure\\Data\\AppDataContextFactory.cs",
+              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Data\\AppDataContextFactory.cs",
+              "RelativeToolTip": "Argent.Api.Infrastructure\\Data\\AppDataContextFactory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-15T01:28:27.635Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "DatabaseSeeder.cs",
               "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Data\\DatabaseSeeder.cs",
               "RelativeDocumentMoniker": "Argent.Api.Infrastructure\\Data\\DatabaseSeeder.cs",
               "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Data\\DatabaseSeeder.cs",
               "RelativeToolTip": "Argent.Api.Infrastructure\\Data\\DatabaseSeeder.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAgwEoAAAA0AAAAAAAAAA==",
+              "ViewState": "AgIAAHQAAAAAAAAAAAAYwOsAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-12T11:45:04.968Z",
               "EditorCaption": ""

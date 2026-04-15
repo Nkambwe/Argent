@@ -2,7 +2,15 @@
 using Argent.Api.Domain.Entities;
 using Argent.Api.Domain.Entities.Access;
 using Argent.Api.Domain.Entities.Audit;
+using Argent.Api.Domain.Entities.Banking.Savings;
+using Argent.Api.Domain.Entities.Kyc;
+using Argent.Api.Domain.Entities.Kyc.KycBusinesses;
+using Argent.Api.Domain.Entities.Kyc.KycFiles;
+using Argent.Api.Domain.Entities.Kyc.KycGroups;
+using Argent.Api.Domain.Entities.Kyc.KycIndividuals;
 using Argent.Api.Domain.Entities.Settings;
+using Argent.Api.Domain.Entities.Support.KycLookup;
+using Argent.Api.Domain.Entities.Support.KycSupport;
 using Argent.Api.Infrastructure.Core.Common.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -39,6 +47,56 @@ namespace Argent.Api.Infrastructure.Data {
 
         //..audit objects
         public DbSet<AuditLog> AuditLogs => Set<AuditLog>();
+
+        //..KYC.Customers
+        public DbSet<Individual> Individuals => Set<Individual>();
+        public DbSet<Member> Members => Set<Member>();
+        public DbSet<Group> Groups => Set<Group>();
+        public DbSet<Business> Businesses => Set<Business>();
+        public DbSet<Guarantor> Guarantors => Set<Guarantor>();
+
+        //..KYC.Group structures
+        public DbSet<Cluster> Clusters => Set<Cluster>();
+        public DbSet<ClusterMember> ClusterMembers => Set<ClusterMember>();
+        public DbSet<Meeting> Meetings => Set<Meeting>();
+
+        //..KYC.Support entities
+        public DbSet<CustomerExit> CustomerExits => Set<CustomerExit>();
+        public DbSet<CustomerBlackList> CustomerBlackLists => Set<CustomerBlackList>();
+        public DbSet<RejectedCustomer> RejectedCustomers => Set<RejectedCustomer>();
+        public DbSet<UnlockedCustomer> UnlockedCustomers => Set<UnlockedCustomer>();
+        public DbSet<CustomerApproval> CustomerApprovals => Set<CustomerApproval>();
+        public DbSet<CustomerContact> CustomerContacts => Set<CustomerContact>();
+        public DbSet<MemberTransfer> MemberTransfers => Set<MemberTransfer>();
+        public DbSet<MemberPosition> MemberPositions => Set<MemberPosition>();
+        public DbSet<IncomeHistory> IncomeHistories => Set<IncomeHistory>();
+        public DbSet<EmploymentHistory> EmploymentHistories => Set<EmploymentHistory>();
+
+        //..KYC.Files & Documents
+        public DbSet<OtherFile> OtherFiles => Set<OtherFile>();
+        public DbSet<TitleDeed> TitleDeeds => Set<TitleDeed>();
+        public DbSet<CustomerAgreement> CustomerAgreements => Set<CustomerAgreement>();
+        public DbSet<CustomerContract> CustomerContracts => Set<CustomerContract>();
+        public DbSet<ImageFile> ImageFiles => Set<ImageFile>();
+        public DbSet<Identification> Identifications => Set<Identification>();
+        public DbSet<Signatory> Signatories => Set<Signatory>();
+        public DbSet<SavingPartner> SavingPartners => Set<SavingPartner>();
+
+        //..KYC.Reasons
+        public DbSet<GeneralReason> GeneralReasons => Set<GeneralReason>();
+        public DbSet<RejectReason> RejectReasons => Set<RejectReason>();
+
+        //..KYC.Lookups
+        public DbSet<Title> Titles => Set<Title>();
+        public DbSet<Nationality> Nationalities => Set<Nationality>();
+        public DbSet<Village> Villages => Set<Village>();
+        public DbSet<Profession> Professions => Set<Profession>();
+        public DbSet<Education> Educations => Set<Education>();
+        public DbSet<IncomeType> IncomeTypes => Set<IncomeType>();
+        public DbSet<GroupPosition> GroupPositions => Set<GroupPosition>();
+        public DbSet<IdentificationType> IdentificationTypes => Set<IdentificationType>();
+        public DbSet<IssuerAuthority> IssuerAuthorities => Set<IssuerAuthority>();
+        public DbSet<CustomerFilter> CustomerFilters => Set<CustomerFilter>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);

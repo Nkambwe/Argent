@@ -5,4 +5,5 @@ namespace Argent.Api.Domain.Enums {
         BranchSpecific = 2,    
         WeeklyOff = 3     
     }
+
 }

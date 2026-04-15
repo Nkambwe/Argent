@@ -57,6 +57,68 @@ namespace Argent.Api.Infrastructure.Data {
             ("Access", "WorkdayStartHour","8",ConfigDataType.Int,  "Start of working day (24h, EAT)"),
             ("Access", "WorkdayEndHour","17",ConfigDataType.Int,  "End of working day (24h, EAT)"),
             ("Access", "EnforceWorkingHours","false",ConfigDataType.Bool, "Block logins and transactions outside working hours"),
+
+            //..KYC General Customer
+            ("CustomerKyc", "AllowManualRegistrationNumbers",  "false", ConfigDataType.Bool,   "Allow manual entry of client registration numbers"),
+            ("CustomerKyc", "RegistrationNumberFormat","", ConfigDataType.String,"RegEx pattern for registration number format"),
+            ("CustomerKyc", "RegistrationNumberLength","10",    ConfigDataType.Int,"Max length of registration numbers"),
+            ("CustomerKyc", "RequireReferenceNumbers", "false", ConfigDataType.Bool,"Client reference number is required"),
+            ("CustomerKyc", "AllowManualReferenceNumbers","false", ConfigDataType.Bool,"Allow manual entry of reference numbers"),
+            ("CustomerKyc", "RequireStatisticNumbers", "false", ConfigDataType.Bool,"Client statistic number is required"),
+            ("CustomerKyc", "RequirePermanentAddress","false", ConfigDataType.Bool,"Permanent address required"),
+            ("CustomerKyc", "RequirePostalAddress","false", ConfigDataType.Bool,"Postal address required"),
+            ("CustomerKyc", "RequireMobileNumber", "true",  ConfigDataType.Bool,"Mobile number required"),
+            ("CustomerKyc", "RequireCustomerEmail","false", ConfigDataType.Bool,"Email address required"),
+            ("CustomerKyc", "RequireVillageOfResidence","false", ConfigDataType.Bool,"Village of residence required"),
+            ("CustomerKyc", "RequireDistrictOfResidence", "false", ConfigDataType.Bool,"District of residence required"),
+            ("CustomerKyc", "RequireClientApproval","true",  ConfigDataType.Bool,"Require approval before activating customer"),
+            ("CustomerKyc", "CanApproveOwnRegistrations", "false", ConfigDataType.Bool,"User can approve customers they registered"),
+            ("CustomerKyc", "RequireRegistrationFees", "false", ConfigDataType.Bool,"Registration fees required at time of registration"),
+            ("CustomerKyc", "CanTransactWithoutFees", "false", ConfigDataType.Bool,"Customer can transact before paying registration fees"),
+            ("CustomerKyc", "SoftDeleteCustomerRecords","true",  ConfigDataType.Bool,"Soft-delete instead of permanently deleting customer records"),
+            ("CustomerKyc", "Filter1Name", "Filter 1",ConfigDataType.String, "Label for shared client filter 1"),
+            ("CustomerKyc", "Filter2Name", "Filter 2",ConfigDataType.String, "Label for shared client filter 2"),
+            ("CustomerKyc", "Filter3Name", "Filter 3",ConfigDataType.String, "Label for shared client filter 3"),
+
+            //..KYC Individual 
+            ("CustomerKyc.Individual", "RequireMiddleName","false", ConfigDataType.Bool, "Middle name required"),
+            ("CustomerKyc.Individual", "ClientMinimumAge","18",    ConfigDataType.Int,  "Minimum age to register as customer"),
+            ("CustomerKyc.Individual", "RequireDateOfBirth", "false", ConfigDataType.Bool, "Date of birth required"),
+            ("CustomerKyc.Individual", "RequirePhoto","false", ConfigDataType.Bool, "Customer photo required"),
+            ("CustomerKyc.Individual", "RequireSignature","false", ConfigDataType.Bool, "Customer signature required"),
+            ("CustomerKyc.Individual", "RequireNextOfKin","true",  ConfigDataType.Bool, "Next of kin contact required"),
+            ("CustomerKyc.Individual", "RequireMaritalStatus","false", ConfigDataType.Bool, "Marital status required"),
+            ("CustomerKyc.Individual", "RequireNationality","false", ConfigDataType.Bool, "Nationality required"),
+            ("CustomerKyc.Individual", "RequireProfession","false", ConfigDataType.Bool, "Profession required"),
+            ("CustomerKyc.Individual", "RequireEducation","false", ConfigDataType.Bool, "Education level required"),
+
+            // KYC Group
+            ("CustomerKyc.Group", "MaxGroupMembers", "30", ConfigDataType.Int,  "Maximum members in a single group"),
+            ("CustomerKyc.Group", "TreatMembersAsIndividuals","false", ConfigDataType.Bool, "Treat group members as individual clients when transacting"),
+            ("CustomerKyc.Group", "EnableClusters", "false", ConfigDataType.Bool, "Enable group sub-clusters"),
+            ("CustomerKyc.Group", "ClustersAsGroups", "false", ConfigDataType.Bool, "Treat clusters as separate transacting groups"),
+            ("CustomerKyc.Group", "MaxClusterMembers","10", ConfigDataType.Int,  "Maximum members per cluster"),
+            ("CustomerKyc.Group", "GroupFilter1Name", "Group Filter 1", ConfigDataType.String, "Label for group filter 1"),
+            ("CustomerKyc.Group", "GroupFilter2Name", "Group Filter 2", ConfigDataType.String, "Label for group filter 2"),
+            ("CustomerKyc.Group", "MemberFilter1Name","Member Filter 1",ConfigDataType.String, "Label for member filter 1"),
+            ("CustomerKyc.Group", "MemberFilter2Name","Member Filter 2",ConfigDataType.String, "Label for member filter 2"),
+
+            //..KYC Business
+            ("CustomerKyc.Business", "NumberOfSignatoriesRequired", "2",ConfigDataType.Int,"Minimum number of signatories required"),
+            ("CustomerKyc.Business", "RequireSignatoryPhoto","false",ConfigDataType.Bool, "Signatory photo required"),
+            ("CustomerKyc.Business", "RequireSignatoryIdentification","true",ConfigDataType.Bool, "Signatory identification document required"),
+            ("CustomerKyc.Business", "RequireSignatorySignature", "false",ConfigDataType.Bool, "Signatory specimen signature required"),
+            ("CustomerKyc.Business", "BusinessFilter1Name","Business Filter 1",ConfigDataType.String,"Label for business filter 1"),
+            ("CustomerKyc.Business", "BusinessFilter2Name","Business Filter 2",ConfigDataType.String,"Label for business filter 2"),
+
+            //..KYC File Storage
+            ("CustomerKyc.Files", "MaxImageSizeKb", "2048",  ConfigDataType.Int, "Maximum image file size in KB"),
+            ("CustomerKyc.Files", "MaxDocumentSizeKb", "5120",  ConfigDataType.Int,"Maximum document file size in KB"),
+            ("CustomerKyc.Files", "AllowedImageTypes","jpg,png,jpeg", ConfigDataType.String, "Allowed image file extensions"),
+            ("CustomerKyc.Files", "UseFtpStorage", "false", ConfigDataType.Bool,   "Use FTP for file storage instead of local"),
+            ("CustomerKyc.Files", "ClientPhotoFolder", "photos",ConfigDataType.String, "Folder name for client photos"),
+            ("CustomerKyc.Files", "ClientSignatureFolder","signatures",ConfigDataType.String,"Folder for client signatures"),
+            ("CustomerKyc.Files", "IdentificationFolder", "ids",   ConfigDataType.String, "Folder for identification documents"),
         ];
 
         /// <summary>
@@ -155,6 +217,22 @@ namespace Argent.Api.Infrastructure.Data {
             //..audits
             ("Audits.View", "Audits","View", "View system audit logs"),
             ("Audits.Export", "Audits", "Export","Export audit log data"),
+
+            //..Customer KYC
+            ("CustomerKyc.ViewIndividuals","CustomerKyc","ViewIndividuals","View individual customer records"),
+            ("CustomerKyc.CreateIndividual","CustomerKyc", "CreateIndividual", "Register individual customers"),
+            ("CustomerKyc.EditIndividual","CustomerKyc", "EditIndividual","Edit individual customer records"),
+            ("CustomerKyc.ApproveIndividual","CustomerKyc", "ApproveIndividual","Approve individual customer registrations"),
+            ("CustomerKyc.ExitIndividual","CustomerKyc", "ExitIndividual", "Mark individual customer as exited"),
+            ("CustomerKyc.BlacklistCustomer","CustomerKyc", "BlacklistCustomer","Blacklist any customer type"),
+            ("CustomerKyc.ViewGroups","CustomerKyc", "ViewGroups", "View group customer records"),
+            ("CustomerKyc.CreateGroup","CustomerKyc", "CreateGroup", "Register group customers"),
+            ("CustomerKyc.ManageGroupMembers", "CustomerKyc", "ManageGroupMembers", "Add/remove group members"),
+            ("CustomerKyc.ViewBusinesses","CustomerKyc", "ViewBusinesses","View business customer records"),
+            ("CustomerKyc.CreateBusiness","CustomerKyc", "CreateBusiness", "Register business customers"),
+            ("CustomerKyc.ManageSignatories","CustomerKyc", "ManageSignatories","Add/edit business signatories"),
+            ("CustomerKyc.ViewGuarantors","CustomerKyc", "ViewGuarantors","View guarantor records"),
+            ("CustomerKyc.CreateGuarantor","CustomerKyc", "CreateGuarantor", "Register guarantors"),
         ];
 
         private static async Task SeedPermissionsAsync(AppDataContext context, IServiceLogger logger) {
