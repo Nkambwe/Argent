@@ -109,9 +109,9 @@ namespace Argent.Api.Infrastructure.Data {
 
             //..all entities with soft delete are filtered automatically
             foreach (var entityType in modelBuilder.Model.GetEntityTypes()) {
-                if (typeof(BaseEntity).IsAssignableFrom(entityType.ClrType)) {
+                if (typeof(BaseEntity).IsAssignableFrom(entityType.ClrType) && entityType.BaseType == null)  {
                     var parameter = Expression.Parameter(entityType.ClrType, "e");
-                    var body = Expression.Equal(Expression.Property(parameter, "IsDeleted"), Expression.Constant(false));
+                    var body = Expression.Equal(Expression.Property(parameter, nameof(BaseEntity.IsDeleted)), Expression.Constant(false));
                     var lambda = Expression.Lambda(body, parameter);
                     modelBuilder.Entity(entityType.ClrType).HasQueryFilter(lambda);
                 }

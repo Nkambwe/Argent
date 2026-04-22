@@ -170,6 +170,37 @@
         }
       }
     },
+    "/api/Auth/logout": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Access.RequestObjects.RefreshTokenRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Access.RequestObjects.RefreshTokenRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Access.RequestObjects.RefreshTokenRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Auth/me": {
       "get": {
         "tags": [
@@ -181,6 +212,906 @@
           },
           "401": {
             "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Customer/lookups": {
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Queries.KycLookupsDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Customer/individuals": {
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "branchId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "active",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "approved",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Common.PagedResult`1[[Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.CustomerSummaryDto, Argent.Api.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Customer"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.CreateIndividualRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.CreateIndividualRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.CreateIndividualRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.IndividualDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Customer/individuals/{id}": {
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.IndividualDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Customer/groups": {
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "branchId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "active",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "approved",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Common.PagedResult`1[[Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.CustomerSummaryDto, Argent.Api.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Customer"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.CreateGroupRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.CreateGroupRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.CreateGroupRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.GroupDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Customer/groups/{id}": {
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.GroupDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Customer/groups/{groupId}/members": {
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "active",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Common.PagedResult`1[[Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.CustomerSummaryDto, Argent.Api.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.CreateMemberRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.CreateMemberRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.CreateMemberRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.CustomerSummaryDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Customer/businesses": {
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "branchId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "active",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "approved",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Common.PagedResult`1[[Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.CustomerSummaryDto, Argent.Api.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Customer"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.CreateBusinessRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.CreateBusinessRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.CreateBusinessRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.BusinessDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Customer/businesses/{id}": {
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.BusinessDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Customer/{customerType}/{id}/approve": {
+      "patch": {
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "customerType",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.ApproveCustomerRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.ApproveCustomerRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.ApproveCustomerRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.CustomerSummaryDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Customer/{customerType}/{id}/blacklist": {
+      "patch": {
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "customerType",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.BlacklistCustomerRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.BlacklistCustomerRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.BlacklistCustomerRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Customer/{customerType}/{id}/exit": {
+      "patch": {
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "customerType",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.ExitCustomerRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.ExitCustomerRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.ExitCustomerRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Customer/{customerType}/{id}/reject": {
+      "patch": {
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "customerType",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.RejectCustomerRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.RejectCustomerRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.RejectCustomerRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
             "content": {
               "application/json": {
                 "schema": {
@@ -914,6 +1845,54 @@
   },
   "components": {
     "schemas": {
+      "Argent.Api.Domain.Enums.CustomerType": {
+        "enum": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "Argent.Api.Infrastructure.Core.Common.PagedResult`1[[Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.CustomerSummaryDto, Argent.Api.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.CustomerSummaryDto"
+            },
+            "nullable": true
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "page": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "hasNextPage": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "hasPreviousPage": {
+            "type": "boolean",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
       "Argent.Api.Infrastructure.Core.Modules.Access.AuthResponse": {
         "type": "object",
         "properties": {
@@ -1199,6 +2178,1094 @@
         },
         "additionalProperties": false
       },
+      "Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.ApproveCustomerRequest": {
+        "type": "object",
+        "properties": {
+          "comments": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.BlacklistCustomerRequest": {
+        "type": "object",
+        "properties": {
+          "reasonId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.BusinessDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "clientCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "legalName": {
+            "type": "string",
+            "nullable": true
+          },
+          "permanentAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "primaryLine": {
+            "type": "string",
+            "nullable": true
+          },
+          "mobile": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "town": {
+            "type": "string",
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "branchId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "branchName": {
+            "type": "string",
+            "nullable": true
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "approved": {
+            "type": "boolean"
+          },
+          "exited": {
+            "type": "boolean"
+          },
+          "canTransact": {
+            "type": "boolean"
+          },
+          "registeredOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "signatoryCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "businessFilter1": {
+            "type": "string",
+            "nullable": true
+          },
+          "businessFilter2": {
+            "type": "string",
+            "nullable": true
+          },
+          "contacts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.ContactDto"
+            },
+            "nullable": true
+          },
+          "signatories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.SignatoryDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.ContactDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "contactName": {
+            "type": "string",
+            "nullable": true
+          },
+          "telephone": {
+            "type": "string",
+            "nullable": true
+          },
+          "mobile": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "relationship": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.CreateBusinessRequest": {
+        "type": "object",
+        "properties": {
+          "legalName": {
+            "type": "string",
+            "nullable": true
+          },
+          "branchId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "primaryLine": {
+            "type": "string",
+            "nullable": true
+          },
+          "mobile": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "permanentAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "mailAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "town": {
+            "type": "string",
+            "nullable": true
+          },
+          "whatsApp": {
+            "type": "string",
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "statistic": {
+            "type": "string",
+            "nullable": true
+          },
+          "reference": {
+            "type": "string",
+            "nullable": true
+          },
+          "villageId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "filter1Id": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "filter2Id": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "filter3Id": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "businessFilter1Id": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "businessFilter2Id": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "contacts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.CreateContactRequest"
+            },
+            "nullable": true
+          },
+          "signatories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.CreateSignatoryRequest"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.CreateContactRequest": {
+        "type": "object",
+        "properties": {
+          "contactName": {
+            "type": "string",
+            "nullable": true
+          },
+          "telephone": {
+            "type": "string",
+            "nullable": true
+          },
+          "mobile": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "relationship": {
+            "type": "string",
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.CreateGroupRequest": {
+        "type": "object",
+        "properties": {
+          "registeredName": {
+            "type": "string",
+            "nullable": true
+          },
+          "branchId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "mobile": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "permanentAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "town": {
+            "type": "string",
+            "nullable": true
+          },
+          "whatsApp": {
+            "type": "string",
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "statistic": {
+            "type": "string",
+            "nullable": true
+          },
+          "reference": {
+            "type": "string",
+            "nullable": true
+          },
+          "villageId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "filter1Id": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "filter2Id": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "filter3Id": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "groupFilter1Id": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "groupFilter2Id": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "contacts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.CreateContactRequest"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.CreateIndividualRequest": {
+        "type": "object",
+        "properties": {
+          "branchId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "middleName": {
+            "type": "string",
+            "nullable": true
+          },
+          "gender": {
+            "type": "string",
+            "nullable": true
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "birthPlace": {
+            "type": "string",
+            "nullable": true
+          },
+          "maritalStatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "spouseName": {
+            "type": "string",
+            "nullable": true
+          },
+          "children": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "dependents": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "mother": {
+            "type": "string",
+            "nullable": true
+          },
+          "father": {
+            "type": "string",
+            "nullable": true
+          },
+          "literate": {
+            "type": "boolean"
+          },
+          "permanentAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "mailAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "primaryLine": {
+            "type": "string",
+            "nullable": true
+          },
+          "mobile": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "town": {
+            "type": "string",
+            "nullable": true
+          },
+          "whatsApp": {
+            "type": "string",
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "statistic": {
+            "type": "string",
+            "nullable": true
+          },
+          "reference": {
+            "type": "string",
+            "nullable": true
+          },
+          "titleId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "nationalityId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "professionId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "educationId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "villageId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "filter1Id": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "filter2Id": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "filter3Id": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "photo": {
+            "type": "string",
+            "nullable": true
+          },
+          "signature": {
+            "type": "string",
+            "nullable": true
+          },
+          "contacts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.CreateContactRequest"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.CreateMemberRequest": {
+        "type": "object",
+        "properties": {
+          "groupId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "middleName": {
+            "type": "string",
+            "nullable": true
+          },
+          "gender": {
+            "type": "string",
+            "nullable": true
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "mobile": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "permanentAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "titleId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "nationalityId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "professionId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "educationId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "villageId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "filter1Id": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "filter2Id": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "filter3Id": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "memberFilter1Id": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "memberFilter2Id": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "photo": {
+            "type": "string",
+            "nullable": true
+          },
+          "signature": {
+            "type": "string",
+            "nullable": true
+          },
+          "contacts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.CreateContactRequest"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.CreateSignatoryRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "position": {
+            "type": "string",
+            "nullable": true
+          },
+          "mobile": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "canSignAlone": {
+            "type": "boolean"
+          },
+          "photo": {
+            "type": "string",
+            "nullable": true
+          },
+          "signature": {
+            "type": "string",
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.CustomerSummaryDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "clientCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "customerType": {
+            "$ref": "#/components/schemas/Argent.Api.Domain.Enums.CustomerType"
+          },
+          "displayName": {
+            "type": "string",
+            "nullable": true
+          },
+          "mobile": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "branchName": {
+            "type": "string",
+            "nullable": true
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "approved": {
+            "type": "boolean"
+          },
+          "exited": {
+            "type": "boolean"
+          },
+          "canTransact": {
+            "type": "boolean"
+          },
+          "registeredOn": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.ExitCustomerRequest": {
+        "type": "object",
+        "properties": {
+          "reasonId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.GroupDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "clientCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "registeredName": {
+            "type": "string",
+            "nullable": true
+          },
+          "permanentAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "mobile": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "town": {
+            "type": "string",
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "branchId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "branchName": {
+            "type": "string",
+            "nullable": true
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "approved": {
+            "type": "boolean"
+          },
+          "exited": {
+            "type": "boolean"
+          },
+          "canTransact": {
+            "type": "boolean"
+          },
+          "registeredOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "memberCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "groupFilter1": {
+            "type": "string",
+            "nullable": true
+          },
+          "groupFilter2": {
+            "type": "string",
+            "nullable": true
+          },
+          "contacts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.ContactDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.IndividualDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "clientCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "statistic": {
+            "type": "string",
+            "nullable": true
+          },
+          "reference": {
+            "type": "string",
+            "nullable": true
+          },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "middleName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "fullName": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "gender": {
+            "type": "string",
+            "nullable": true
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "birthPlace": {
+            "type": "string",
+            "nullable": true
+          },
+          "maritalStatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "spouseName": {
+            "type": "string",
+            "nullable": true
+          },
+          "children": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "dependents": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "mother": {
+            "type": "string",
+            "nullable": true
+          },
+          "father": {
+            "type": "string",
+            "nullable": true
+          },
+          "literate": {
+            "type": "boolean"
+          },
+          "photo": {
+            "type": "string",
+            "nullable": true
+          },
+          "signature": {
+            "type": "string",
+            "nullable": true
+          },
+          "permanentAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "mailAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "primaryLine": {
+            "type": "string",
+            "nullable": true
+          },
+          "secondaryLine": {
+            "type": "string",
+            "nullable": true
+          },
+          "mobile": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "town": {
+            "type": "string",
+            "nullable": true
+          },
+          "whatsApp": {
+            "type": "string",
+            "nullable": true
+          },
+          "facebook": {
+            "type": "string",
+            "nullable": true
+          },
+          "instagram": {
+            "type": "string",
+            "nullable": true
+          },
+          "twitter": {
+            "type": "string",
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "branchId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "branchName": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "nationality": {
+            "type": "string",
+            "nullable": true
+          },
+          "profession": {
+            "type": "string",
+            "nullable": true
+          },
+          "education": {
+            "type": "string",
+            "nullable": true
+          },
+          "village": {
+            "type": "string",
+            "nullable": true
+          },
+          "filter1": {
+            "type": "string",
+            "nullable": true
+          },
+          "filter2": {
+            "type": "string",
+            "nullable": true
+          },
+          "filter3": {
+            "type": "string",
+            "nullable": true
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "approved": {
+            "type": "boolean"
+          },
+          "approvedOn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "approvedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "exited": {
+            "type": "boolean"
+          },
+          "exitedOn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "canTransact": {
+            "type": "boolean"
+          },
+          "holdShares": {
+            "type": "boolean"
+          },
+          "registeredOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "contacts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.ContactDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.RejectCustomerRequest": {
+        "type": "object",
+        "properties": {
+          "reasonId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects.SignatoryDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "position": {
+            "type": "string",
+            "nullable": true
+          },
+          "mobile": {
+            "type": "string",
+            "nullable": true
+          },
+          "canSignAlone": {
+            "type": "boolean"
+          },
+          "suspended": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
       "Argent.Api.Infrastructure.Core.Modules.Organization.DataObjects.BranchDto": {
         "type": "object",
         "properties": {
@@ -1364,6 +3431,86 @@
         },
         "additionalProperties": false
       },
+      "Argent.Api.Infrastructure.Core.Queries.KycLookupsDto": {
+        "type": "object",
+        "properties": {
+          "titles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Queries.LookupItemDto"
+            },
+            "nullable": true
+          },
+          "nationalities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Queries.LookupItemDto"
+            },
+            "nullable": true
+          },
+          "professions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Queries.LookupItemDto"
+            },
+            "nullable": true
+          },
+          "educationLevels": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Queries.LookupItemDto"
+            },
+            "nullable": true
+          },
+          "incomeTypes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Queries.LookupItemDto"
+            },
+            "nullable": true
+          },
+          "groupPositions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Queries.LookupItemDto"
+            },
+            "nullable": true
+          },
+          "identificationTypes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Queries.LookupItemDto"
+            },
+            "nullable": true
+          },
+          "issuerAuthorities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Argent.Api.Infrastructure.Core.Queries.LookupItemDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Argent.Api.Infrastructure.Core.Queries.LookupItemDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "code": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "Microsoft.AspNetCore.Mvc.ProblemDetails": {
         "type": "object",
         "properties": {
@@ -1391,11 +3538,27 @@
         },
         "additionalProperties": { }
       }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "description": "Enter: Bearer {your JWT token}",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
     }
   },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ],
   "tags": [
     {
       "name": "Auth"
+    },
+    {
+      "name": "Customer"
     },
     {
       "name": "Health"

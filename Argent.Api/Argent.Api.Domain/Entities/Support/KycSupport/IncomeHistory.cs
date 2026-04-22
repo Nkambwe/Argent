@@ -15,7 +15,7 @@ namespace Argent.Api.Domain.Entities.Support.KycSupport {
         public decimal Salary { get; set; }
         public bool IsCurrent { get; set; }
         public DateTime? Ended { get; set; }
-        public Guid IncomeTypeId { get; set; }
+        public long IncomeTypeId { get; set; }
         public IncomeType IncomeType { get; set; } = null!;
     }
 

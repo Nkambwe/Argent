@@ -18,7 +18,7 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
 
         private const int RefreshExpiryDays = 7;
 
-        public async Task<Result<AuthResponseDto>> Handle(RefreshTokenCommand command, CancellationToken ct) {
+        public async Task<Result<AuthResponseDto>> Handle(RefreshTokenCommand command, CancellationToken token) {
             var logger = _loggerFactory.CreateLogger("access");
             logger.Channel = "TOKEN-REFRESH";
 
@@ -32,7 +32,7 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
                 return Result<AuthResponseDto>.Failure("Invalid token claims.", "INVALID_TOKEN");
 
             // Validate refresh token
-            var storedToken = await _uow.Access.GetRefreshTokenAsync(command.RefreshToken, ct);
+            var storedToken = await _uow.Access.GetRefreshTokenAsync(command.RefreshToken, token);
             if (storedToken is null || storedToken.UserId != userId)
                 return Result<AuthResponseDto>.Failure("Invalid refresh token.", "INVALID_REFRESH_TOKEN");
 
@@ -42,16 +42,15 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
             }
 
             if (storedToken.ExpiresOn < DateTime.UtcNow)
-                return Result<AuthResponseDto>.Failure(
-                    "Refresh token has expired. Please log in again.", "TOKEN_EXPIRED");
+                return Result<AuthResponseDto>.Failure("Refresh token has expired. Please log in again.", "TOKEN_EXPIRED");
 
             //..load user with full access
-            var user = await _uow.Access.GetByIdWithAccessAsync(userId, ct);
+            var user = await _uow.Access.GetByIdWithAccessAsync(userId, token);
             if (user is null || !user.IsActive)
                 return Result<AuthResponseDto>.Failure("Account not found or inactive.", "ACCOUNT_INACTIVE");
 
-            var permissions = await _uow.Access.GetUserPermissionsAsync(userId, ct);
-            var branchAccess = (await _uow.Access.GetUserBranchAccessAsync(userId, ct)).ToList();
+            var permissions = await _uow.Access.GetUserPermissionsAsync(userId, token);
+            var branchAccess = (await _uow.Access.GetUserBranchAccessAsync(userId, token)).ToList();
 
             //..rotate tokens
             var newAccessToken = _tokenService.GenerateAccessToken(user, permissions, branchAccess);
@@ -60,25 +59,19 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
             storedToken.IsRevoked = true;
             storedToken.ReplacedByToken = newRefreshRaw;
 
-            var newRefreshToken = new RefreshToken
-            {
+            var newRefreshToken = new RefreshToken {
                 UserId = userId,
-                Token = newRefreshRaw,
+                Token = BCrypt.Net.BCrypt.HashPassword(newRefreshRaw),
                 ExpiresOn = DateTime.UtcNow.AddDays(RefreshExpiryDays),
                 CreatedByIp = command.IpAddress
             };
 
-            await _uow.BeginTransactionAsync(ct);
-            try {
-                _uow.Access.UpdateRefreshToken(storedToken);
-                await _uow.Access.AddRefreshTokenAsync(newRefreshToken, ct);
-                await _uow.CommitAsync(ct);
-            }
-            catch {
-                await _uow.RollbackAsync(ct);
-                throw;
-            }
+            await _uow.ExecuteInTransactionAsync(async token => {
+                _uow.Access.UpdateUser(user);
+                await _uow.Access.AddRefreshTokenAsync(newRefreshToken, token);
 
+                return true;
+            }, token);
             logger.Log($"Token refreshed: {user.Username}", "AUTH-OK");
             var homeAccess = new BranchAccessDto {
                 BranchId = user.DefaultBranchId,

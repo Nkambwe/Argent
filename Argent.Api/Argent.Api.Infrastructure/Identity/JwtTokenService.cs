@@ -1,5 +1,6 @@
 ﻿using Argent.Api.Domain.Entities.Access;
-using Microsoft.Extensions.Configuration;
+using Argent.Api.Infrastructure.Helpers;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -7,8 +8,8 @@ using System.Security.Cryptography;
 using System.Text;
 
 namespace Argent.Api.Infrastructure.Identity {
-    public class JwtTokenService(IConfiguration configuration) : IJwtTokenService {
-        private readonly IConfiguration _configuration = configuration;
+    public class JwtTokenService(IOptions<JwtSettings> jwtOptions) : IJwtTokenService {
+        private readonly JwtSettings _jwt = jwtOptions.Value;
 
         public string GenerateAccessToken(
             AppUser user,
@@ -36,18 +37,17 @@ namespace Argent.Api.Infrastructure.Identity {
                 new("permissions", string.Join(',', permissions)),
                 new("branches",    string.Join(',', accessibleBranches)),
                 new("postbranches",string.Join(',', postableBranches)),
-                new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new(JwtRegisteredClaimNames.Iat,
+                new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()), new(JwtRegisteredClaimNames.Iat,
                     DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString(),
                     ClaimValueTypes.Integer64)
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(GetRequiredSetting("Jwt:Secret")));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwt.SecretKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var expires = DateTime.UtcNow.AddMinutes(_configuration.GetValue<int>("Jwt:AccessTokenExpiryMinutes", 60));
+            var expires = DateTime.UtcNow.AddMinutes(_jwt.AccessTokenExpiryMinutes);
             var token = new JwtSecurityToken(
-                issuer: GetRequiredSetting("Jwt:Issuer"),
-                audience: GetRequiredSetting("Jwt:Audience"),
+                issuer: _jwt.Issuer,
+                audience: _jwt.Audience,
                 claims: claims,
                 expires: expires,
                 signingCredentials: creds);
@@ -64,11 +64,11 @@ namespace Argent.Api.Infrastructure.Identity {
             var parameters = new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(GetRequiredSetting("Jwt:Secret"))),
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwt.SecretKey)),
                 ValidateIssuer = true,
-                ValidIssuer = GetRequiredSetting("Jwt:Issuer"),
+                ValidIssuer = _jwt.Issuer,
                 ValidateAudience = true,
-                ValidAudience = GetRequiredSetting("Jwt:Audience"),
+                ValidAudience = _jwt.Audience,
                 ValidateLifetime = false  
             };
 
@@ -89,8 +89,5 @@ namespace Argent.Api.Infrastructure.Identity {
             }
         }
 
-        private string GetRequiredSetting(string key) =>
-            _configuration[key] ?? throw new InvalidOperationException(
-                $"Missing required JWT configuration: {key}");
     }
 }

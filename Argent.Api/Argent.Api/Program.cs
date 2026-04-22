@@ -1,8 +1,10 @@
 using Argent.Api.Extensions;
+using Argent.Api.Helpers;
 using Argent.Api.Infrastructure.Core.Common.Behaviour;
 using Argent.Api.Infrastructure.Data;
 using Argent.Api.Infrastructure.Extensions;
 using FluentValidation;
+using Microsoft.OpenApi;
 using System.Diagnostics;
 using System.Reflection.Metadata;
 
@@ -21,16 +23,26 @@ namespace Argent.Api
             //..services
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen(options =>
-            {
+            builder.Services.AddSwaggerGen(options => {
                 options.CustomSchemaIds(t => t.FullName);
-                options.SwaggerDoc("v3", new()
-                {
+
+                options.SwaggerDoc("v3", new OpenApiInfo {
                     Title = "Argent API",
                     Version = "v3",
                     Description = "Core API for the Argent MFI management platform"
                 });
 
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "Enter: Bearer {your JWT token}"
+                });
+
+                //..add a document filter to apply security requirements at the correct time
+                options.DocumentFilter<SecurityRequirementsDocumentFilter>();
             });
 
             //..enable logging
@@ -38,7 +50,7 @@ namespace Argent.Api
             builder.Logging.AddConsole();
             builder.Logging.AddDebug();
 
-            // register ASP.NET built-in health checks
+            //..register ASP.NET built-in health checks
             builder.Services.AddHealthChecks();
 
             //..FluentValidation
@@ -83,7 +95,7 @@ namespace Argent.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
-                    c.SwaggerEndpoint("/swagger/v3/swagger.json", "Argent MFI API Version 3");
+                    c.SwaggerEndpoint("/swagger/v3/swagger.json", "Argent API Version 3");
                     c.RoutePrefix = "swagger"; // set c.RoutePrefix = string.Empty; for Production
                 });
             }

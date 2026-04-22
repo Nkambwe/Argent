@@ -19,13 +19,13 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
         private const int LockoutMinutes = 15;
         private const int RefreshExpiryDays = 7;
 
-        public async Task<Result<AuthResponseDto>> Handle(LoginCommand command, CancellationToken ct) {
+        public async Task<Result<AuthResponseDto>> Handle(LoginCommand command, CancellationToken token) {
             var logger = _loggerFactory.CreateLogger("access");
             logger.Channel = $"LOGIN-{command.Username}";
             logger.Log($"Login attempt from IP: {command.IpAddress ?? "unknown"}", "AUTH");
 
             //..find user
-            var user = await _uow.Access.GetUserByUsernameAsync(command.Username, ct);
+            var user = await _uow.Access.GetUserByUsernameAsync(command.Username, token);
             if (user is null) {
                 logger.Log($"Login failed — unknown username: {command.Username}", "AUTH-FAIL");
                 // Generic message prevents username enumeration
@@ -59,14 +59,14 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
                 }
 
                 _uow.Access.UpdateUser(user);
-                await _uow.CommitAsync(ct);
+                await _uow.CommitAsync(token);
 
                 return Result<AuthResponseDto>.Failure("Invalid username or password.", "INVALID_CREDENTIALS");
             }
 
             //..resolve permissions and branch access
-            var permissions = await _uow.Access.GetUserPermissionsAsync(user.Id, ct);
-            var branchAccess = (await _uow.Access.GetUserBranchAccessAsync(user.Id, ct)).ToList();
+            var permissions = await _uow.Access.GetUserPermissionsAsync(user.Id, token);
+            var branchAccess = (await _uow.Access.GetUserBranchAccessAsync(user.Id, token)).ToList();
 
             //..generate tokens
             var accessToken = _tokenService.GenerateAccessToken(user, permissions, branchAccess);
@@ -75,7 +75,7 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
             var refreshToken = new RefreshToken
             {
                 UserId = user.Id,
-                Token = rawRefresh,
+                Token = BCrypt.Net.BCrypt.HashPassword(rawRefresh),
                 ExpiresOn = DateTime.UtcNow.AddDays(RefreshExpiryDays),
                 CreatedByIp = command.IpAddress
             };
@@ -85,16 +85,12 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
             user.LockedUntil = null;
             user.LastLoginOn = DateTime.UtcNow;
 
-            await _uow.BeginTransactionAsync(ct);
-            try {
+            await _uow.ExecuteInTransactionAsync(async token => {
                 _uow.Access.UpdateUser(user);
-                await _uow.Access.AddRefreshTokenAsync(refreshToken, ct);
-                await _uow.CommitAsync(ct);
-            } catch {
-                await _uow.RollbackAsync(ct);
-                throw;
-            }
+                await _uow.Access.AddRefreshTokenAsync(refreshToken, token);
 
+                return true;
+            }, token);
             logger.Log($"Login successful: {command.Username} | HomeBranch: {user.DefaultBranchId}", "AUTH-OK");
 
             //..build accessible branches list, default branch always included

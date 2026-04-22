@@ -3,6 +3,7 @@ using Argent.Api.Infrastructure.Configuration.Providers;
 using Argent.Api.Infrastructure.Core.Common.Interfaces;
 using Argent.Api.Infrastructure.Cyphers;
 using Argent.Api.Infrastructure.Data;
+using Argent.Api.Infrastructure.Helpers;
 using Argent.Api.Infrastructure.Identity;
 using Argent.Api.Infrastructure.Logging;
 using Argent.Api.Infrastructure.Repositories;
@@ -26,6 +27,7 @@ namespace Argent.Api.Infrastructure.Extensions {
             //..get appSettings settings
             services.Configure<EnvironmentOptions>(configuration.GetSection(EnvironmentOptions.SectionName));
             services.Configure<ServiceLoggingOption>(configuration.GetSection(ServiceLoggingOption.SectionName));
+            services.Configure<JwtSettings>(configuration.GetSection(JwtOption.SectionName));
 
             //..register appSettings provider
             services.AddScoped<IEnvironmentProvider, EnvironmentProvider>();

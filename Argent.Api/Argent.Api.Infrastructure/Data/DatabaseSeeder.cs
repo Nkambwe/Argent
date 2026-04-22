@@ -25,6 +25,7 @@ namespace Argent.Api.Infrastructure.Data {
                 await SeedSystemPoliciesAsync(context, logger);
                 await SeedPermissionsAsync(context, logger);
                 await SeedRolesAsync(context, logger);
+                await SeedUsersAsync(context, logger);
                 logger.Log("Database seeding complete.", "SEED");
             } catch (Exception ex) {
                 logger.Log($"Seeding failed: {ex.Message}", "SEED-ERROR");
@@ -326,6 +327,46 @@ namespace Argent.Api.Infrastructure.Data {
 
             await context.SaveChangesAsync();
             logger.Log($"RoleGroup '{name}' seeded with {roles.Count} role(s).", "SEED");
+        }
+
+        private static async Task SeedUsersAsync(AppDataContext context, IServiceLogger logger) {
+            if (await context.Users.AnyAsync()) {
+                logger.Log("Users already seeded.", "SEED");
+                return;
+            }
+
+            var passwordHash = BCrypt.Net.BCrypt.HashPassword("Password@10");
+
+            var adminUser = new AppUser
+            {
+                Username = "admin",
+                Email = "admin@mail.com",
+                FirstName = "System",
+                MiddleName = "",
+                LastName = "Admin",
+                PhoneNumber = "256700000000",
+                PasswordHash = passwordHash,
+                DefaultBranchId = 1,
+                CreatedBy = "System",
+                CreatedOn = DateTime.UtcNow
+            };
+
+            await context.Users.AddAsync(adminUser);
+            await context.SaveChangesAsync();
+
+            logger.Log("Default admin user seeded.", "SEED");
+
+            // Assign role (assuming RoleId = 1 is SystemAdmin)
+            var userRole = new UserRole
+            {
+                UserId = adminUser.Id,
+                RoleId = 1
+            };
+
+            await context.UserRoles.AddAsync(userRole);
+            await context.SaveChangesAsync();
+
+            logger.Log("Admin role assigned to default user.", "SEED");
         }
     }
 

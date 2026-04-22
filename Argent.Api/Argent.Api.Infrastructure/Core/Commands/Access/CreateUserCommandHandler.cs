@@ -34,8 +34,8 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
                     return Result<UserDto>.NotFound($"Role {roleId} not found.");
             }
 
-            await _uow.BeginTransactionAsync(ct);
-            try {
+            var result = await _uow.ExecuteInTransactionAsync(async token => {
+                // ..create user
                 var user = new AppUser
                 {
                     Username = command.Username,
@@ -49,26 +49,26 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
                     IsActive = true
                 };
 
-                await _uow.Access.AddUserAsync(user, ct);
-                //..flush to get user.Id before assigning roles
-                await _uow.CommitAsync(ct); 
+                await _uow.Access.AddUserAsync(user, token);
+                //..first SaveChanges to get user.Id
+                await _uow.CommitAuditAsync(token); 
 
                 //..assign roles
                 foreach (var roleId in command.RoleIds)
-                    await _uow.Access.AssignRoleToUserAsync(user.Id, roleId, ct);
+                    await _uow.Access.AssignRoleToUserAsync(user.Id, roleId, token);
 
                 //..default branch access is always granted
-                await _uow.Access.AssignBranchAccessAsync(user.Id, command.DefaultBranchId, canPost: true, ct);
-
-                await _uow.CommitAsync(ct);
+                await _uow.Access.AssignBranchAccessAsync(user.Id, command.DefaultBranchId, canPost: true, token);
+                //..second SaveChanges for roles and branch access
+                await _uow.CommitAuditAsync(token); 
 
                 logger.Log($"User created: {user.Username} (Id: {user.Id})", "INFO");
 
-                // Reload roles for response
-                var roles = await _uow.Access.GetAllRolesAsync(ct);
+                //..reload roles for response
+                var roles = await _uow.Access.GetAllRolesAsync(token);
                 var assignedRoleNames = roles.Where(r => command.RoleIds.Contains(r.Id)).Select(r => r.Name);
 
-                return Result<UserDto>.Success(new UserDto
+                return new UserDto
                 {
                     Id = user.Id,
                     Username = user.Username,
@@ -78,23 +78,23 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
                     LastName = user.LastName,
                     PhoneNumber = user.PhoneNumber,
                     DefaultBranchId = user.DefaultBranchId,
-                    DefaultBranchCode = branch.BranchCode,
-                    DefaultBranchName = branch.BranchName,
+                    DefaultBranchCode = branch?.BranchCode ?? "",
+                    DefaultBranchName = branch?.BranchName ?? "",
                     IsActive = user.IsActive,
                     CreatedOn = user.CreatedOn,
                     Roles = assignedRoleNames,
                     BranchAccess = [new BranchAccessDto
                     {
-                        BranchId   = branch.Id,
-                        BranchCode = branch.BranchCode,
-                        BranchName = branch.BranchName,
+                        BranchId   = branch?.Id ?? 1,
+                        BranchCode = branch?.BranchCode ?? "",
+                        BranchName = branch?.BranchName ?? "",
                         CanPost    = true
                     }]
-                });
-            } catch {
-                await _uow.RollbackAsync(ct);
-                throw;
-            }
+                };
+            }, ct);
+
+            return Result<UserDto>.Success(result);
+
         }
     }
 }

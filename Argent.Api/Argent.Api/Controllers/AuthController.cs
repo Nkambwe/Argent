@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Argent.Api.Controllers {
+
     [ApiController]
     [Route("api/[controller]")]
     [Produces("application/json")]
@@ -73,6 +74,20 @@ namespace Argent.Api.Controllers {
                 "NOT_FOUND" => NotFound(new { result.Error }),
                 _ => BadRequest(new { result.Error })
             };
+        }
+
+        [HttpPost("logout")]
+        [Authorize]
+        public async Task<IActionResult> Logout([FromBody] RefreshTokenRequest request, CancellationToken token) {
+            var ip = Request.Headers["X-Forwarded-For"].FirstOrDefault() ?? HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userIdClaim))
+                return Unauthorized();
+
+            var userId = long.Parse(userIdClaim);
+            var result = await _mediator.Send(new LogoutCommand(request.RefreshToken, ip, userId), token);
+            return result.IsSuccess ? Ok(new { message = "Logged out successfully" }) : BadRequest(new { result.Error });
         }
 
         /// <summary>
