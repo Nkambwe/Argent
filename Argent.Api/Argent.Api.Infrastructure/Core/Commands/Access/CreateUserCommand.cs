@@ -3,6 +3,7 @@ using Argent.Api.Infrastructure.Core.Common;
 using Argent.Api.Infrastructure.Core.Common.Interfaces;
 using Argent.Api.Infrastructure.Core.Modules.Access.DataObjects;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace Argent.Api.Infrastructure.Core.Commands.Access {
 
@@ -21,4 +22,5 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
         public AuditAction AuditActionType => Domain.Enums.AuditAction.Create;
         public string? AuditEntityName => "AppUser";
     }
+
 }

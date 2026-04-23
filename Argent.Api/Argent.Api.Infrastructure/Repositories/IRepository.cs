@@ -7,6 +7,7 @@ namespace Argent.Api.Infrastructure.Repositories {
         Task<T?> GetByIdAsync(long id, CancellationToken token = default);
         Task<T?> GetFirstOrDefaultAsync(Expression<Func<T, bool>> predicate, CancellationToken token = default);
         Task<T?> GetFirstOrDefaultAsync(Expression<Func<T, bool>> predicate, CancellationToken token = default, params Expression<Func<T, object>>[] includes);
+        IQueryable<T> Query(bool asNoTracking = true);
         Task<IEnumerable<T>> GetAllAsync(CancellationToken token = default);
         Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate, CancellationToken token = default);
         Task<IEnumerable<T?>> FindAsync(Expression<Func<T, bool>> where, CancellationToken token = default, params Expression<Func<T, object>>[] includes);

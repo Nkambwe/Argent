@@ -8,8 +8,5 @@ namespace Argent.Api.Infrastructure.Core.Queries {
     /// </summary>
     /// <param name="OrganizationId">Organization ID the branch belongs to</param>
     /// <param name="BranchId">Branch ID to look for</param>
-    public record GetBranchByIdQuery(
-        long OrganizationId, 
-        long BranchId
-    ) : IRequest<Result<BranchDto>>;
+    public record GetBranchByIdQuery(long OrganizationId, long BranchId) : IRequest<Result<BranchDto>>;
 }

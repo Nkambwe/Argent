@@ -15,9 +15,12 @@ namespace Argent.Api.Infrastructure.Transactions {
         //..repositories
          IOrganizationRepository Organizations { get; }
          IAccessRepository Access { get; }
+         IRoleRepository Roles { get; }
+         IRoleGroupRepository RoleGroups { get; }
+         IRoleGroupMemberRepository RoleGroupMembers { get; }
          IAuditRepository Audits { get; }
          IConfigurationRepository Configs { get; }
-        ICustomerRepository Customers { get; }
+         ICustomerRepository Customers { get; }
 
         Task<int> CommitAsync(CancellationToken token = default);
         Task RollbackAsync(CancellationToken token = default);

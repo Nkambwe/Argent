@@ -24,8 +24,11 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
 
             // Verify home branch exists
             var branch = await _uow.Organizations.GetBranchByIdAsync(command.DefaultBranchId, ct);
-            if (branch is null)
+            if (branch is null) {
+                logger.Log($"Not Found!: Default branch not found", "INFO");
                 return Result<UserDto>.NotFound("Default branch not found.");
+            }
+                
 
             //..validate all roles exist before starting transaction
             foreach (var roleId in command.RoleIds) {

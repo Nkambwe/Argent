@@ -5,11 +5,8 @@ using MediatR;
 
 
 namespace Argent.Api.Infrastructure.Core.Commands.Access {
-    public record ChangePasswordCommand(
-        long UserId,
-        string CurrentPassword,
-        string NewPassword
-    ) : IRequest<Result>, IAuditableCommand {
+    public record ChangePasswordCommand(long UserId, string CurrentPassword, string NewPassword) 
+        : IRequest<Result>, IAuditableCommand {
             public string AuditModule => "Access";
             public string AuditAction => "ChangePassword";
             public AuditAction AuditActionType => Domain.Enums.AuditAction.Update;

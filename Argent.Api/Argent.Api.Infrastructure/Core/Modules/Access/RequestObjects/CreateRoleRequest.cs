@@ -4,4 +4,5 @@
         public string? Description { get; set; }
         public List<long> PermissionIds { get; set; } = [];
     }
+
 }

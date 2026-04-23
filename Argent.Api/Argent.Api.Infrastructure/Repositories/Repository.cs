@@ -10,13 +10,13 @@ namespace Argent.Api.Infrastructure.Repositories {
         protected readonly DbSet<T> _dbSet = context.Set<T>();
 
         public async Task<T?> GetByIdAsync(long id, CancellationToken token = default)
-            => await _dbSet.FirstOrDefaultAsync(e => e.Id == id && !e.IsDeleted, token);
+            => await _dbSet.FirstOrDefaultAsync(e => e.Id == id, token);
 
         public async Task<IEnumerable<T>> GetAllAsync(CancellationToken token = default)
-            => await _dbSet.Where(e => !e.IsDeleted).ToListAsync(token);
+            => await _dbSet.ToListAsync(token);
 
         public async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate, CancellationToken token = default)
-            => await _dbSet.Where(predicate).Where(e => !e.IsDeleted).ToListAsync(token);
+            => await _dbSet.Where(predicate).ToListAsync(token);
 
         public async Task<IEnumerable<T?>> FindAsync(Expression<Func<T, bool>> where, CancellationToken token = default, 
             params Expression<Func<T, object>>[] includes) {
@@ -29,8 +29,8 @@ namespace Argent.Api.Infrastructure.Repositories {
             return await query.Where(where).ToListAsync(token);
         }
 
-        public async Task<T?> GetFirstOrDefaultAsync(Expression<Func<T, bool>> predicate, CancellationToken token = default)
-            => await _dbSet.Where(e => !e.IsDeleted).FirstOrDefaultAsync(predicate, token);
+        public async Task<T?> GetFirstOrDefaultAsync(Expression<Func<T, bool>> predicate,CancellationToken token = default)
+            => await _dbSet.FirstOrDefaultAsync(predicate, token);
 
         public async Task<T?> GetFirstOrDefaultAsync(Expression<Func<T, bool>> predicate, CancellationToken token = default, params Expression<Func<T, object>>[] includes) {
             IQueryable<T> query = _dbSet;
@@ -42,11 +42,16 @@ namespace Argent.Api.Infrastructure.Repositories {
             return await query.FirstOrDefaultAsync(predicate, token);
         }
 
+        public IQueryable<T> Query(bool asNoTracking = true) {
+            var query = _dbSet.AsQueryable();
+            return asNoTracking? query.AsNoTracking(): query;
+        }
+
         public async Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate, CancellationToken token = default)
             => await _dbSet.Where(e => !e.IsDeleted).AnyAsync(predicate, token);
 
         public async Task<int> CountAsync(Expression<Func<T, bool>>? predicate = null, CancellationToken token = default) {
-            var query = _dbSet.Where(e => !e.IsDeleted);
+            var query = _dbSet;
             return predicate is null
                 ? await query.CountAsync(token)
                 : await query.CountAsync(predicate, token);
