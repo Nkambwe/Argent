@@ -6,7 +6,6 @@ using MediatR;
 
 
 namespace Argent.Api.Infrastructure.Core.Commands.Access {
-    // ── Set Policy Override ────────────────────────────────────────────────────
 
     public record SetPolicyOverrideCommand(long RoleGroupId,long SystemPolicyId, string OverrideValue, string? Reason) 
         : IRequest<Result<PolicyOverrideDto>>, IAuditableCommand {

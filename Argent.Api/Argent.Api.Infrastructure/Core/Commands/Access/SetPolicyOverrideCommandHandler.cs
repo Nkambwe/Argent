@@ -3,47 +3,46 @@ using Argent.Api.Infrastructure.Core.Common;
 using Argent.Api.Infrastructure.Core.Common.Interfaces;
 using Argent.Api.Infrastructure.Core.Modules.Access.DataObjects;
 using Argent.Api.Infrastructure.Data;
+using Argent.Api.Infrastructure.Transactions;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-
 
 namespace Argent.Api.Infrastructure.Core.Commands.Access {
-    public class SetPolicyOverrideCommandHandler(AppDataContext db, IUserContext userContext)
-                : IRequestHandler<SetPolicyOverrideCommand, Result<PolicyOverrideDto>> {
-        private readonly AppDataContext _db = db;
-        private readonly IUserContext _userContext = userContext;
+    public class SetPolicyOverrideCommandHandler
+    : IRequestHandler<SetPolicyOverrideCommand, Result<PolicyOverrideDto>> {
+        private readonly IUnitOfWork _uow;
+        private readonly IUserContext _userContext;
+
+        public SetPolicyOverrideCommandHandler(IUnitOfWork uow, IUserContext userContext) {
+            _uow = uow;
+            _userContext = userContext;
+        }
 
         public async Task<Result<PolicyOverrideDto>> Handle(
             SetPolicyOverrideCommand command, CancellationToken ct) {
-            var group = await _db.RoleGroups
-                .FirstOrDefaultAsync(g => g.Id == command.RoleGroupId && !g.IsDeleted, ct);
+            var group = await _uow.RoleGroups.GetByIdAsync(command.RoleGroupId, ct);
             if (group is null)
                 return Result<PolicyOverrideDto>.NotFound("Role group not found.");
 
-            var policy = await _db.SystemPolicies
-                .FirstOrDefaultAsync(p => p.Id == command.SystemPolicyId && !p.IsDeleted, ct);
+            // Load the system policy from Config repository
+            var policy = await _uow.SystemPolicies.GetByIdAsync(command.SystemPolicyId, ct);
             if (policy is null)
                 return Result<PolicyOverrideDto>.NotFound("System policy not found.");
 
             if (!policy.IsOverridable)
-                return Result<PolicyOverrideDto>.Failure(
-                    $"Policy '{policy.Name}' cannot be overridden at group level.", "POLICY_NOT_OVERRIDABLE");
+                return Result<PolicyOverrideDto>.Failure($"Policy '{policy.Name}' cannot be overridden at group level.", "POLICY_NOT_OVERRIDABLE");
 
-            // Upsert: update existing or create new override
-            var existing = await _db.RoleGroupPolicyOverrides
-                .FirstOrDefaultAsync(o =>
-                    o.RoleGroupId == command.RoleGroupId &&
-                    o.SystemPolicyId == command.SystemPolicyId, ct);
+            var existing = await _uow.RoleGroups.GetPolicyOverrideAsync(
+                command.RoleGroupId, command.SystemPolicyId, ct);
 
             if (existing is not null) {
-                // Reactivate if soft-deleted
+                // Upsert — reactivate and update if previously removed
                 existing.IsDeleted = false;
                 existing.DeletedOn = null;
                 existing.DeletedBy = null;
                 existing.OverrideValue = command.OverrideValue;
                 existing.Reason = command.Reason;
-                existing.UpdatedOn = DateTime.UtcNow;
                 existing.UpdatedBy = _userContext.Username;
+                _uow.RoleGroups.UpdatePolicyOverride(existing);
             }
             else {
                 existing = new RoleGroupPolicyOverride
@@ -54,10 +53,10 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
                     Reason = command.Reason,
                     CreatedBy = _userContext.Username
                 };
-                await _db.RoleGroupPolicyOverrides.AddAsync(existing, ct);
+                await _uow.RoleGroups.AddPolicyOverrideAsync(existing, ct);
             }
 
-            await _db.SaveChangesAsync(ct);
+            await _uow.CommitAsync(ct);
 
             return Result<PolicyOverrideDto>.Success(new PolicyOverrideDto
             {

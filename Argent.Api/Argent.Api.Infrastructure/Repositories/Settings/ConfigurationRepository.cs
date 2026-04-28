@@ -4,8 +4,8 @@ using Argent.Api.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace Argent.Api.Infrastructure.Repositories.Settings {
-    public class ConfigurationRepository(AppDataContext context) : IConfigurationRepository {
-        private readonly AppDataContext _context = context;
+    public class ConfigurationRepository(AppDataContext context) 
+        : Repository<SystemConfiguration>(context), IConfigurationRepository {
 
         public async Task<SystemConfiguration?> GetAsync(string module, string key, CancellationToken ct = default)
             => await _context.SystemConfigs
@@ -15,12 +15,6 @@ namespace Argent.Api.Infrastructure.Repositories.Settings {
             => await _context.SystemConfigs
                 .Where(c => c.Module == module && !c.IsDeleted)
                 .OrderBy(c => c.Key)
-                .ToListAsync(ct);
-
-        public async Task<IEnumerable<SystemConfiguration>> GetAllAsync(CancellationToken ct = default)
-            => await _context.SystemConfigs
-                .Where(c => !c.IsDeleted)
-                .OrderBy(c => c.Module).ThenBy(c => c.Key)
                 .ToListAsync(ct);
 
         public async Task UpsertAsync(string module, string key, string value,ConfigDataType dataType, CancellationToken ct = default) {
@@ -41,30 +35,5 @@ namespace Argent.Api.Infrastructure.Repositories.Settings {
             }
         }
 
-        public async Task<IEnumerable<SystemPolicy>> GetPoliciesAsync(string? module = null, CancellationToken ct = default) {
-            var query = _context.SystemPolicies.Where(p => !p.IsDeleted);
-            if (module is not null)
-                query = query.Where(p => p.Module == module);
-            return await query.OrderBy(p => p.Module).ThenBy(p => p.Name).ToListAsync(ct);
-        }
-
-        public async Task<string?> GetEffectivePolicyValueAsync(string policyName, long roleGroupId, CancellationToken ct = default) {
-            //..check for a role-group-level override first
-            var overrideValue = await _context.RoleGroupPolicyOverrides
-                .Where(o => o.RoleGroupId == roleGroupId
-                         && o.SystemPolicy.Name == policyName
-                         && !o.IsDeleted)
-                .Select(o => o.OverrideValue)
-                .FirstOrDefaultAsync(ct);
-
-            if (overrideValue is not null)
-                return overrideValue;
-
-            //..fall back to system policy default
-            return await _context.SystemPolicies
-                .Where(p => p.Name == policyName && !p.IsDeleted)
-                .Select(p => p.DefaultValue)
-                .FirstOrDefaultAsync(ct);
-        }
     }
 }

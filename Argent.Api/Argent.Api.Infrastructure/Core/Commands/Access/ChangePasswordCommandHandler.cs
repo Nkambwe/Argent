@@ -3,22 +3,17 @@ using Argent.Api.Infrastructure.Logging;
 using Argent.Api.Infrastructure.Transactions;
 using MediatR;
 
-
 namespace Argent.Api.Infrastructure.Core.Commands.Access {
-    public class ChangePasswordCommandHandler : IRequestHandler<ChangePasswordCommand, Result> {
-        private readonly IUnitOfWork _uow;
-        private readonly IServiceLoggerFactory _loggerFactory;
-
-        public ChangePasswordCommandHandler(IUnitOfWork uow, IServiceLoggerFactory loggerFactory) {
-            _uow = uow;
-            _loggerFactory = loggerFactory;
-        }
+    public class ChangePasswordCommandHandler(IUnitOfWork uow, IServiceLoggerFactory loggerFactory) 
+        : IRequestHandler<ChangePasswordCommand, Result> {
+        private readonly IUnitOfWork _uow = uow;
+        private readonly IServiceLoggerFactory _loggerFactory = loggerFactory;
 
         public async Task<Result> Handle(ChangePasswordCommand command, CancellationToken ct) {
             var logger = _loggerFactory.CreateLogger("access");
             logger.Channel = $"CHANGE-PASSWORD-{command.UserId}";
 
-            var user = await _uow.Access.GetByIdAsync(command.UserId, ct);
+            var user = await _uow.Users.GetByIdAsync(command.UserId, ct);
             if (user is null)
                 return Result.Failure("User not found.", "NOT_FOUND");
 
@@ -28,7 +23,7 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
             }
 
             user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(command.NewPassword, workFactor: 12);
-            _uow.Access.UpdateUser(user);
+            _uow.Users.Update(user);
             await _uow.CommitAsync(ct);
 
             logger.Log($"Password changed successfully. UserId: {command.UserId}", "INFO");

@@ -7,7 +7,8 @@ using MediatR;
 
 
 namespace Argent.Api.Infrastructure.Core.Commands.Access {
-    public class CreateUserCommandHandler(IUnitOfWork uow, IServiceLoggerFactory loggerFactory) : IRequestHandler<CreateUserCommand, Result<UserDto>> {
+    public class CreateUserCommandHandler(IUnitOfWork uow, IServiceLoggerFactory loggerFactory) 
+        : IRequestHandler<CreateUserCommand, Result<UserDto>> {
         private readonly IUnitOfWork _uow = uow;
         private readonly IServiceLoggerFactory _loggerFactory = loggerFactory;
 
@@ -16,10 +17,10 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
             logger.Channel = $"CREATE-USER-{command.Username}";
             logger.Log($"Creating user: {command.Username}", "INFO");
 
-            if (await _uow.Access.UsernameExistsAsync(command.Username, ct))
+            if (await _uow.Users.UsernameExistsAsync(command.Username, token:ct))
                 return Result<UserDto>.Failure($"Username '{command.Username}' is already taken.", "DUPLICATE_USERNAME");
 
-            if (await _uow.Access.EmailExistsAsync(command.Email, ct))
+            if (await _uow.Users.EmailExistsAsync(command.Email, token:ct))
                 return Result<UserDto>.Failure($"Email '{command.Email}' is already registered.", "DUPLICATE_EMAIL");
 
             // Verify home branch exists
@@ -32,7 +33,7 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
 
             //..validate all roles exist before starting transaction
             foreach (var roleId in command.RoleIds) {
-                var role = await _uow.Access.GetRoleByIdAsync(roleId, ct);
+                var role = await _uow.Roles.GetByIdAsync(roleId, ct);
                 if (role is null)
                     return Result<UserDto>.NotFound($"Role {roleId} not found.");
             }
@@ -52,23 +53,23 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
                     IsActive = true
                 };
 
-                await _uow.Access.AddUserAsync(user, token);
+                await _uow.Users.AddAsync(user, token);
                 //..first SaveChanges to get user.Id
                 await _uow.CommitAuditAsync(token); 
 
                 //..assign roles
                 foreach (var roleId in command.RoleIds)
-                    await _uow.Access.AssignRoleToUserAsync(user.Id, roleId, token);
+                    await _uow.Users.AssignRoleToUserAsync(user.Id, roleId, token);
 
                 //..default branch access is always granted
-                await _uow.Access.AssignBranchAccessAsync(user.Id, command.DefaultBranchId, canPost: true, token);
+                await _uow.Users.AssignBranchAccessAsync(user.Id, command.DefaultBranchId, canPost: true, token);
                 //..second SaveChanges for roles and branch access
                 await _uow.CommitAuditAsync(token); 
 
                 logger.Log($"User created: {user.Username} (Id: {user.Id})", "INFO");
 
                 //..reload roles for response
-                var roles = await _uow.Access.GetAllRolesAsync(token);
+                var roles = await _uow.Roles.GetAllAsync(token);
                 var assignedRoleNames = roles.Where(r => command.RoleIds.Contains(r.Id)).Select(r => r.Name);
 
                 return new UserDto

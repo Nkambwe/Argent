@@ -5,80 +5,52 @@ using Argent.Api.Infrastructure.Core.Modules.Access.DataObjects;
 using Argent.Api.Infrastructure.Logging;
 using Argent.Api.Infrastructure.Transactions;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Argent.Api.Infrastructure.Core.Commands.Access {
     public class AssignRolesToGroupCommandHandler(IUnitOfWork uow, IServiceLoggerFactory loggerFactory, IUserContext userContext)
-        : IRequestHandler<AssignRolesToGroupCommand, Result<RoleGroupDto>> {
+       : IRequestHandler<AssignRolesToGroupCommand, Result<RoleGroupDto>> {
         private readonly IUnitOfWork _uow = uow;
         private readonly IServiceLoggerFactory _loggerFactory = loggerFactory;
         private readonly IUserContext _userContext = userContext;
 
-        public async Task<Result<RoleGroupDto>> Handle(AssignRolesToGroupCommand command, CancellationToken token) {
+        public async Task<Result<RoleGroupDto>> Handle(AssignRolesToGroupCommand command, CancellationToken ct) {
 
             var logger = _loggerFactory.CreateLogger("access");
-            logger.Channel = $"ASSIGNE-ROLESTOGROUP";
-            logger.Log($"Assigne user roles to role group {command.RoleGroupId}", "INFO");
+            logger.Channel = "ROLE-GROUPS";
 
-            var group = await _uow.RoleGroups.Query()
-                    .Include(g => g.Members.Where(m => !m.IsDeleted))
-                    .ThenInclude(m => m.Role)
-                    .FirstOrDefaultAsync(g => g.Id == command.RoleGroupId && !g.IsDeleted, token);
-
-            if (group is null) {
-                logger.Log($"Not Found!: Role group not found", "INFO");
+            logger.Log($"Assign roles to role groups", "SECURITY-ALERT");
+            var group = await _uow.RoleGroups.GetByIdAsync(command.RoleGroupId, ct);
+            if (group is null)
                 return Result<RoleGroupDto>.NotFound("Role group not found.");
-            }
 
-            var existingRoleIds = group.Members.Select(m => m.RoleId).ToHashSet();
+            return await _uow.ExecuteInTransactionAsync(async token =>
+            {
+                foreach (var roleId in command.RoleIds) {
+                    var role = await _uow.Roles.GetByIdAsync(roleId, token) 
+                    ?? throw new KeyNotFoundException($"Role {roleId} not found.");
+                    var existing = await _uow.RoleGroups.GetMemberAsync(
+                        command.RoleGroupId, roleId, token);
 
-            foreach (var roleId in command.RoleIds) {
-                if (existingRoleIds.Contains(roleId)) continue;
-
-                var role = await _uow.Roles.GetFirstOrDefaultAsync(r => r.Id == roleId && !r.IsDeleted, token);
-                if (role is null) {
-                    logger.Log($"Not Found!: Role with ID {roleId} not found", "INFO");
-                    return Result<RoleGroupDto>.NotFound($"Role {roleId} not found.");
+                    if (existing is null) {
+                        await _uow.RoleGroups.AddMemberAsync(new RoleGroupMember
+                        {
+                            RoleGroupId = command.RoleGroupId,
+                            RoleId = roleId,
+                            CreatedBy = _userContext.Username
+                        }, token);
+                    }
+                    else if (existing.IsDeleted) {
+                        // Reactivate soft-deleted membership
+                        existing.IsDeleted = false;
+                        existing.DeletedOn = null;
+                        existing.UpdatedOn = DateTime.UtcNow;
+                        existing.UpdatedBy = _userContext.Username;
+                    }
                 }
 
-                await _uow.RoleGroupMembers.AddAsync(new RoleGroupMember {
-                    RoleGroupId = group.Id,
-                    RoleId = roleId,
-                    CreatedBy = _userContext.Username
-                }, token);
-            }
-
-            // ..second SaveChanges for group members
-            await _uow.CommitAuditAsync(token);
-
-            // Reload for fresh response
-            var updated = await _uow.RoleGroups.Query()
-                .Include(g => g.Members.Where(m => !m.IsDeleted)).ThenInclude(m => m.Role)
-                .Include(g => g.PolicyOverrides.Where(o => !o.IsDeleted)).ThenInclude(o => o.SystemPolicy)
-                .FirstAsync(g => g.Id == command.RoleGroupId, token);
-
-            return Result<RoleGroupDto>.Success(new RoleGroupDto
-            {
-                Id = updated.Id,
-                Name = updated.Name,
-                Description = updated.Description,
-                IsActive = updated.IsActive,
-                CreatedOn = updated.CreatedOn,
-                Roles = updated.Members.Select(m => new RoleGroupMemberDto
-                {
-                    RoleId = m.RoleId,
-                    RoleName = m.Role?.Name ?? string.Empty
-                }),
-                PolicyOverrides = updated.PolicyOverrides.Select(o => new PolicyOverrideDto
-                {
-                    Id = o.Id,
-                    SystemPolicyId = o.SystemPolicyId,
-                    PolicyName = o.SystemPolicy?.Name ?? string.Empty,
-                    PolicyDescription = o.SystemPolicy?.Description ?? string.Empty,
-                    OverrideValue = o.OverrideValue,
-                    Reason = o.Reason
-                })
-            });
+                var updated = await _uow.RoleGroups.GetWithDetailsAsync(command.RoleGroupId, token);
+                return Result<RoleGroupDto>.Success(RoleGroupMapper.MapToDto(updated!));
+            }, ct);
         }
     }
 

@@ -44,11 +44,15 @@ namespace Argent.Api.Infrastructure.Extensions {
 
             //..register repositories
             services.AddScoped<IOrganizationRepository, OrganizationRepository>();
-            services.AddScoped<IAccessRepository, AccessRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IPermissionRepository, PermissionRepository>();
+            services.AddScoped<ISystemPolicyRepository, SystemPolicyRepository>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<IRoleGroupRepository, RoleGroupRepository>();
+            services.AddScoped<IRoleGroupMemberRepository, RoleGroupMemberRepository>();
             services.AddScoped<IAuditRepository, AuditRepository>();
             services.AddScoped<IConfigurationRepository, ConfigurationRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
-
 
             //..identity
             services.AddHttpContextAccessor();

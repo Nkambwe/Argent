@@ -12,12 +12,14 @@ namespace Argent.Api.Infrastructure.Transactions {
     /// Add a repository property here for each repository
     /// </remarks>
     public interface IUnitOfWork : IDisposable, IAsyncDisposable {
-        //..repositories
+
          IOrganizationRepository Organizations { get; }
-         IAccessRepository Access { get; }
+         ISystemPolicyRepository SystemPolicies { get; }
+         IUserRepository Users { get; }
          IRoleRepository Roles { get; }
          IRoleGroupRepository RoleGroups { get; }
          IRoleGroupMemberRepository RoleGroupMembers { get; }
+         IPermissionRepository Permissions { get; }
          IAuditRepository Audits { get; }
          IConfigurationRepository Configs { get; }
          ICustomerRepository Customers { get; }

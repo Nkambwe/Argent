@@ -11,7 +11,7 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
         public async Task<Result<bool>> Handle(LogoutCommand request, CancellationToken token) {
             return await _uow.ExecuteInTransactionAsync(async token =>
             {
-                var tokenEntity = await _uow.Access.GetRefreshTokenAsync(request.RefreshToken, token);
+                var tokenEntity = await _uow.Users.GetRefreshTokenAsync(request.RefreshToken, token);
 
                 if (tokenEntity == null)
                     return Result<bool>.Failure("Invalid Token");
@@ -26,7 +26,7 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
                 tokenEntity.IsRevoked = true;
                 tokenEntity.UpdatedOn = DateTime.UtcNow;
 
-                _uow.Access.UpdateRefreshToken(tokenEntity);
+                _uow.Users.UpdateRefreshToken(tokenEntity);
 
                 return Result<bool>.Success(true);
             }, token);

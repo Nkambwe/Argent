@@ -25,7 +25,7 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
             logger.Log($"Login attempt from IP: {command.IpAddress ?? "unknown"}", "AUTH");
 
             //..find user
-            var user = await _uow.Access.GetUserByUsernameAsync(command.Username, token);
+            var user = await _uow.Users.GetByUsernameAsync(command.Username, token);
             if (user is null) {
                 logger.Log($"Login failed — unknown username: {command.Username}", "AUTH-FAIL");
                 // Generic message prevents username enumeration
@@ -35,16 +35,14 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
             //.. check if user is active
             if (!user.IsActive) {
                 logger.Log($"Login failed — account inactive: {command.Username}", "AUTH-FAIL");
-                return Result<AuthResponseDto>.Failure(
-                    "Account is inactive. Contact your administrator.", "ACCOUNT_INACTIVE");
+                return Result<AuthResponseDto>.Failure("Account is inactive. Contact your administrator.", "ACCOUNT_INACTIVE");
             }
 
             //..check if user is locked
             if (user.LockedUntil.HasValue && user.LockedUntil > DateTime.UtcNow) {
                 var remaining = (int)Math.Ceiling((user.LockedUntil.Value - DateTime.UtcNow).TotalMinutes);
                 logger.Log($"Login failed — account locked: {command.Username}", "AUTH-FAIL");
-                return Result<AuthResponseDto>.Failure(
-                    $"Account is locked. Try again in {remaining} minute(s).", "ACCOUNT_LOCKED");
+                return Result<AuthResponseDto>.Failure($"Account is locked. Try again in {remaining} minute(s).", "ACCOUNT_LOCKED");
             }
 
             //..verify password
@@ -53,20 +51,18 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
 
                 if (user.FailedLoginAttempts >= MaxFailedAttempts) {
                     user.LockedUntil = DateTime.UtcNow.AddMinutes(LockoutMinutes);
-                    logger.Log(
-                        $"Account locked after {MaxFailedAttempts} failed attempts: {command.Username}",
-                        "AUTH-FAIL");
+                    logger.Log($"Account locked after {MaxFailedAttempts} failed attempts: {command.Username}", "AUTH-FAIL");
                 }
 
-                _uow.Access.UpdateUser(user);
+                _uow.Users.Update(user);
                 await _uow.CommitAsync(token);
 
                 return Result<AuthResponseDto>.Failure("Invalid username or password.", "INVALID_CREDENTIALS");
             }
 
             //..resolve permissions and branch access
-            var permissions = await _uow.Access.GetUserPermissionsAsync(user.Id, token);
-            var branchAccess = (await _uow.Access.GetUserBranchAccessAsync(user.Id, token)).ToList();
+            var permissions = await _uow.Permissions.GetUserPermissionsAsync(user.Id, token);
+            var branchAccess = (await _uow.Users.GetBranchAccessAsync(user.Id, token)).ToList();
 
             //..generate tokens
             var accessToken = _tokenService.GenerateAccessToken(user, permissions, branchAccess);
@@ -86,8 +82,8 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
             user.LastLoginOn = DateTime.UtcNow;
 
             await _uow.ExecuteInTransactionAsync(async token => {
-                _uow.Access.UpdateUser(user);
-                await _uow.Access.AddRefreshTokenAsync(refreshToken, token);
+                _uow.Users.Update(user);
+                await _uow.Users.AddRefreshTokenAsync(refreshToken, token);
 
                 return true;
             }, token);
@@ -101,8 +97,7 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
                 CanPost = true
             };
 
-            var additionalBranches = branchAccess
-                .Where(ba => ba.BranchId != user.DefaultBranchId)
+            var additionalBranches = branchAccess.Where(ba => ba.BranchId != user.DefaultBranchId)
                 .Select(ba => new BranchAccessDto
                 {
                     BranchId = ba.BranchId,
@@ -121,7 +116,7 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
                 FullName = !string.IsNullOrWhiteSpace(user.MiddleName) ? $"{user.FirstName} {user.MiddleName} {user.LastName}".Trim(): $"{user.FirstName} {user.LastName}".Trim(),
                 DefaultBranchId = user.DefaultBranchId,
                 Permissions = permissions,
-                AccessibleBranches = additionalBranches.Prepend(defaultAccess).ToList()
+                AccessibleBranches = [.. additionalBranches.Prepend(defaultAccess)]
             });
         }
 

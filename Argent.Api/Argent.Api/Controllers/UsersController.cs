@@ -24,7 +24,7 @@ namespace Argent.Api.Controllers {
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<UserDto>), 200)]
         public async Task<IActionResult> GetAll(CancellationToken ct) {
-            var users = await _uow.Access.GetAllUsersAsync(ct);
+            var users = await _uow.Users.GetAllAsync(ct);
             var dtos = users.Select(u => new UserDto
             {
                 Id = u.Id,
@@ -51,12 +51,12 @@ namespace Argent.Api.Controllers {
         [ProducesResponseType(typeof(UserDto), 200)]
         [ProducesResponseType(404)]
         public async Task<IActionResult> GetById(long id, CancellationToken ct) {
-            var user = await _uow.Access.GetByIdWithAccessAsync(id, ct);
+            var user = await _uow.Users.GetByIdWithAccessAsync(id, ct);
             if (user is null)
                 return NotFound(new { Error = "User not found." });
 
-            var permissions = await _uow.Access.GetUserPermissionsAsync(id, ct);
-            var branchAccess = await _uow.Access.GetUserBranchAccessAsync(id, ct);
+            var permissions = await _uow.Permissions.GetUserPermissionsAsync(id, ct);
+            var branchAccess = await _uow.Users.GetBranchAccessAsync(id, ct);
 
             return Ok(new UserDto
             {
@@ -145,7 +145,7 @@ namespace Argent.Api.Controllers {
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         public async Task<IActionResult> GrantBranchAccess(long userId, [FromBody] GrantBranchAccessRequest request, CancellationToken token) {
-            var user = await _uow.Access.GetByIdAsync(userId, token);
+            var user = await _uow.Users.GetByIdAsync(userId, token);
             if (user is null)
                 return NotFound(new { Error = "User not found." });
 
@@ -153,7 +153,7 @@ namespace Argent.Api.Controllers {
             if (branch is null)
                 return NotFound(new { Error = "Branch not found." });
 
-            await _uow.Access.AssignBranchAccessAsync(userId, request.BranchId, request.CanPost, token);
+            await _uow.Users.AssignBranchAccessAsync(userId, request.BranchId, request.CanPost, token);
             await _uow.CommitAsync(token);
 
             return Ok(new {
@@ -171,11 +171,11 @@ namespace Argent.Api.Controllers {
         [HttpGet("/api/roles")]
         [ProducesResponseType(typeof(IEnumerable<RoleDto>), 200)]
         public async Task<IActionResult> GetRoles(CancellationToken token) {
-            var roles = await _uow.Access.GetAllRolesAsync(token);
+            var roles = await _uow.Roles.GetAllAsync(token);
             var dtos = new List<RoleDto>();
 
             foreach (var role in roles) {
-                var full = await _uow.Access.GetRoleByIdAsync(role.Id, token);
+                var full = await _uow.Roles.GetByIdAsync(role.Id, token);
                 dtos.Add(new RoleDto
                 {
                     Id = role.Id,
@@ -195,7 +195,7 @@ namespace Argent.Api.Controllers {
         [HttpGet("/api/permissions")]
         [ProducesResponseType(typeof(IEnumerable<PermissionDto>), 200)]
         public async Task<IActionResult> GetPermissions(CancellationToken ct) {
-            var permissions = await _uow.Access.GetAllPermissionsAsync(ct);
+            var permissions = await _uow.Permissions.GetAllAsync(ct);
             var dtos = permissions.Select(p => new PermissionDto
             {
                 Id = p.Id,

@@ -15,13 +15,15 @@ namespace Argent.Api.Infrastructure.Transactions {
 
         //..module repositories
         public IOrganizationRepository Organizations => new OrganizationRepository(_context);
-        public IAccessRepository Access => new AccessRepository(_context);
+        public ISystemPolicyRepository SystemPolicies => new SystemPolicyRepository(_context);
+        public IUserRepository Users => new UserRepository(_context);
         public IAuditRepository Audits => new AuditRepository(_context);
         public IConfigurationRepository Configs => new ConfigurationRepository(_context);
         public ICustomerRepository Customers => new CustomerRepository(_context);
         public IRoleRepository Roles => new RoleRepository(_context);
         public IRoleGroupRepository RoleGroups => new RoleGroupRepository(_context);
         public IRoleGroupMemberRepository RoleGroupMembers => new RoleGroupMemberRepository(_context);
+        public IPermissionRepository Permissions => new PermissionRepository(_context);
 
         public async Task BeginTransactionAsync(CancellationToken token = default)
             => _transaction = await _context.Database.BeginTransactionAsync(token);

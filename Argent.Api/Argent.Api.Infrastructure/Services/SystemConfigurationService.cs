@@ -1,10 +1,10 @@
 ﻿using Argent.Api.Domain.Enums;
-using Argent.Api.Infrastructure.Repositories.Settings;
+using Argent.Api.Infrastructure.Transactions;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Argent.Api.Infrastructure.Services {
-    public class SystemConfigurationService(IConfigurationRepository repo, IMemoryCache cache) : ISystemConfigurationService {
-        private readonly IConfigurationRepository _repo = repo;
+    public class SystemConfigurationService(IUnitOfWork uow, IMemoryCache cache) : ISystemConfigurationService {
+        private readonly IUnitOfWork _uow = uow;
         private readonly IMemoryCache _cache = cache;
         private static readonly TimeSpan CacheTtl = TimeSpan.FromMinutes(5);
 
@@ -13,7 +13,7 @@ namespace Argent.Api.Infrastructure.Services {
             if (_cache.TryGetValue(cacheKey, out string? cached))
                 return cached ?? defaultValue;
 
-            var config = await _repo.GetAsync(module, key, ct);
+            var config = await _uow.Configs.GetAsync(module, key, ct);
             var value = config?.Value ?? defaultValue;
             _cache.Set(cacheKey, value, CacheTtl);
             return value;
@@ -35,7 +35,7 @@ namespace Argent.Api.Infrastructure.Services {
         }
 
         public async Task SetAsync(string module, string key, string value, ConfigDataType dataType, CancellationToken ct = default) {
-            await _repo.UpsertAsync(module, key, value, dataType, ct);
+            await _uow.Configs.UpsertAsync(module, key, value, dataType, ct);
             InvalidateCache(module, key);
         }
 
@@ -53,7 +53,7 @@ namespace Argent.Api.Infrastructure.Services {
         public async Task<string> GetPolicyStringAsync(string policyName, long? roleGroupId = null, string defaultValue = "", CancellationToken token = default) {
             if (roleGroupId.HasValue) {
                 //..always live for group-level overrides, verrides change less frequently but must be accurate
-                var effective = await _repo.GetEffectivePolicyValueAsync(policyName, roleGroupId.Value, token);
+                var effective = await uow.SystemPolicies.GetEffectivePolicyValueAsync(policyName, roleGroupId.Value, token);
                 return effective ?? defaultValue;
             }
 
@@ -62,7 +62,7 @@ namespace Argent.Api.Infrastructure.Services {
             if (_cache.TryGetValue(cacheKey, out string? cached))
                 return cached ?? defaultValue;
 
-            var policies = await _repo.GetPoliciesAsync(token: token);
+            var policies = await _uow.SystemPolicies.GetPoliciesAsync(token: token);
             var policy = policies.FirstOrDefault(p => p.Name == policyName);
             var value = policy?.DefaultValue ?? defaultValue;
             _cache.Set(cacheKey, value, CacheTtl);
