@@ -1,7 +1,15 @@
 ﻿using Argent.Api.Domain.Common;
 using Argent.Api.Domain.Entities;
 using Argent.Api.Domain.Entities.Access;
+using Argent.Api.Domain.Entities.Accounting;
+using Argent.Api.Domain.Entities.Accounting.Cashflow;
+using Argent.Api.Domain.Entities.Accounting.Charges;
+using Argent.Api.Domain.Entities.Accounting.Currencies;
+using Argent.Api.Domain.Entities.Accounting.Documents;
+using Argent.Api.Domain.Entities.Accounting.Taxes;
 using Argent.Api.Domain.Entities.Audit;
+using Argent.Api.Domain.Entities.Banking;
+using Argent.Api.Domain.Entities.Banking.Loans;
 using Argent.Api.Domain.Entities.Banking.Savings;
 using Argent.Api.Domain.Entities.Kyc;
 using Argent.Api.Domain.Entities.Kyc.KycBusinesses;
@@ -9,8 +17,10 @@ using Argent.Api.Domain.Entities.Kyc.KycFiles;
 using Argent.Api.Domain.Entities.Kyc.KycGroups;
 using Argent.Api.Domain.Entities.Kyc.KycIndividuals;
 using Argent.Api.Domain.Entities.Settings;
+using Argent.Api.Domain.Entities.Support;
 using Argent.Api.Domain.Entities.Support.KycLookup;
 using Argent.Api.Domain.Entities.Support.KycSupport;
+using Argent.Api.Domain.Entities.Vendors;
 using Argent.Api.Infrastructure.Core.Common.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -27,6 +37,8 @@ namespace Argent.Api.Infrastructure.Data {
         public DbSet<Organization> Organizations => Set<Organization>();
         public DbSet<Branch> Branches => Set<Branch>();
         public DbSet<BranchHoliday> BranchHolidays => Set<BranchHoliday>();
+        public DbSet<BranchLedgerAccount> BranchLedgerAccounts => Set<BranchLedgerAccount>();
+        public DbSet<BranchReference> BranchReferences => Set<BranchReference>();
 
         //..system access objects
         public DbSet<AppUser> Users => Set<AppUser>();
@@ -97,6 +109,84 @@ namespace Argent.Api.Infrastructure.Data {
         public DbSet<IdentificationType> IdentificationTypes => Set<IdentificationType>();
         public DbSet<IssuerAuthority> IssuerAuthorities => Set<IssuerAuthority>();
         public DbSet<CustomerFilter> CustomerFilters => Set<CustomerFilter>();
+
+        //..accounting core
+        public DbSet<AccountsChart> AccountsCharts => Set<AccountsChart>();
+        public DbSet<LedgerAccountHeader> LedgerAccountHeaders => Set<LedgerAccountHeader>();
+        public DbSet<LedgerAccount> LedgerAccounts => Set<LedgerAccount>();
+        public DbSet<LedgerAccountTotal> LedgerAccountTotals => Set<LedgerAccountTotal>();
+        public DbSet<FolioType> FolioTypes => Set<FolioType>();
+        public DbSet<Folio> Folios => Set<Folio>();
+        public DbSet<AccountReference> AccountReferences => Set<AccountReference>();
+        public DbSet<AccountReferenceValue> AccountReferenceValues => Set<AccountReferenceValue>();
+        public DbSet<LedgerAccountReference> LedgerAccountReferences => Set<LedgerAccountReference>();
+        public DbSet<FinancialYear> FinancialYears => Set<FinancialYear>();
+        public DbSet<MonthlyClosure> MonthlyClosures => Set<MonthlyClosure>();
+        public DbSet<SeriesNumber> SeriesNumbers => Set<SeriesNumber>();
+
+        //..accounting currency
+        public DbSet<Currency> Currencies => Set<Currency>();
+        public DbSet<Denomination> Denominations => Set<Denomination>();
+        public DbSet<ExchangeRate> ExchangeRates => Set<ExchangeRate>();
+
+        //..tax 
+        public DbSet<Tax> Taxes => Set<Tax>();
+        public DbSet<TaxableItem> TaxableItems => Set<TaxableItem>();
+        public DbSet<TaxGroup> TaxGroups => Set<TaxGroup>();
+
+        //..vendors 
+        public DbSet<Vendor> Vendors => Set<Vendor>();
+        public DbSet<VendorGroup> VendorGroups => Set<VendorGroup>();
+        public DbSet<VendorBankAccount> VendorBankAccounts => Set<VendorBankAccount>();
+        public DbSet<VendorReference> VendorReferences => Set<VendorReference>(); 
+        public DbSet<VendorItemGroup> VendorItemGroups => Set<VendorItemGroup>();
+        public DbSet<DeliveryTerms> DeliveryTerms => Set<DeliveryTerms>();
+        public DbSet<DeliveryDefaults> DeliveryDefaults => Set<DeliveryDefaults>();
+        public DbSet<InvoicingDefault> InvoicingDefaults => Set<InvoicingDefault>();
+        public DbSet<DeliveryMode> DeliveryModes => Set<DeliveryMode>();
+
+        //..purchases 
+        public DbSet<DiscountGroup> DiscountGroups => Set<DiscountGroup>();
+        public DbSet<PriceGroup> PriceGroups => Set<PriceGroup>();
+        public DbSet<PurchasingDefault> PurchasingDefaults => Set<PurchasingDefault>();
+        public DbSet<PurchaseOrderDefault> PurchaseOrderDefaults => Set<PurchaseOrderDefault>();
+        public DbSet<PurchaseOrderClassification> PurchaseOrderClassifications => Set<PurchaseOrderClassification>();
+
+        //..accounting cashflow
+        public DbSet<Iban> Ibans => Set<Iban>();
+        public DbSet<Swift> Swifts => Set<Swift>();
+        public DbSet<Bank> Banks => Set<Bank>();
+        public DbSet<BankBranch> BankBranches => Set<BankBranch>();
+        public DbSet<BankAccount> BankAccounts => Set<BankAccount>();
+        public DbSet<BankAccountCurrency> BankAccountCurrencies => Set<BankAccountCurrency>();
+        public DbSet<ChequeBook> ChequeBooks => Set<ChequeBook>();
+        public DbSet<Cheque> Cheques => Set<Cheque>();
+        public DbSet<Card> Cards => Set<Card>();
+
+        //..Accounting charges
+        public DbSet<ChargeGroup> ChargeGroups => Set<ChargeGroup>();
+        public DbSet<ChargeGroupItem> ChargeGroupItems => Set<ChargeGroupItem>();
+        public DbSet<Charge> Charges => Set<Charge>();
+        public DbSet<ChargeItem> ChargeItems => Set<ChargeItem>();
+        public DbSet<ChargeItemCharge> ChargeItemCharges => Set<ChargeItemCharge>();
+        public DbSet<ChargeStage> ChargeStages => Set<ChargeStage>();
+
+        //..accounting documents
+        public DbSet<CardLedgerEntry> CardLedgerEntries => Set<CardLedgerEntry>();
+        public DbSet<RegistrationLedgerEntry> RegistrationLedgerEntries => Set<RegistrationLedgerEntry>();
+        public DbSet<ChargeLedgerEntry> ChargeLedgerEntries => Set<ChargeLedgerEntry>();
+        public DbSet<TransactionDocumentType> TransactionDocumentTypes => Set<TransactionDocumentType>();
+        public DbSet<TransactionDocument> TransactionDocuments => Set<TransactionDocument>();
+
+        //..banking
+        public DbSet<Teller> Tellers => Set<Teller>();
+        public DbSet<TellerLedgerAccount> TellerLedgerAccounts => Set<TellerLedgerAccount>();
+
+        public DbSet<LoanOfficer> LoanOfficers => Set<LoanOfficer>();
+        public DbSet<LoanOfficerLedgerAccount> LoanOfficerLedgerAccounts => Set<LoanOfficerLedgerAccount>();
+
+        public DbSet<RevenueCenter> RevenueCenters => Set<RevenueCenter>();
+        public DbSet<CostCenter> CostCenters => Set<CostCenter>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);

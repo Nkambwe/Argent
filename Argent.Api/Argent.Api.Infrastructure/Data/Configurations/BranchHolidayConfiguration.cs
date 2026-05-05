@@ -17,3 +17,5 @@ namespace Argent.Api.Infrastructure.Data.Configurations {
         }
     }
 }
+
+

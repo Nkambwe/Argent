@@ -11,5 +11,4 @@ namespace Argent.Api.Domain.Enums {
         Business = 4,
         Guarantor = 5
     }
-
 }

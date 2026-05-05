@@ -7,5 +7,4 @@ namespace Argent.Api.Domain.Enums {
         Widowed = 4,
         Separated = 5
     }
-
 }

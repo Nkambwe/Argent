@@ -1,14 +1,22 @@
 ﻿using Argent.Api.Domain.Common;
+using Argent.Api.Domain.Entities.Banking;
+using Argent.Api.Domain.Entities.Banking.Loans;
 
 namespace Argent.Api.Domain.Entities.Access {
 
     public class AppUser : BaseEntity {
+        [Encryptable("First Name")]
         public string FirstName { get; set; } = string.Empty;
+        [Encryptable("Middle Name")]
         public string? MiddleName { get; set; } = string.Empty;
+        [Encryptable("Last Name")]
         public string LastName { get; set; } = string.Empty;
         public string Username { get; set; } = string.Empty;
+        [Encryptable("Email")]
         public string Email { get; set; } = string.Empty;
+        [Encryptable("Emal")]
         public string? PhoneNumber { get; set; }
+        [Encryptable("Password")]
         public string PasswordHash { get; set; } = string.Empty;
         public bool IsActive { get; set; } = true;
         public DateTime? LastLoginOn { get; set; }
@@ -19,11 +27,11 @@ namespace Argent.Api.Domain.Entities.Access {
         /// </summary>
         public long DefaultBranchId { get; set; }
         public Branch DefaultBranch { get; set; } = null!;
+        public ICollection<LoanOfficer> LoanOfficer { get; set; } = [];
+        public ICollection<Teller> Tellers { get; set; } = [];
         public ICollection<UserRole> UserRoles { get; set; } = [];
         public ICollection<UserBranchAccess> BranchAccess { get; set; } = [];
         public ICollection<RefreshToken> RefreshTokens { get; set; } = [];
-
-        //..password history
         public ICollection<PasswordHistory> PasswordHistory { get; set; } = [];
 
     }

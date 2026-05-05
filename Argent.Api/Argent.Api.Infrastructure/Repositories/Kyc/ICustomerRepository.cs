@@ -2,6 +2,7 @@
 using Argent.Api.Domain.Entities.Kyc.KycBusinesses;
 using Argent.Api.Domain.Entities.Kyc.KycGroups;
 using Argent.Api.Domain.Entities.Kyc.KycIndividuals;
+using Argent.Api.Domain.Entities.Support;
 using Argent.Api.Domain.Entities.Support.KycLookup;
 using Argent.Api.Domain.Entities.Support.KycSupport;
 using Argent.Api.Domain.Enums;

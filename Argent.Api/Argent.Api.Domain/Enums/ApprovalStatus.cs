@@ -6,5 +6,4 @@ namespace Argent.Api.Domain.Enums {
         Rejected = 3,
         Deferred = 4
     }
-
 }

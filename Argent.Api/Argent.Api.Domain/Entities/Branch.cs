@@ -1,4 +1,5 @@
 ﻿using Argent.Api.Domain.Common;
+using Argent.Api.Domain.Entities.Accounting;
 
 namespace Argent.Api.Domain.Entities {
     /// <summary>
@@ -23,5 +24,8 @@ namespace Argent.Api.Domain.Entities {
         public bool IsActive { get; set; } = true;
         public Organization Organization { get; set; } = null!;
         public ICollection<BranchHoliday> Holidays { get; set; } = [];
+        public ICollection<RevenueCenter> RevenueCenters { get; set; } = [];
+        public ICollection<CostCenter> CostCenters { get; set; } = [];
+        public ICollection<BranchLedgerAccount> BranchLedgerAccounts { get; set; } = [];
     }
 }

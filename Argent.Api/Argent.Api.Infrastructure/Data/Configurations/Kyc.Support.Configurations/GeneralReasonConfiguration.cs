@@ -1,4 +1,4 @@
-﻿using Argent.Api.Domain.Entities.Support.KycSupport;
+﻿using Argent.Api.Domain.Entities.Support;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

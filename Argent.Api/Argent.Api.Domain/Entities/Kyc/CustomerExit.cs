@@ -1,5 +1,5 @@
 ﻿using Argent.Api.Domain.Common;
-using Argent.Api.Domain.Entities.Support.KycSupport;
+using Argent.Api.Domain.Entities.Support;
 using Argent.Api.Domain.Enums;
 
 namespace Argent.Api.Domain.Entities.Kyc {

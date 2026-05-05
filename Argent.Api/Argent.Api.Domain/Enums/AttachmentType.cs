@@ -7,5 +7,4 @@ namespace Argent.Api.Domain.Enums {
         Audio = 4,
         Other = 5
     }
-
 }
