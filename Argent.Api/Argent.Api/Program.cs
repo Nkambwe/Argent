@@ -63,8 +63,7 @@ namespace Argent.Api
             builder.Services.ConfigureServices(builder.Configuration);
 
             //..MediatR ordered pipeline behaviours
-            builder.Services.AddMediatR(cfg =>
-            {
+            builder.Services.AddMediatR(cfg => {
                 cfg.RegisterServicesFromAssembly(typeof(Infrastructure.AssemblyReference).Assembly);
                 cfg.AddOpenBehavior(typeof(SanitizationPipelineBehavior<,>));
                 cfg.AddOpenBehavior(typeof(LoggingPipelineBehavior<,>));

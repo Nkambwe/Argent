@@ -7,15 +7,15 @@ namespace Argent.Api.Infrastructure.Data.Configurations.Kyc.Configurations {
         public void Configure(EntityTypeBuilder<Guarantor> builder) {
             builder.ToTable("kyc_guarantors");
             builder.Property(g => g.Code).IsRequired().HasMaxLength(50);
-            builder.Property(g => g.FirstName).IsRequired().HasMaxLength(100);
-            builder.Property(g => g.MiddleName).HasMaxLength(100);
-            builder.Property(g => g.LastName).IsRequired().HasMaxLength(100);
+            builder.Property(g => g.FirstName).IsRequired().HasMaxLength(512);
+            builder.Property(g => g.MiddleName).HasMaxLength(512);
+            builder.Property(g => g.LastName).IsRequired().HasMaxLength(512);
             builder.Property(g => g.Photo).HasMaxLength(500);
             builder.Property(g => g.Signature).HasMaxLength(500);
             builder.Property(g => g.PermanentAddress).HasMaxLength(300);
-            builder.Property(g => g.Telephone).HasMaxLength(30);
-            builder.Property(g => g.Mobile).HasMaxLength(30);
-            builder.Property(g => g.Email).HasMaxLength(150);
+            builder.Property(g => g.Telephone).HasMaxLength(512);
+            builder.Property(g => g.Mobile).HasMaxLength(512);
+            builder.Property(g => g.Email).HasMaxLength(512);
             builder.Property(g => g.City).HasMaxLength(100);
             builder.Property(g => g.Town).HasMaxLength(100);
             builder.Property(g => g.CreatedBy).HasMaxLength(100);

@@ -24,54 +24,54 @@ namespace Argent.Api.Domain.Entities.Kyc {
         /// <summary>
         /// Optional statistical reference number.
         /// </summary>
-        public string? Statistic { get; set; }
+        public string Statistic { get; set; } = string.Empty;
 
         /// <summary>
         /// Optional client reference number (external system link).
         /// </summary>
-        public string? Reference { get; set; }
+        public string Reference { get; set; } = string.Empty;
 
         public long BranchId { get; set; }
         public Branch Branch { get; set; } = null!;
 
         [Encryptable("Permanent Address")]
-        public string? PermanentAddress { get; set; }
+        public string PermanentAddress { get; set; } = string.Empty;
 
         [Encryptable("Mail Address")]
-        public string? MailAddress { get; set; }
+        public string MailAddress { get; set; } = string.Empty;
 
         [Encryptable("Primary Phone")]
-        public string? PrimaryLine { get; set; }
+        public string PrimaryLine { get; set; } = string.Empty;
 
         [Encryptable("Secondary Phone")]
-        public string? SecondaryLine { get; set; }
+        public string SecondaryLine { get; set; } = string.Empty;
 
         [Encryptable("Mobile")]
-        public string? Mobile { get; set; }
+        public string Mobile { get; set; } = string.Empty;
 
         [Encryptable("Fax")]
-        public string? Fax { get; set; }
+        public string Fax { get; set; } = string.Empty;
 
         [Encryptable("Email")]
-        public string? Email { get; set; }
+        public string Email { get; set; } = string.Empty;
 
         [Encryptable("City")]
-        public string? City { get; set; }
+        public string City { get; set; } = string.Empty;
 
         [Encryptable("Town")]
-        public string? Town { get; set; }
+        public string Town { get; set; } = string.Empty;
 
         [Encryptable("WhatsApp")]
-        public string? WhatsApp { get; set; }
+        public string WhatsApp { get; set; } = string.Empty;
 
         [Encryptable("Facebook")]
-        public string? Facebook { get; set; }
+        public string Facebook { get; set; } = string.Empty;
 
         [Encryptable("Instagram")]
-        public string? Instagram { get; set; }
+        public string Instagram { get; set; } = string.Empty;
 
         [Encryptable("Twitter/X")]
-        public string? Twitter { get; set; }
+        public string Twitter { get; set; } = string.Empty;
 
         public ClientType ClientType { get; set; }
 
@@ -79,7 +79,7 @@ namespace Argent.Api.Domain.Entities.Kyc {
         public bool Active { get; set; } = false;        
         public bool Approved { get; set; } = false;
         public DateTime? ApprovedOn { get; set; }
-        public string? ApprovedBy { get; set; }
+        public string ApprovedBy { get; set; } = string.Empty;
         public bool Exited { get; set; } = false;
         public DateTime? ExitedOn { get; set; }
 

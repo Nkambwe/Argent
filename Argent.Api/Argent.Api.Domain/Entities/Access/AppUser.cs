@@ -14,7 +14,7 @@ namespace Argent.Api.Domain.Entities.Access {
         public string Username { get; set; } = string.Empty;
         [Encryptable("Email")]
         public string Email { get; set; } = string.Empty;
-        [Encryptable("Emal")]
+        [Encryptable("Phone Number")]
         public string? PhoneNumber { get; set; }
         public string PasswordHash { get; set; } = string.Empty;
         public bool IsActive { get; set; } = true;

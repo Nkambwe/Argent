@@ -25,16 +25,21 @@ using Argent.Api.Domain.Entities.Support.KycLookup;
 using Argent.Api.Domain.Entities.Support.KycSupport;
 using Argent.Api.Domain.Entities.Vendors;
 using Argent.Api.Infrastructure.Core.Common.Interfaces;
+using Argent.Api.Infrastructure.Data.Security;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace Argent.Api.Infrastructure.Data {
-    public class AppDataContext(DbContextOptions<AppDataContext> options, ICurrentActor? userContext = null)
+    public class AppDataContext(DbContextOptions<AppDataContext> options, 
+        ICurrentActor? userContext = null,
+        IEncryptionService? encryption = null)
         : DbContext(options) {
 
         //..add user context to handle created or updated status
         private readonly ICurrentActor? _userContext = userContext;
+        private readonly IEncryptionService? _encryption = encryption;
 
         //..organization objects
         public DbSet<Organization> Organizations => Set<Organization>();
@@ -224,13 +229,38 @@ namespace Argent.Api.Infrastructure.Data {
 
             //..all entities with soft delete are filtered automatically
             foreach (var entityType in modelBuilder.Model.GetEntityTypes()) {
-                if (typeof(BaseEntity).IsAssignableFrom(entityType.ClrType) && entityType.BaseType == null)  {
+                if (typeof(BaseEntity).IsAssignableFrom(entityType.ClrType) && entityType.BaseType == null) {
                     var parameter = Expression.Parameter(entityType.ClrType, "e");
                     var body = Expression.Equal(Expression.Property(parameter, nameof(BaseEntity.IsDeleted)), Expression.Constant(false));
                     var lambda = Expression.Lambda(body, parameter);
                     modelBuilder.Entity(entityType.ClrType).HasQueryFilter(lambda);
                 }
+
+                //..field-level encryption for [Encryptable] string properties.
+                if (_encryption is null)
+                    continue;
+
+                var converter = new EncryptedStringConverter(_encryption);
+
+                foreach (var property in entityType.GetProperties()) {
+                    if (property.ClrType != typeof(string)) continue;
+
+                    var memberInfo = property.PropertyInfo ?? (MemberInfo?)property.FieldInfo;
+                    if (memberInfo is null) continue;
+
+                    var isEncryptable = memberInfo.GetCustomAttributes(typeof(EncryptableAttribute), inherit: true).Length != 0;
+                    if (!isEncryptable)
+                        continue;
+
+                    property.SetValueConverter(converter);
+
+                    // ..override any MaxLength set in configurations to prevent truncation.
+                    // 500 accommodates AES-256 + Base64 overhead for strings up to ~350 chars.
+                    if ((property.GetMaxLength() ?? 0) < 500)
+                        property.SetMaxLength(500);
+                }
             }
+
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) {

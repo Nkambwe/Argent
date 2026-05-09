@@ -7,7 +7,7 @@ namespace Argent.Api.Infrastructure.Data.Configurations.Accounting.Configuration
         public void Configure(EntityTypeBuilder<Card> builder) {
             builder.ToTable("acc_cards");
             builder.Property(c => c.Holder).IsRequired().HasMaxLength(200);
-            builder.Property(c => c.CardNumber).IsRequired().HasMaxLength(50);
+            builder.Property(c => c.CardNumber).IsRequired().HasMaxLength(512);
             builder.Property(c => c.Limit).HasColumnType("decimal(18,2)");
             builder.Property(c => c.CreatedBy).HasMaxLength(100);
             builder.Property(c => c.UpdatedBy).HasMaxLength(100);

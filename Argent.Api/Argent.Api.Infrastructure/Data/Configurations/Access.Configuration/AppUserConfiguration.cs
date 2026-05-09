@@ -10,12 +10,12 @@ namespace Argent.Api.Infrastructure.Data.Configurations.Access.Configuration {
             builder.ToTable("users");
             builder.HasKey(u => u.Id);
             builder.Property(u => u.Username).IsRequired().HasMaxLength(100);
-            builder.Property(u => u.Email).IsRequired().HasMaxLength(150);
+            builder.Property(u => u.Email).IsRequired().HasMaxLength(512);
             builder.Property(u => u.PasswordHash).IsRequired().HasMaxLength(512);
-            builder.Property(u => u.FirstName).IsRequired().HasMaxLength(100);
-            builder.Property(u => u.MiddleName).IsRequired(false).HasMaxLength(100);
-            builder.Property(u => u.LastName).IsRequired().HasMaxLength(100);
-            builder.Property(u => u.PhoneNumber).HasMaxLength(20);
+            builder.Property(u => u.FirstName).IsRequired().HasMaxLength(512);
+            builder.Property(u => u.MiddleName).IsRequired(false).HasMaxLength(512);
+            builder.Property(u => u.LastName).IsRequired().HasMaxLength(512);
+            builder.Property(u => u.PhoneNumber).HasMaxLength(512);
             builder.Property(u => u.CreatedBy).HasMaxLength(100);
             builder.Property(u => u.UpdatedBy).HasMaxLength(100);
             builder.Property(u => u.DeletedBy).HasMaxLength(100);

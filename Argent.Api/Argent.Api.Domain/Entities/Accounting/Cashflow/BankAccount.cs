@@ -32,17 +32,13 @@ namespace Argent.Api.Domain.Entities.Accounting.Cashflow {
         public AccountHolder AccountFor { get; set; }
         public BankTransactionType AllowedOperations { get; set; }
         public bool MultiCurrency { get; set; }
-
         /// <summary>
         /// Minimum days between withdrawals
         /// </summary>
         public int WithdrawInterval { get; set; }
         public Interval WithdrawIntervalUnit { get; set; }
-
         public bool HasChequeBook { get; set; }
         public bool Active { get; set; } = true;
-
-        [EncryptableAttribute("Credit Limit")]
         public decimal CreditLimit { get; set; }
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using Argent.Api.Domain.Entities.Access;
+﻿using Argent.Api.Domain.Entities;
+using Argent.Api.Domain.Entities.Access;
 using Argent.Api.Domain.Entities.Settings;
 using Argent.Api.Domain.Enums;
 using Argent.Api.Infrastructure.Logging;
@@ -34,6 +35,8 @@ namespace Argent.Api.Infrastructure.Data {
                 await SeedRolesAsync(context, logger);
                 await SeedRoleGroupsAsync(context, logger);
                 await SeedAdminPolicyOverridesAsync(context, logger);
+                await SeedDefaultOrganizationAsync(context, logger);  
+                await SeedDefaultBranchAsync(context, logger);
                 await SeedDefaultAdminUserAsync(context, logger);
                 await AccountingSeeder.SeedAsync(context, logger);
                 logger.Log("Database seeding complete.", "SEED");
@@ -451,6 +454,73 @@ namespace Argent.Api.Infrastructure.Data {
 
         #endregion
 
+        #region Default Organization and Branch
+
+        /// <summary>
+        /// Seeds a placeholder organization that the operator updates after first login.
+        /// This exists solely to satisfy the Branch → Organization FK constraint.
+        /// It is intentionally minimal — the operator configures the real details
+        /// via the Organization setup API after logging in as admin.
+        /// </summary>
+        private static async Task SeedDefaultOrganizationAsync(AppDataContext context, IServiceLogger logger) {
+
+            if (await context.Organizations.AnyAsync()) {
+                logger.Log("Organization already exists.", "SEED");
+                return;
+            }
+
+            var org = new Organization {
+                RegisteredName = "My Organization",
+                ShortName = "ORG",
+                RegistrationNumber = "C90010000",
+                BusinessLine = "0390800800",
+                ContactEmail = "admin@mail.com",
+                IsActive = true,
+                CreatedBy = "SYSTEM"
+            };
+
+            await context.Organizations.AddAsync(org);
+            await context.SaveChangesAsync();
+            logger.Log($"Default organization seeded (Id: {org.Id}). Update via Organization API after first login.", "SEED-WARN");
+        }
+
+        /// <summary>
+        /// Seeds a placeholder head-office branch linked to the default organization.
+        /// Required before the admin user can be created.
+        /// The operator updates branch details via the Branch API after first login.
+        /// </summary>
+        private static async Task SeedDefaultBranchAsync(AppDataContext context, IServiceLogger logger) {
+
+            if (await context.Branches.AnyAsync(b => b.IsDefault)) {
+                logger.Log("Default branch already exists.", "SEED");
+                return;
+            }
+
+            var org = await context.Organizations.FirstOrDefaultAsync();
+            if (org is null) {
+                logger.Log("No organization found — skipping default branch seed.", "SEED-WARN");
+                return;
+            }
+
+            var branch = new Branch {
+                OrganizationId = org.Id,
+                BranchCode = "HQ",
+                BranchName = "Head Office",
+                Address = "Plot.000, Avelon Drive",
+                EmailAddress = "admin@mail.com",
+                PostalAddress = null,
+                IsDefault = true,
+                IsActive = true,
+                CreatedBy = "SYSTEM"
+            };
+
+            await context.Branches.AddAsync(branch);
+            await context.SaveChangesAsync();
+            logger.Log($"Default branch seeded (Id: {branch.Id}). Update via Branch API after first login.", "SEED-WARN");
+        }
+
+        #endregion
+
         #region Default Admin User
 
         /// <summary>
@@ -474,6 +544,7 @@ namespace Argent.Api.Infrastructure.Data {
 
             // Admin user requires a branch — skip if none has been created yet
             var defaultBranch = await context.Branches.FirstOrDefaultAsync(b => b.IsDefault && !b.IsDeleted);
+            Console.WriteLine($"[SEED] Default branch: {defaultBranch?.Id.ToString() ?? "NULL"}");
 
             if (defaultBranch is null) {
                 logger.Log("No default branch found, admin user will be created after first-run setup.", "SEED-WARN");

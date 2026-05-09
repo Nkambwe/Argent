@@ -7,8 +7,8 @@ namespace Argent.Api.Infrastructure.Data.Configurations.Accounting.Configuration
         public void Configure(EntityTypeBuilder<BankAccount> builder) {
             builder.ToTable("acc_bank_accounts");
             builder.Property(a => a.HolderCode).HasMaxLength(50);
-            builder.Property(a => a.AccountName).IsRequired().HasMaxLength(200);
-            builder.Property(a => a.AccountNumber).IsRequired().HasMaxLength(50);
+            builder.Property(a => a.AccountName).IsRequired().HasMaxLength(512);
+            builder.Property(a => a.AccountNumber).IsRequired().HasMaxLength(512);
             builder.Property(a => a.IbanNumber).HasMaxLength(50);
             builder.Property(a => a.SwiftNumber).HasMaxLength(20);
             builder.Property(a => a.CreditLimit).HasColumnType("decimal(18,2)");

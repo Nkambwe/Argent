@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Argent.Api.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    [Migration("20260509124717_initial_migration")]
-    partial class initial_migration
+    [Migration("20260509172436_security_scale_migration")]
+    partial class security_scale_migration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,8 +53,8 @@ namespace Argent.Api.Infrastructure.Data.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<int>("FailedLoginAttempts")
                         .ValueGeneratedOnAdd()
@@ -63,8 +63,8 @@ namespace Argent.Api.Infrastructure.Data.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<bool>("IsActive")
                         .ValueGeneratedOnAdd()
@@ -79,15 +79,15 @@ namespace Argent.Api.Infrastructure.Data.Migrations
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<DateTime?>("LockedUntil")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("MiddleName")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
@@ -95,8 +95,8 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .HasColumnType("character varying(512)");
 
                     b.Property<string>("PhoneNumber")
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<string>("UpdatedBy")
                         .HasMaxLength(100)
@@ -826,9 +826,6 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     b.Property<long>("BankAccountId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("BankAccountId1")
-                        .HasColumnType("bigint");
-
                     b.Property<int>("Clearance")
                         .HasColumnType("integer");
 
@@ -892,9 +889,6 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     b.Property<long?>("TransactionDocumentId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("TransactionDocumentId1")
-                        .HasColumnType("bigint");
-
                     b.Property<int>("TransactionType")
                         .HasColumnType("integer");
 
@@ -915,14 +909,10 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     b.HasIndex("BankAccountId")
                         .HasDatabaseName("ix_acc_bank_ledger_account");
 
-                    b.HasIndex("BankAccountId1");
-
                     b.HasIndex("TransactionCode")
                         .HasDatabaseName("ix_acc_bank_ledger_txn");
 
                     b.HasIndex("TransactionDocumentId");
-
-                    b.HasIndex("TransactionDocumentId1");
 
                     b.HasIndex("BankAccountId", "Reconciled")
                         .HasDatabaseName("ix_acc_bank_ledger_account_reconciled");
@@ -1071,9 +1061,6 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     b.Property<long>("CardId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("CardId1")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("CreatedBy")
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
@@ -1120,8 +1107,6 @@ namespace Argent.Api.Infrastructure.Data.Migrations
 
                     b.HasIndex("CardId")
                         .HasDatabaseName("ix_acc_card_ledger_card");
-
-                    b.HasIndex("CardId1");
 
                     b.HasIndex("GeneralLedgerEntryId");
 
@@ -1219,13 +1204,13 @@ namespace Argent.Api.Infrastructure.Data.Migrations
 
                     b.Property<string>("AccountName")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<string>("AccountNumber")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<bool>("Active")
                         .HasColumnType("boolean");
@@ -1451,8 +1436,8 @@ namespace Argent.Api.Infrastructure.Data.Migrations
 
                     b.Property<string>("CardNumber")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<string>("CreatedBy")
                         .HasMaxLength(100)
@@ -1536,9 +1521,6 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     b.Property<long>("LedgerAccountId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("LedgerAccountId1")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("LedgerNumber")
                         .IsRequired()
                         .HasMaxLength(30)
@@ -1561,8 +1543,6 @@ namespace Argent.Api.Infrastructure.Data.Migrations
 
                     b.HasIndex("LedgerAccountId")
                         .HasDatabaseName("ix_acc_cash_accounts_ledger");
-
-                    b.HasIndex("LedgerAccountId1");
 
                     b.ToTable("acc_cash_accounts", "mfi");
                 });
@@ -3546,9 +3526,6 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     b.Property<long?>("GeneralLedgerEntryId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("GeneralLedgerEntryId1")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("GeneralReference")
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
@@ -3647,8 +3624,6 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("GeneralLedgerEntryId");
-
-                    b.HasIndex("GeneralLedgerEntryId1");
 
                     b.HasIndex("JournalTypeId");
 
@@ -5026,7 +5001,7 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     b.ToTable("acc_cashier_voucher_types", "mfi");
                 });
 
-            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Vouchers.VoucherLine", b =>
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Vouchers.VoucherEntry", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -5098,9 +5073,6 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     b.Property<long>("TransactionDocumentId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("TransactionDocumentId1")
-                        .HasColumnType("bigint");
-
                     b.Property<long>("TransactionDocumentTypeId")
                         .HasColumnType("bigint");
 
@@ -5131,8 +5103,6 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .HasDatabaseName("ix_acc_voucher_lines_posted_on");
 
                     b.HasIndex("TransactionDocumentId");
-
-                    b.HasIndex("TransactionDocumentId1");
 
                     b.HasIndex("TransactionDocumentTypeId");
 
@@ -5420,9 +5390,6 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     b.Property<long>("AppUserId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("AppUserId1")
-                        .HasColumnType("bigint");
-
                     b.Property<decimal>("ApprovalLimit")
                         .HasColumnType("decimal(18,2)");
 
@@ -5458,8 +5425,6 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
-
-                    b.HasIndex("AppUserId1");
 
                     b.HasIndex("LoanOfficerCode")
                         .HasDatabaseName("ix_loan_officer_code");
@@ -5988,6 +5953,7 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("ApprovedBy")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
@@ -6001,8 +5967,9 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("City")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<string>("ClientCode")
                         .IsRequired()
@@ -6027,8 +5994,9 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
-                        .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<long?>("ExitId")
                         .HasColumnType("bigint");
@@ -6040,12 +6008,14 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Facebook")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<string>("Fax")
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<long?>("Filter1Id")
                         .HasColumnType("bigint");
@@ -6060,33 +6030,39 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("Instagram")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
                     b.Property<string>("MailAddress")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<string>("Mobile")
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<string>("Notes")
                         .HasMaxLength(1000)
                         .HasColumnType("character varying(1000)");
 
                     b.Property<string>("PermanentAddress")
-                        .HasMaxLength(300)
-                        .HasColumnType("character varying(300)");
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<string>("PrimaryLine")
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<string>("Reference")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
@@ -6094,20 +6070,24 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("SecondaryLine")
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<string>("Statistic")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
                     b.Property<string>("Town")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<string>("Twitter")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<string>("UpdatedBy")
                         .HasMaxLength(100)
@@ -6120,8 +6100,9 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("WhatsApp")
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.HasKey("Id");
 
@@ -7117,13 +7098,13 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
-                        .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<int>("Gender")
                         .HasColumnType("integer");
@@ -7136,16 +7117,16 @@ namespace Argent.Api.Infrastructure.Data.Migrations
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<string>("MiddleName")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<string>("Mobile")
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<long?>("NationalityId")
                         .HasColumnType("bigint");
@@ -7172,8 +7153,8 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .HasColumnType("character varying(500)");
 
                     b.Property<string>("Telephone")
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<long?>("TitleId")
                         .HasColumnType("bigint");
@@ -9050,13 +9031,13 @@ namespace Argent.Api.Infrastructure.Data.Migrations
 
                     b.Property<string>("BusinessTitle")
                         .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("character varying(250)");
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<string>("ContactPerson")
                         .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("character varying(250)");
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<string>("CreatedBy")
                         .HasMaxLength(100)
@@ -9074,16 +9055,16 @@ namespace Argent.Api.Infrastructure.Data.Migrations
 
                     b.Property<string>("EmailAddress")
                         .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("character varying(250)");
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("character varying(250)");
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<string>("UpdatedBy")
                         .HasMaxLength(100)
@@ -9852,8 +9833,8 @@ namespace Argent.Api.Infrastructure.Data.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("character varying(250)");
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<string>("CreatedBy")
                         .HasMaxLength(100)
@@ -10136,15 +10117,12 @@ namespace Argent.Api.Infrastructure.Data.Migrations
 
                     b.Property<string>("LegalName")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasMaxLength(510)
+                        .HasColumnType("character varying(510)");
 
                     b.HasIndex("BusinessFilter1Id");
 
                     b.HasIndex("BusinessFilter2Id");
-
-                    b.HasIndex("LegalName")
-                        .HasDatabaseName("ix_businesses_name");
 
                     b.ToTable("customers_businesses", "mfi");
                 });
@@ -10161,15 +10139,12 @@ namespace Argent.Api.Infrastructure.Data.Migrations
 
                     b.Property<string>("RegisteredName")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.HasIndex("GroupFilter1Id");
 
                     b.HasIndex("GroupFilter2Id");
-
-                    b.HasIndex("RegisteredName")
-                        .HasDatabaseName("ix_groups_name");
 
                     b.ToTable("customers_groups", "mfi");
                 });
@@ -10195,13 +10170,13 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("Father")
-                        .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<int>("Gender")
                         .HasColumnType("integer");
@@ -10214,8 +10189,8 @@ namespace Argent.Api.Infrastructure.Data.Migrations
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<string>("LeftThumbPrint")
                         .HasColumnType("text");
@@ -10237,12 +10212,12 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .HasColumnType("character varying(50)");
 
                     b.Property<string>("MiddleName")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<string>("Mother")
-                        .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<long?>("NationalityId")
                         .HasColumnType("bigint");
@@ -10262,8 +10237,8 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .HasColumnType("character varying(500)");
 
                     b.Property<string>("SpouseName")
-                        .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<long?>("TitleId")
                         .HasColumnType("bigint");
@@ -10310,21 +10285,21 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("Father")
-                        .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<int>("Gender")
                         .HasColumnType("integer");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<string>("LeftThumbPrint")
                         .HasMaxLength(500)
@@ -10337,12 +10312,12 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("MiddleName")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<string>("Mother")
-                        .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<long?>("NationalityId")
                         .HasColumnType("bigint");
@@ -10363,8 +10338,8 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .HasColumnType("character varying(500)");
 
                     b.Property<string>("SpouseName")
-                        .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
 
                     b.Property<long?>("TitleId")
                         .HasColumnType("bigint");
@@ -10575,24 +10550,15 @@ namespace Argent.Api.Infrastructure.Data.Migrations
             modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.BankLedgerEntry", b =>
                 {
                     b.HasOne("Argent.Api.Domain.Entities.Accounting.Cashflow.BankAccount", "BankAccount")
-                        .WithMany()
+                        .WithMany("BankTransactions")
                         .HasForeignKey("BankAccountId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Cashflow.BankAccount", null)
-                        .WithMany("Transactions")
-                        .HasForeignKey("BankAccountId1");
-
                     b.HasOne("Argent.Api.Domain.Entities.Accounting.Documents.TransactionDocument", "TransactionDocument")
-                        .WithMany()
+                        .WithMany("BankTransactions")
                         .HasForeignKey("TransactionDocumentId")
                         .OnDelete(DeleteBehavior.SetNull);
-
-                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Documents.TransactionDocument", null)
-                        .WithMany("BankLines")
-                        .HasForeignKey("TransactionDocumentId1")
-                        .HasConstraintName("FK_acc_bank_ledger_acc_transaction_documents_TransactionDocum~1");
 
                     b.Navigation("BankAccount");
 
@@ -10638,14 +10604,10 @@ namespace Argent.Api.Infrastructure.Data.Migrations
             modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.CardLedgerEntry", b =>
                 {
                     b.HasOne("Argent.Api.Domain.Entities.Accounting.Cashflow.Card", "Card")
-                        .WithMany()
+                        .WithMany("CardLedgerEntries")
                         .HasForeignKey("CardId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Cashflow.Card", null)
-                        .WithMany("CardLedgerEntries")
-                        .HasForeignKey("CardId1");
 
                     b.HasOne("Argent.Api.Domain.Entities.Accounting.GeneralLedgerEntry", "GeneralLedgerEntry")
                         .WithMany("CardEntries")
@@ -10737,14 +10699,10 @@ namespace Argent.Api.Infrastructure.Data.Migrations
             modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Cashflow.CashAccount", b =>
                 {
                     b.HasOne("Argent.Api.Domain.Entities.Accounting.LedgerAccount", "LedgerAccount")
-                        .WithMany()
+                        .WithMany("CashAccounts")
                         .HasForeignKey("LedgerAccountId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("Argent.Api.Domain.Entities.Accounting.LedgerAccount", null)
-                        .WithMany("CashAccounts")
-                        .HasForeignKey("LedgerAccountId1");
 
                     b.Navigation("LedgerAccount");
                 });
@@ -11089,13 +11047,9 @@ namespace Argent.Api.Infrastructure.Data.Migrations
             modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Journals.JournalEntry", b =>
                 {
                     b.HasOne("Argent.Api.Domain.Entities.Accounting.GeneralLedgerEntry", "GeneralLedgerEntry")
-                        .WithMany()
+                        .WithMany("JournalEntries")
                         .HasForeignKey("GeneralLedgerEntryId")
                         .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Argent.Api.Domain.Entities.Accounting.GeneralLedgerEntry", null)
-                        .WithMany("JournalEntries")
-                        .HasForeignKey("GeneralLedgerEntryId1");
 
                     b.HasOne("Argent.Api.Domain.Entities.Accounting.Journals.JournalType", "JournalType")
                         .WithMany("Journals")
@@ -11375,7 +11329,7 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     b.Navigation("VoucherType");
                 });
 
-            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Vouchers.VoucherLine", b =>
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Vouchers.VoucherEntry", b =>
                 {
                     b.HasOne("Argent.Api.Domain.Entities.Accounting.GeneralLedgerEntry", "GeneralLedgerEntry")
                         .WithMany("VoucherLines")
@@ -11383,18 +11337,13 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("Argent.Api.Domain.Entities.Accounting.Documents.TransactionDocument", "TransactionDocument")
-                        .WithMany()
+                        .WithMany("VoucherEntries")
                         .HasForeignKey("TransactionDocumentId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Documents.TransactionDocument", null)
-                        .WithMany("VoucherLines")
-                        .HasForeignKey("TransactionDocumentId1")
-                        .HasConstraintName("FK_acc_voucher_lines_acc_transaction_documents_TransactionDoc~1");
-
                     b.HasOne("Argent.Api.Domain.Entities.Accounting.Documents.TransactionDocumentType", "TransactionDocumentType")
-                        .WithMany()
+                        .WithMany("VoucherEntries")
                         .HasForeignKey("TransactionDocumentTypeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -11476,14 +11425,10 @@ namespace Argent.Api.Infrastructure.Data.Migrations
             modelBuilder.Entity("Argent.Api.Domain.Entities.Banking.Loans.LoanOfficer", b =>
                 {
                     b.HasOne("Argent.Api.Domain.Entities.Access.AppUser", "AppUser")
-                        .WithMany()
+                        .WithMany("LoanOfficers")
                         .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("Argent.Api.Domain.Entities.Access.AppUser", null)
-                        .WithMany("LoanOfficer")
-                        .HasForeignKey("AppUserId1");
 
                     b.Navigation("AppUser");
                 });
@@ -12539,7 +12484,7 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                 {
                     b.Navigation("BranchAccess");
 
-                    b.Navigation("LoanOfficer");
+                    b.Navigation("LoanOfficers");
 
                     b.Navigation("PasswordHistory");
 
@@ -12599,6 +12544,8 @@ namespace Argent.Api.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Cashflow.BankAccount", b =>
                 {
+                    b.Navigation("BankTransactions");
+
                     b.Navigation("ChequeBooks");
 
                     b.Navigation("Currencies");
@@ -12606,8 +12553,6 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     b.Navigation("PaymentDefault");
 
                     b.Navigation("PurchaseOrderDefaults");
-
-                    b.Navigation("Transactions");
 
                     b.Navigation("VendorAcounts");
                 });
@@ -12709,9 +12654,9 @@ namespace Argent.Api.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Documents.TransactionDocument", b =>
                 {
-                    b.Navigation("BankLines");
+                    b.Navigation("BankTransactions");
 
-                    b.Navigation("VoucherLines");
+                    b.Navigation("VoucherEntries");
                 });
 
             modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Documents.TransactionDocumentType", b =>
@@ -12719,6 +12664,8 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     b.Navigation("Documents");
 
                     b.Navigation("SeriesNumbers");
+
+                    b.Navigation("VoucherEntries");
                 });
 
             modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.FinancialYear", b =>

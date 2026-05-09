@@ -3217,7 +3217,6 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     MinimumPayout = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
                     MaximumPayout = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
                     AllowMultiCurrency = table.Column<bool>(type: "boolean", nullable: false),
-                    LedgerAccountId1 = table.Column<long>(type: "bigint", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
@@ -3236,12 +3235,6 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         principalTable: "acc_ledger_accounts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_acc_cash_accounts_acc_ledger_accounts_LedgerAccountId1",
-                        column: x => x.LedgerAccountId1,
-                        principalSchema: "mfi",
-                        principalTable: "acc_ledger_accounts",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -3816,7 +3809,6 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     LoanOfficerCode = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false),
                     ApprovalLimit = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
                     AppUserId = table.Column<long>(type: "bigint", nullable: false),
-                    AppUserId1 = table.Column<long>(type: "bigint", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
@@ -3835,12 +3827,6 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         principalTable: "users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_lnr_loan_officer_users_AppUserId1",
-                        column: x => x.AppUserId1,
-                        principalSchema: "mfi",
-                        principalTable: "users",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -4424,8 +4410,6 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     Reconciled = table.Column<bool>(type: "boolean", nullable: false),
                     BankAccountId = table.Column<long>(type: "bigint", nullable: false),
                     TransactionDocumentId = table.Column<long>(type: "bigint", nullable: true),
-                    BankAccountId1 = table.Column<long>(type: "bigint", nullable: true),
-                    TransactionDocumentId1 = table.Column<long>(type: "bigint", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
@@ -4445,24 +4429,12 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_acc_bank_ledger_acc_bank_accounts_BankAccountId1",
-                        column: x => x.BankAccountId1,
-                        principalSchema: "mfi",
-                        principalTable: "acc_bank_accounts",
-                        principalColumn: "Id");
-                    table.ForeignKey(
                         name: "FK_acc_bank_ledger_acc_transaction_documents_TransactionDocume~",
                         column: x => x.TransactionDocumentId,
                         principalSchema: "mfi",
                         principalTable: "acc_transaction_documents",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.SetNull);
-                    table.ForeignKey(
-                        name: "FK_acc_bank_ledger_acc_transaction_documents_TransactionDocum~1",
-                        column: x => x.TransactionDocumentId1,
-                        principalSchema: "mfi",
-                        principalTable: "acc_transaction_documents",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -5198,7 +5170,6 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     FolioCode = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
                     Amount = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
                     GeneralLedgerEntryId = table.Column<long>(type: "bigint", nullable: false),
-                    CardId1 = table.Column<long>(type: "bigint", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
@@ -5217,12 +5188,6 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         principalTable: "acc_cards",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_acc_card_ledger_acc_cards_CardId1",
-                        column: x => x.CardId1,
-                        principalSchema: "mfi",
-                        principalTable: "acc_cards",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_acc_card_ledger_acc_general_ledger_GeneralLedgerEntryId",
                         column: x => x.GeneralLedgerEntryId,
@@ -5247,7 +5212,6 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     Reversed = table.Column<bool>(type: "boolean", nullable: false),
                     TransactionId = table.Column<string>(type: "text", nullable: false),
                     GeneralLedgerEntryId = table.Column<long>(type: "bigint", nullable: true),
-                    GeneralLedgerEntryId1 = table.Column<long>(type: "bigint", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
@@ -5295,12 +5259,6 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_acc_journal_entries_acc_general_ledger_GeneralLedgerEntryId1",
-                        column: x => x.GeneralLedgerEntryId1,
-                        principalSchema: "mfi",
-                        principalTable: "acc_general_ledger",
-                        principalColumn: "Id");
-                    table.ForeignKey(
                         name: "FK_acc_journal_entries_acc_journal_types_JournalTypeId",
                         column: x => x.JournalTypeId,
                         principalSchema: "mfi",
@@ -5340,7 +5298,6 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     TransactionDocumentTypeId = table.Column<long>(type: "bigint", nullable: false),
                     TransactionDocumentId = table.Column<long>(type: "bigint", nullable: false),
                     GeneralLedgerEntryId = table.Column<long>(type: "bigint", nullable: true),
-                    TransactionDocumentId1 = table.Column<long>(type: "bigint", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
@@ -5373,12 +5330,6 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         principalTable: "acc_transaction_documents",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_acc_voucher_lines_acc_transaction_documents_TransactionDoc~1",
-                        column: x => x.TransactionDocumentId1,
-                        principalSchema: "mfi",
-                        principalTable: "acc_transaction_documents",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_acc_voucher_lines_acc_voucher_types_VoucherTypeId",
                         column: x => x.VoucherTypeId,
@@ -5915,22 +5866,10 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                 columns: new[] { "BankAccountId", "Reconciled" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_acc_bank_ledger_BankAccountId1",
-                schema: "mfi",
-                table: "acc_bank_ledger",
-                column: "BankAccountId1");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_acc_bank_ledger_TransactionDocumentId",
                 schema: "mfi",
                 table: "acc_bank_ledger",
                 column: "TransactionDocumentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_acc_bank_ledger_TransactionDocumentId1",
-                schema: "mfi",
-                table: "acc_bank_ledger",
-                column: "TransactionDocumentId1");
 
             migrationBuilder.CreateIndex(
                 name: "ix_acc_bank_ledger_txn",
@@ -5993,12 +5932,6 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                 column: "CardId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_acc_card_ledger_CardId1",
-                schema: "mfi",
-                table: "acc_card_ledger",
-                column: "CardId1");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_acc_card_ledger_GeneralLedgerEntryId",
                 schema: "mfi",
                 table: "acc_card_ledger",
@@ -6015,12 +5948,6 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                 schema: "mfi",
                 table: "acc_cash_accounts",
                 column: "LedgerAccountId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_acc_cash_accounts_LedgerAccountId1",
-                schema: "mfi",
-                table: "acc_cash_accounts",
-                column: "LedgerAccountId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_acc_cashier_accounts_CashAccountId",
@@ -6321,12 +6248,6 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                 schema: "mfi",
                 table: "acc_journal_entries",
                 column: "GeneralLedgerEntryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_acc_journal_entries_GeneralLedgerEntryId1",
-                schema: "mfi",
-                table: "acc_journal_entries",
-                column: "GeneralLedgerEntryId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_acc_journal_entries_JournalTypeId",
@@ -6643,12 +6564,6 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                 schema: "mfi",
                 table: "acc_voucher_lines",
                 column: "TransactionDocumentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_acc_voucher_lines_TransactionDocumentId1",
-                schema: "mfi",
-                table: "acc_voucher_lines",
-                column: "TransactionDocumentId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_acc_voucher_lines_TransactionDocumentTypeId",
@@ -7446,12 +7361,6 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                 schema: "mfi",
                 table: "lnr_loan_officer",
                 column: "AppUserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_lnr_loan_officer_AppUserId1",
-                schema: "mfi",
-                table: "lnr_loan_officer",
-                column: "AppUserId1");
 
             migrationBuilder.CreateIndex(
                 name: "ix_loan_officer_code",

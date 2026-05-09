@@ -7,13 +7,13 @@ namespace Argent.Api.Infrastructure.Data.Configurations.Kyc.Configurations {
         public void Configure(EntityTypeBuilder<Member> builder) {
             builder.ToTable("customers_members");
             builder.Property(m => m.MemberNumber).HasMaxLength(50);
-            builder.Property(m => m.FirstName).IsRequired().HasMaxLength(100);
-            builder.Property(m => m.MiddleName).HasMaxLength(100);
-            builder.Property(m => m.LastName).IsRequired().HasMaxLength(100);
+            builder.Property(m => m.FirstName).IsRequired().HasMaxLength(512);
+            builder.Property(m => m.MiddleName).HasMaxLength(512);
+            builder.Property(m => m.LastName).IsRequired().HasMaxLength(512);
             builder.Property(m => m.BirthPlace).HasMaxLength(150);
-            builder.Property(m => m.SpouseName).HasMaxLength(150);
-            builder.Property(m => m.Mother).HasMaxLength(150);
-            builder.Property(m => m.Father).HasMaxLength(150);
+            builder.Property(m => m.SpouseName).HasMaxLength(512);
+            builder.Property(m => m.Mother).HasMaxLength(512);
+            builder.Property(m => m.Father).HasMaxLength(512);
             builder.Property(m => m.Photo).HasMaxLength(500);
             builder.Property(m => m.Signature).HasMaxLength(500);
 

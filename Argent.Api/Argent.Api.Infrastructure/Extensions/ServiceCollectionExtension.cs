@@ -3,6 +3,7 @@ using Argent.Api.Infrastructure.Configuration.Providers;
 using Argent.Api.Infrastructure.Core.Common.Interfaces;
 using Argent.Api.Infrastructure.Cyphers;
 using Argent.Api.Infrastructure.Data;
+using Argent.Api.Infrastructure.Data.Security;
 using Argent.Api.Infrastructure.Helpers;
 using Argent.Api.Infrastructure.Identity;
 using Argent.Api.Infrastructure.Logging;
@@ -24,6 +25,9 @@ namespace Argent.Api.Infrastructure.Extensions {
 
     public static class ServiceCollectionExtension {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration) {
+            //..DB encryption service
+            services.AddSingleton<IEncryptionService, AesEncryptionService>();
+
             //..get appSettings settings
             services.Configure<EnvironmentOptions>(configuration.GetSection(EnvironmentOptions.SectionName));
             services.Configure<ServiceLoggingOption>(configuration.GetSection(ServiceLoggingOption.SectionName));
@@ -152,6 +156,14 @@ namespace Argent.Api.Infrastructure.Extensions {
                             maxRetryDelay: TimeSpan.FromSeconds(5),
                             errorCodesToAdd: null);
                     });
+                });
+
+                // Override the scoped factory to inject ICurrentActor and IEncryptionService.
+                services.AddScoped(sp => {
+                    var options = sp.GetRequiredService<DbContextOptions<AppDataContext>>();
+                    var actor = sp.GetService<ICurrentActor>();
+                    var encryption = sp.GetService<IEncryptionService>();
+                    return new AppDataContext(options, actor, encryption);
                 });
 
                 _logger.Log("Data Connection Established", "Config");

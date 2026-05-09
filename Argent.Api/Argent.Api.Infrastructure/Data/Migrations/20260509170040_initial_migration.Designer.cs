@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Argent.Api.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    [Migration("20260509135011_accounting_migration")]
-    partial class accounting_migration
+    [Migration("20260509170040_initial_migration")]
+    partial class initial_migration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

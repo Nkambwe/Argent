@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Argent.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+98c2d3de8cd37cd7347852abbdfd29e42918f1c5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d480fe7e442576cdff0dd8209781dd95a4639ba1")]
 [assembly: System.Reflection.AssemblyProductAttribute("Argent.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Argent.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
