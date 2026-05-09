@@ -8,6 +8,11 @@ namespace Argent.Api.Infrastructure.Data.Configurations.Accounting.Ledgers.Confi
             builder.ToTable("acc_business_posting_groups");
             builder.Property(g => g.Code).IsRequired().HasMaxLength(20);
             builder.Property(g => g.Description).IsRequired().HasMaxLength(200);
+
+            builder.Property(g => g.ReceivablesAccountNumber).IsRequired().HasMaxLength(10);
+            builder.Property(g => g.PayablesAccountNumber).IsRequired().HasMaxLength(10);
+            builder.Property(g => g.PrepaymentAccountNumber).IsRequired().HasMaxLength(10);
+
             builder.Property(g => g.Notes).HasMaxLength(500);
             builder.Property(g => g.CreatedBy).HasMaxLength(100);
             builder.Property(g => g.UpdatedBy).HasMaxLength(100);

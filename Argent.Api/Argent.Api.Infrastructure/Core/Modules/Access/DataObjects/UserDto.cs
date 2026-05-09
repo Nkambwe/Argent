@@ -6,7 +6,7 @@
         public string FirstName { get; set; } = string.Empty;
         public string? MiddleName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
-        public string FullName => !string.IsNullOrWhiteSpace(MiddleName)? $"{FirstName} {MiddleName} {LastName}" : $"{FirstName} {LastName}";
+        public string FullName => !string.IsNullOrWhiteSpace(MiddleName)? $"{FirstName} {MiddleName} {LastName}".Replace("  ", " ").Trim() : $"{FirstName} {LastName}".Replace("  ", " ").Trim();
         public string? PhoneNumber { get; set; }
         public long DefaultBranchId { get; set; }
         public string DefaultBranchCode { get; set; } = string.Empty;

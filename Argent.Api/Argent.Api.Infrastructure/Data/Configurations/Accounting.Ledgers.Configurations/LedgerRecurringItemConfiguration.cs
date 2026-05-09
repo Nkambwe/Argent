@@ -1,11 +1,11 @@
-﻿using Argent.Api.Domain.Entities.Accounting.Cashflow;
+﻿using Argent.Api.Domain.Entities.Accounting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Argent.Api.Infrastructure.Data.Configurations.Accounting.Ledgers.Configurations {
-    public class RecurringItemConfiguration : IEntityTypeConfiguration<RecurringItem> {
-        public void Configure(EntityTypeBuilder<RecurringItem> builder) {
-            builder.ToTable("acc_recurring_items");
+    public class LedgerRecurringItemConfiguration : IEntityTypeConfiguration<LedgerRecurringItem> {
+        public void Configure(EntityTypeBuilder<LedgerRecurringItem> builder) {
+            builder.ToTable("acc_ledger_recurring_items");
             builder.Property(r => r.Code).IsRequired().HasMaxLength(20);
             builder.Property(r => r.Name).IsRequired().HasMaxLength(150);
             builder.Property(r => r.Amount).HasColumnType("decimal(18,2)");

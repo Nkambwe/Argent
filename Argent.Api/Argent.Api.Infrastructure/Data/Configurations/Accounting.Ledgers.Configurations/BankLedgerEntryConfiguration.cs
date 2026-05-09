@@ -25,12 +25,12 @@ namespace Argent.Api.Infrastructure.Data.Configurations.Accounting.Ledgers.Confi
                 .HasDatabaseName("ix_acc_bank_ledger_account_reconciled");
 
             builder.HasOne(b => b.BankAccount)
-                .WithMany()
+                .WithMany(b => b.BankTransactions)
                 .HasForeignKey(b => b.BankAccountId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(b => b.TransactionDocument)
-                .WithMany()
+                .WithMany(b => b.BankTransactions)
                 .HasForeignKey(b => b.TransactionDocumentId)
                 .OnDelete(DeleteBehavior.SetNull);
         }

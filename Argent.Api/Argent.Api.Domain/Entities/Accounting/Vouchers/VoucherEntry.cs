@@ -20,7 +20,7 @@ namespace Argent.Api.Domain.Entities.Accounting.Vouchers {
     /// Payment: how payment was made (Cash, Cheque, Bank Transfer, Card).
     /// Authorized: name of person authorizing the payment.
     /// </summary>
-    public class VoucherLine : BaseEntity {
+    public class VoucherEntry : BaseEntity {
         public string TransactionId { get; set; } = string.Empty;
         public DateTime PostedOn { get; set; }
         public string? Particulars { get; set; }
@@ -31,11 +31,9 @@ namespace Argent.Api.Domain.Entities.Accounting.Vouchers {
         /// Customer/supplier/member code this voucher relates to.
         /// </summary>
         public string? RelatesTo { get; set; }
-
         public CashLedgerFolio Ref { get; set; }
         public PaymentMethod Payment { get; set; }
         public PaymentStatus Clearance { get; set; }
-
         public decimal Debit { get; set; }
         public decimal Credit { get; set; }
         public decimal Discount { get; set; }
@@ -54,11 +52,9 @@ namespace Argent.Api.Domain.Entities.Accounting.Vouchers {
 
         public long TransactionDocumentTypeId { get; set; }
         public TransactionDocumentType TransactionDocumentType { get; set; } = null!;
-
         public long TransactionDocumentId { get; set; }
         public TransactionDocument TransactionDocument { get; set; } = null!;
-
         public long? GeneralLedgerEntryId { get; set; }
-        public GeneralLedgerEntry? GeneralLedgerEntry { get; set; }
+        public GeneralLedgerEntry GeneralLedgerEntry { get; set; } = null!;
     }
 }

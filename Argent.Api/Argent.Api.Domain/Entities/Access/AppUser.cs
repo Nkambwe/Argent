@@ -16,7 +16,6 @@ namespace Argent.Api.Domain.Entities.Access {
         public string Email { get; set; } = string.Empty;
         [Encryptable("Emal")]
         public string? PhoneNumber { get; set; }
-        [Encryptable("Password")]
         public string PasswordHash { get; set; } = string.Empty;
         public bool IsActive { get; set; } = true;
         public DateTime? LastLoginOn { get; set; }
@@ -27,7 +26,7 @@ namespace Argent.Api.Domain.Entities.Access {
         /// </summary>
         public long DefaultBranchId { get; set; }
         public Branch DefaultBranch { get; set; } = null!;
-        public ICollection<LoanOfficer> LoanOfficer { get; set; } = [];
+        public ICollection<LoanOfficer> LoanOfficers { get; set; } = [];
         public ICollection<Teller> Tellers { get; set; } = [];
         public ICollection<UserRole> UserRoles { get; set; } = [];
         public ICollection<UserBranchAccess> BranchAccess { get; set; } = [];

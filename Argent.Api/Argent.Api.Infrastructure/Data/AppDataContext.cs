@@ -6,7 +6,10 @@ using Argent.Api.Domain.Entities.Accounting.Cashflow;
 using Argent.Api.Domain.Entities.Accounting.Charges;
 using Argent.Api.Domain.Entities.Accounting.Currencies;
 using Argent.Api.Domain.Entities.Accounting.Documents;
+using Argent.Api.Domain.Entities.Accounting.Journals;
+using Argent.Api.Domain.Entities.Accounting.Postings;
 using Argent.Api.Domain.Entities.Accounting.Taxes;
+using Argent.Api.Domain.Entities.Accounting.Vouchers;
 using Argent.Api.Domain.Entities.Audit;
 using Argent.Api.Domain.Entities.Banking;
 using Argent.Api.Domain.Entities.Banking.Loans;
@@ -121,19 +124,57 @@ namespace Argent.Api.Infrastructure.Data {
         public DbSet<AccountReferenceValue> AccountReferenceValues => Set<AccountReferenceValue>();
         public DbSet<LedgerAccountReference> LedgerAccountReferences => Set<LedgerAccountReference>();
         public DbSet<FinancialYear> FinancialYears => Set<FinancialYear>();
-        public DbSet<MonthlyClosure> MonthlyClosures => Set<MonthlyClosure>();
+        public DbSet<MonthlyClosure> MonthlyClosures => Set<MonthlyClosure>(); 
         public DbSet<SeriesNumber> SeriesNumbers => Set<SeriesNumber>();
+        public DbSet<RevenueCenter> RevenueCenters => Set<RevenueCenter>();
+        public DbSet<CostCenter> CostCenters => Set<CostCenter>();
 
-        //..accounting currency
+        //..posting groups
+        public DbSet<BranchPostingGroup> BranchPostingGroups => Set<BranchPostingGroup>();
+        public DbSet<BusinessPostingGroup> BusinessPostingGroups => Set<BusinessPostingGroup>();
+        public DbSet<GeneralPostingGroup> GeneralPostingGroups => Set<GeneralPostingGroup>();
+
+        //..cashflows
+        public DbSet<Cashier> Cashiers => Set<Cashier>();
+        public DbSet<CashierAccount> CashierAccounts => Set<CashierAccount>(); 
+        public DbSet<CashierBranchAccess> CashierBranchAccesses => Set<CashierBranchAccess>();
+        public DbSet<Iban> Ibans => Set<Iban>();
+        public DbSet<Swift> Swifts => Set<Swift>();
+        public DbSet<Bank> Banks => Set<Bank>();
+        public DbSet<BankBranch> BankBranches => Set<BankBranch>();
+        public DbSet<BankAccount> BankAccounts => Set<BankAccount>();
+        public DbSet<ChequeBook> ChequeBooks => Set<ChequeBook>();
+        public DbSet<Cheque> Cheques => Set<Cheque>();
+        public DbSet<Card> Cards => Set<Card>();
+
+        //..currencies
         public DbSet<Currency> Currencies => Set<Currency>();
         public DbSet<Denomination> Denominations => Set<Denomination>();
         public DbSet<ExchangeRate> ExchangeRates => Set<ExchangeRate>();
+        public DbSet<BankAccountCurrency> BankAccountCurrencies => Set<BankAccountCurrency>();
 
         //..tax 
         public DbSet<Tax> Taxes => Set<Tax>();
         public DbSet<TaxableItem> TaxableItems => Set<TaxableItem>();
         public DbSet<TaxGroup> TaxGroups => Set<TaxGroup>();
+        public DbSet<VendorTax> VendorTaxes => Set<VendorTax>();
+        public DbSet<JournalTypeTaxGroup> JournalTypeTaxGroups => Set<JournalTypeTaxGroup>();
 
+        //..ledgers
+        public DbSet<CardLedgerEntry> CardLedgerEntries => Set<CardLedgerEntry>(); 
+        public DbSet<RegistrationLedgerEntry> RegistrationLedgerEntries => Set<RegistrationLedgerEntry>();
+        public DbSet<ChargeLedgerEntry> ChargeLedgerEntries => Set<ChargeLedgerEntry>();
+        public DbSet<BankLedgerEntry> BankLedgerEntries => Set<BankLedgerEntry>(); 
+        public DbSet<GeneralLedgerEntry> GeneralLedgerEntries => Set<GeneralLedgerEntry>();
+        public DbSet<LedgerRecurringItem> RecurringItems => Set<LedgerRecurringItem>();
+
+        //..vouchers and Journals
+        public DbSet<VoucherType> VoucherTypes => Set<VoucherType>(); 
+        public DbSet<VoucherEntry> VoucherLines => Set<VoucherEntry>(); 
+        public DbSet<CashierVoucherType> CashierVoucherTypes => Set<CashierVoucherType>();
+        public DbSet<JournalType> JournalTypes => Set<JournalType>();
+        public DbSet<JournalEntry> JournalEntry => Set<JournalEntry>();
+        
         //..vendors 
         public DbSet<Vendor> Vendors => Set<Vendor>();
         public DbSet<VendorGroup> VendorGroups => Set<VendorGroup>();
@@ -152,29 +193,14 @@ namespace Argent.Api.Infrastructure.Data {
         public DbSet<PurchaseOrderDefault> PurchaseOrderDefaults => Set<PurchaseOrderDefault>();
         public DbSet<PurchaseOrderClassification> PurchaseOrderClassifications => Set<PurchaseOrderClassification>();
 
-        //..accounting cashflow
-        public DbSet<Iban> Ibans => Set<Iban>();
-        public DbSet<Swift> Swifts => Set<Swift>();
-        public DbSet<Bank> Banks => Set<Bank>();
-        public DbSet<BankBranch> BankBranches => Set<BankBranch>();
-        public DbSet<BankAccount> BankAccounts => Set<BankAccount>();
-        public DbSet<BankAccountCurrency> BankAccountCurrencies => Set<BankAccountCurrency>();
-        public DbSet<ChequeBook> ChequeBooks => Set<ChequeBook>();
-        public DbSet<Cheque> Cheques => Set<Cheque>();
-        public DbSet<Card> Cards => Set<Card>();
-
         //..Accounting charges
         public DbSet<ChargeGroup> ChargeGroups => Set<ChargeGroup>();
         public DbSet<ChargeGroupItem> ChargeGroupItems => Set<ChargeGroupItem>();
         public DbSet<Charge> Charges => Set<Charge>();
         public DbSet<ChargeItem> ChargeItems => Set<ChargeItem>();
         public DbSet<ChargeItemCharge> ChargeItemCharges => Set<ChargeItemCharge>();
-        public DbSet<ChargeStage> ChargeStages => Set<ChargeStage>();
-
+        
         //..accounting documents
-        public DbSet<CardLedgerEntry> CardLedgerEntries => Set<CardLedgerEntry>();
-        public DbSet<RegistrationLedgerEntry> RegistrationLedgerEntries => Set<RegistrationLedgerEntry>();
-        public DbSet<ChargeLedgerEntry> ChargeLedgerEntries => Set<ChargeLedgerEntry>();
         public DbSet<TransactionDocumentType> TransactionDocumentTypes => Set<TransactionDocumentType>();
         public DbSet<TransactionDocument> TransactionDocuments => Set<TransactionDocument>();
 
@@ -182,11 +208,10 @@ namespace Argent.Api.Infrastructure.Data {
         public DbSet<Teller> Tellers => Set<Teller>();
         public DbSet<TellerLedgerAccount> TellerLedgerAccounts => Set<TellerLedgerAccount>();
 
+        //..loans
+        public DbSet<LoanChargeStage> LoanChargeStages => Set<LoanChargeStage>();
         public DbSet<LoanOfficer> LoanOfficers => Set<LoanOfficer>();
         public DbSet<LoanOfficerLedgerAccount> LoanOfficerLedgerAccounts => Set<LoanOfficerLedgerAccount>();
-
-        public DbSet<RevenueCenter> RevenueCenters => Set<RevenueCenter>();
-        public DbSet<CostCenter> CostCenters => Set<CostCenter>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);

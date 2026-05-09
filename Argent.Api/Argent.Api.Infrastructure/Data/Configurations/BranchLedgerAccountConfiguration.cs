@@ -11,7 +11,7 @@ namespace Argent.Api.Infrastructure.Data.Configurations {
             builder.Property(c => c.CreatedBy).HasMaxLength(100);
             builder.Property(c => c.UpdatedBy).HasMaxLength(100);
             builder.Property(c => c.DeletedBy).HasMaxLength(100);
-            builder.Property(c => c.BranchId).IsRequired(false).HasMaxLength(80);
+            builder.Property(c => c.BranchId).IsRequired(true).HasMaxLength(80);
 
             builder.HasOne(c => c.Branch)
                 .WithMany(c => c.BranchLedgerAccounts)

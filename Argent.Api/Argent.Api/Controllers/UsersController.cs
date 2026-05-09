@@ -95,17 +95,7 @@ namespace Argent.Api.Controllers {
         [ProducesResponseType(400)]
         [ProducesResponseType(409)]
         public async Task<IActionResult> Create([FromBody] CreateUserRequest request, CancellationToken ct) {
-            var result = await _mediator.Send(new CreateUserCommand(
-                request.Username,
-                request.Email,
-                request.Password,
-                request.FirstName,
-                request.MiddleName,
-                request.LastName,
-                request.PhoneNumber,
-                request.DefualtBranchId,
-                request.RoleIds
-            ), ct);
+            var result = await _mediator.Send(new CreateUserCommand(request), ct);
 
             if (!result.IsSuccess) {
                 return result.ErrorCode switch
@@ -133,7 +123,7 @@ namespace Argent.Api.Controllers {
             if (request.NewPassword != request.ConfirmNewPassword)
                 return BadRequest(new { Error = "New password and confirmation do not match." });
 
-            var result = await _mediator.Send(new ChangePasswordCommand(_userContext.UserId, request.CurrentPassword,request.NewPassword), ct);
+            var result = await _mediator.Send(new ChangePasswordCommand(_userContext.UserId, request), ct);
             return result.IsSuccess ? Ok(new { Message = "Password changed successfully." }) : BadRequest(new { result.Error });
         }
 

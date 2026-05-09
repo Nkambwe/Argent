@@ -1,4 +1,5 @@
 ﻿using Argent.Api.Domain.Common;
+using Argent.Api.Domain.Entities.Accounting.Currencies;
 
 namespace Argent.Api.Domain.Entities.Accounting.Cashflow {
     /// <summary>
@@ -8,7 +9,7 @@ namespace Argent.Api.Domain.Entities.Accounting.Cashflow {
         public long BankAccountId { get; set; }
         public BankAccount BankAccount { get; set; } = null!;
         public long CurrencyId { get; set; }
-        public Currencies.Currency Currency { get; set; } = null!;
+        public Currency Currency { get; set; } = null!;
     }
 
 }

@@ -8,7 +8,7 @@ namespace Argent.Api.Domain.Entities.Accounting {
     /// </summary>
     public class AccountsChart : BaseEntity {
         public string ChartName { get; set; } = string.Empty;
-        public string? Description { get; set; }
+        public string Description { get; set; } = string.Empty;
         public ChartType ChartType { get; set; }
         public ICollection<Branch> Branches { get; set; } = [];
         public ICollection<LedgerAccount> LedgerAccounts { get; set; } = [];

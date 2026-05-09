@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace Argent.Api.Infrastructure.Data.Configurations.Accounting.Ledgers.Configurations {
     public class ChargeLedgerEntryConfiguration : IEntityTypeConfiguration<ChargeLedgerEntry> {
         public void Configure(EntityTypeBuilder<ChargeLedgerEntry> builder) {
-            builder.ToTable("acc_charge_ledger");
+            builder.ToTable("acc_charge_ledger_entry");
             builder.Property(c => c.TransactionCode).HasMaxLength(20);
             builder.Property(c => c.Series).IsRequired(false).HasMaxLength(10);
             builder.Property(c => c.Customer).IsRequired(false).HasMaxLength(10);

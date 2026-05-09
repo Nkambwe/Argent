@@ -14,13 +14,11 @@ namespace Argent.Api.Domain.Entities.Accounting {
         public string Series { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public bool Active { get; set; } = true;
-
         /// <summary>
         /// System references cannot be deleted or renamed.
         /// </summary>
         public bool IsSystem { get; set; }
-
-        public string? Notes { get; set; }
+        public string Notes { get; set; } = string.Empty;
 
         public ICollection<LedgerAccountReference> LedgerAccounts { get; set; } = [];
         public ICollection<AccountReferenceValue> ReferenceValues { get; set; } = [];

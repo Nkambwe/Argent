@@ -13,7 +13,9 @@ namespace Argent.Api.Domain.Entities.Accounting {
         public DateOnly? Start { get; set; }
         public DateOnly? End { get; set; }
 
-        /// <summary>When false, only system-generated entries can use this value.</summary>
+        /// <summary>
+        /// When false, only system-generated entries can use this value.
+        /// </summary>
         public bool AllowManualEntry { get; set; } = true;
 
         public long ReferenceId { get; set; }

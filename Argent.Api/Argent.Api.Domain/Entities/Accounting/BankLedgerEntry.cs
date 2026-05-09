@@ -17,11 +17,10 @@ namespace Argent.Api.Domain.Entities.Accounting {
     public class BankLedgerEntry : BaseEntity {
         public string TransactionCode { get; set; } = string.Empty;
         public DateTime PostedOn { get; set; }
-        public string? FolioCode { get; set; }
-        public string? Description { get; set; }
-        public string? VoucherNumber { get; set; }
-        public string? LedgerCode { get; set; }
-
+        public string FolioCode { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public string VoucherNumber { get; set; } = string.Empty;
+        public string LedgerCode { get; set; } = string.Empty;
         public decimal Debit { get; set; }
         public decimal Credit { get; set; }
         public decimal Balance { get; set; }
@@ -29,22 +28,18 @@ namespace Argent.Api.Domain.Entities.Accounting {
         /// <summary>
         /// Currency code of this bank entry (may differ from base currency).
         /// </summary>
-        public string? CurrencyCode { get; set; }
-
+        public string CurrencyCode { get; set; } = string.Empty;
         public BankTransactionType TransactionType { get; set; }
         public BankTransactionNature Nature { get; set; }
         public PaymentStatus Clearance { get; set; }
-
         /// <summary>
         /// True when this entry has been matched in bank reconciliation.
         /// </summary>
         public bool Reconciled { get; set; }
-
         public long BankAccountId { get; set; }
         public BankAccount BankAccount { get; set; } = null!;
-
         public long? TransactionDocumentId { get; set; }
-        public TransactionDocument? TransactionDocument { get; set; }
+        public TransactionDocument TransactionDocument { get; set; } = null!;
         public ICollection<ChequeLedgerEntry> ChequeEntries { get; set; } = [];
     }
 

@@ -1,5 +1,6 @@
 ﻿using Argent.Api.Domain.Entities.Accounting.Charges;
 using Argent.Api.Domain.Entities.Accounting.Taxes;
+using Argent.Api.Domain.Entities.Banking.Loans;
 using Argent.Api.Domain.Enums;
 
 namespace Argent.Api.Domain.Entities.Products {
@@ -48,9 +49,9 @@ namespace Argent.Api.Domain.Entities.Products {
         //public virtual ICollection<TimedepositAccount> TimedepositAccounts { get; set; } = [];
         //public virtual ICollection<TimedepositRate> InterestRates { get; set; } = [];
         //public virtual ICollection<InterestTier> InterestTiers { get; set; } = [];
-        public virtual ICollection<ChargeStage> ChargeStages { get; set; } = [];
+        public virtual ICollection<LoanChargeStage> ChargeStages { get; set; } = [];
         public virtual ICollection<TaxableItem> TaxableItems { get; set; } = [];
-        public virtual ICollection<ChargeItem> ChargedItems { get; set; } = [];
+        public virtual ICollection<TimedepositProductChargeItem> TimedepositProductChargeItems { get; set; } = [];
         //public virtual ICollection<TimedepositProductParam> ProductParams { get; set; } = [];
         //public virtual ICollection<TimedepositProductTaxGroup> TaxGroups { get; set; }
     }

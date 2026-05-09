@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace Argent.Api.Infrastructure.Data.Configurations.Vendors.Configurations {
     public class VendorConfiguration : IEntityTypeConfiguration<Vendor> {
         public void Configure(EntityTypeBuilder<Vendor> builder) {
-            builder.ToTable("vendor_addresses");
+            builder.ToTable("vendor");
             builder.Property(r => r.Series).IsRequired().HasMaxLength(10);
             builder.Property(r => r.Name).IsRequired().HasMaxLength(250);
             builder.Property(r => r.Alias).IsRequired().HasMaxLength(250);

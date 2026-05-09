@@ -12,15 +12,15 @@ namespace Argent.Api.Domain.Entities.Products {
         public long? SectorId { get; set; }
         //public virtual BusinessSector Sector { get; set; }
         public long? FundId { get; set; }
-        public virtual RevolvingFund? Fund { get; set; }
+        public virtual RevolvingFund Fund { get; set; } = null!;
         public long ProductTypeId { get; set; }
-        public virtual ProductType? ProductType { get; set; }
+        public virtual ProductType ProductType { get; set; } = null!;
         public long? ChargeGroupId { get; set; }
-        public virtual ChargeGroup? ChargeGroup { get; set; }
-        public virtual ICollection<ChargeStage> ChargeStages { get; set; } = [];
-        public virtual ICollection<LoanProductTaxGroup> TaxGroups { get; set; }
+        public virtual ChargeGroup ChargeGroup { get; set; } = null!;
+        public virtual ICollection<LoanChargeStage> ChargeStages { get; set; } = [];
+        public virtual ICollection<LoanProductTaxGroup> TaxGroups { get; set; } = [];
         public virtual ICollection<TaxableItem> TaxableItems { get; set; } = [];
-        public virtual ICollection<ChargeItem> ChargedItems { get; set; } = [];
+        public virtual ICollection<LoanProductChargeItem> LoanProductChargeItems { get; set; } = [];
         //public virtual ICollection<LoanProductParam> ProductParams { get; set; } = [];
         //public virtual ICollection<LoanProductApprovalStage> ApprovalStages { get; set; } = [];
         //public virtual ICollection<VariableRate> AdjustedRates { get; set; } = [];

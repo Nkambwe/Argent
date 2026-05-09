@@ -15,8 +15,10 @@ namespace Argent.Api.Domain.Entities.Accounting.Cashflow {
     /// ExcludeBranches: when true, this account is not visible/accessible to branch-level users.
     /// </summary>
     public class BankAccount : BaseEntity {
-        /// <summary>Reference to the customer/vendor/organization holder — not a FK, a code lookup.</summary>
-        public string? HolderCode { get; set; }
+        /// <summary>
+        /// Reference to the customer/vendor/organization holder — not a FK, a code lookup.
+        /// </summary>
+        public string HolderCode { get; set; } = string.Empty;
 
         [EncryptableAttribute("Account Name")]
         public string AccountName { get; set; } = string.Empty;
@@ -24,11 +26,11 @@ namespace Argent.Api.Domain.Entities.Accounting.Cashflow {
         [EncryptableAttribute("Account Number")]
         public string AccountNumber { get; set; } = string.Empty;
 
-        public string? IbanNumber { get; set; }
-        public string? SwiftNumber { get; set; }
+        public string IbanNumber { get; set; } = string.Empty;
+        public string SwiftNumber { get; set; } = string.Empty;
 
         public AccountHolder AccountFor { get; set; }
-        public Operation AllowedOperations { get; set; }
+        public BankTransactionType AllowedOperations { get; set; }
         public bool MultiCurrency { get; set; }
 
         /// <summary>
@@ -48,12 +50,12 @@ namespace Argent.Api.Domain.Entities.Accounting.Cashflow {
         /// </summary>
         public bool ExcludeBranches { get; set; }
         public long? LedgerAccountId { get; set; }
-        public LedgerAccount? LedgerAccount { get; set; }
+        public LedgerAccount LedgerAccount { get; set; } = null!;
         public long BankBranchId { get; set; }
         public BankBranch BankBranch { get; set; } = null!;
         public ICollection<BankAccountCurrency> Currencies { get; set; } = [];
         public ICollection<ChequeBook> ChequeBooks { get; set; } = [];
-        public ICollection<BankLedgerEntry> Transactions { get; set; } = [];
+        public ICollection<BankLedgerEntry> BankTransactions { get; set; } = [];
         public ICollection<VendorBankAccount> VendorAcounts { get; set; } = [];
         public ICollection<PaymentDefault> PaymentDefault { get; set; } = [];
         public ICollection<PurchaseOrderDefault> PurchaseOrderDefaults { get; set; } = [];

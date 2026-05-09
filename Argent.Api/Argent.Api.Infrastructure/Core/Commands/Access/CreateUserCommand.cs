@@ -2,20 +2,13 @@
 using Argent.Api.Infrastructure.Core.Common;
 using Argent.Api.Infrastructure.Core.Common.Interfaces;
 using Argent.Api.Infrastructure.Core.Modules.Access.DataObjects;
+using Argent.Api.Infrastructure.Core.Modules.Access.RequestObjects;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
 namespace Argent.Api.Infrastructure.Core.Commands.Access {
 
-    public record CreateUserCommand(
-        string Username,
-        string Email,
-        string Password,
-        string FirstName,
-        string? MiddleName,
-        string LastName,
-        string? PhoneNumber,
-        long DefaultBranchId, List<long> RoleIds) 
+    public record CreateUserCommand(CreateUserRequest Request) 
     : IRequest<Result<UserDto>>, IAuditableCommand {
         public string AuditModule => "Access";
         public string AuditAction => "CreateUser";

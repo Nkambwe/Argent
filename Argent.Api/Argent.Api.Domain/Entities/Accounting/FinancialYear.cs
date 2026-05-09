@@ -2,6 +2,7 @@
 using Argent.Api.Domain.Enums;
 
 namespace Argent.Api.Domain.Entities.Accounting {
+    
     /// <summary>
     /// Defines the organization's financial year and its open/closed state.
     /// Each branch can have its own financial year to support staggered closures.
@@ -19,7 +20,9 @@ namespace Argent.Api.Domain.Entities.Accounting {
         public DateOnly StartDate { get; set; }
         public DateOnly EndDate { get; set; }
 
-        /// <summary>When true, no new postings are allowed in this year.</summary>
+        /// <summary>
+        /// When true, no new postings are allowed in this year.
+        /// </summary>
         public bool Closed { get; set; }
 
         /// <summary>
@@ -27,7 +30,7 @@ namespace Argent.Api.Domain.Entities.Accounting {
         /// Set = applies only to this branch (for staggered year-end).
         /// </summary>
         public long? BranchId { get; set; }
-        public Branch? Branch { get; set; }
+        public Branch Branch { get; set; } = null!;
 
         public ICollection<MonthlyClosure> MonthlyClosures { get; set; } = [];
     }

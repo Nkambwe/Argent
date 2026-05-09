@@ -16,7 +16,7 @@ namespace Argent.Api.Infrastructure.Data.Configurations.Accounting.Ledgers.Confi
             builder.HasIndex(c => c.LedgerAccountId).HasDatabaseName("ix_acc_cash_accounts_ledger");
 
             builder.HasOne(c => c.LedgerAccount)
-                .WithMany()
+                .WithMany(c => c.CashAccounts)
                 .HasForeignKey(c => c.LedgerAccountId)
                 .OnDelete(DeleteBehavior.Restrict);
         }

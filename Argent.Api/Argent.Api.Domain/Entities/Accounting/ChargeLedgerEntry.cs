@@ -12,7 +12,7 @@ namespace Argent.Api.Domain.Entities.Accounting {
         public decimal Amount { get; set; }
         public DateTime PostedOn { get; set; }
         public long ChargeItemId { get; set; }
-        public virtual ChargeItem? ChargeItem { get; set; }
+        public virtual ChargeItem ChargeItem { get; set; } = null!;
     }
 
 }

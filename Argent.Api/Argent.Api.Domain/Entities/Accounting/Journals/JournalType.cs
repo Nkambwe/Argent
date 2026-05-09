@@ -21,7 +21,7 @@ namespace Argent.Api.Domain.Entities.Accounting.Journals {
         /// <summary>
         /// Default GL ledger number for this journal type.
         /// </summary>
-        public string? DefaultLedgerNumber { get; set; }
+        public string DefaultLedgerNumber { get; set; } = string.Empty;
         public AccountClassification AccountClassification { get; set; }
         public bool AllowTaxDifference { get; set; }
         public bool RequireVoucher { get; set; }
@@ -29,11 +29,11 @@ namespace Argent.Api.Domain.Entities.Accounting.Journals {
         public bool IsSystem { get; set; }
         public bool IsActive { get; set; } = true;
         public long? GeneralPostingGroupId { get; set; }
-        public GeneralPostingGroup? GeneralPostingGroup { get; set; }
+        public GeneralPostingGroup GeneralPostingGroup { get; set; } = null!;
         public long? BranchPostingGroupId { get; set; }
-        public BranchPostingGroup? BranchPostingGroup { get; set; }
+        public BranchPostingGroup BranchPostingGroup { get; set; } = null!;
         public long? BusinessPostingGroupId { get; set; }
-        public BusinessPostingGroup? BusinessPostingGroup { get; set; }
+        public BusinessPostingGroup BusinessPostingGroup { get; set; } = null!;
         public string? ReferenceValue1 { get; set; }
         public string? ReferenceValue2 { get; set; }
         public string? ReferenceValue3 { get; set; }

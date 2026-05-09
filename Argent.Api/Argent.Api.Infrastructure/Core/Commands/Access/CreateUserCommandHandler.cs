@@ -14,25 +14,28 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
 
         public async Task<Result<UserDto>> Handle(CreateUserCommand command, CancellationToken ct) {
             var logger = _loggerFactory.CreateLogger("access");
-            logger.Channel = $"CREATE-USER-{command.Username}";
-            logger.Log($"Creating user: {command.Username}", "INFO");
 
-            if (await _uow.Users.UsernameExistsAsync(command.Username, token:ct))
-                return Result<UserDto>.Failure($"Username '{command.Username}' is already taken.", "DUPLICATE_USERNAME");
+            var req = command.Request;
 
-            if (await _uow.Users.EmailExistsAsync(command.Email, token:ct))
-                return Result<UserDto>.Failure($"Email '{command.Email}' is already registered.", "DUPLICATE_EMAIL");
+            logger.Channel = $"CREATE-USER-{req.Username.ToUpper()}";
+            logger.Log($"Creating user: {req.Username}", "INFO");
+
+            //..validate uniqueness
+            if (await _uow.Users.UsernameExistsAsync(req.Username, token:ct))
+                return Result<UserDto>.Failure($"Username '{req.Username}' is already taken.", "DUPLICATE_USERNAME");
+
+            if (await _uow.Users.EmailExistsAsync(req.Email, token:ct))
+                return Result<UserDto>.Failure($"Email '{req.Email}' is already registered.", "DUPLICATE_EMAIL");
 
             // Verify home branch exists
-            var branch = await _uow.Organizations.GetBranchByIdAsync(command.DefaultBranchId, ct);
+            var branch = await _uow.Organizations.GetBranchByIdAsync(req.DefualtBranchId, ct);
             if (branch is null) {
                 logger.Log($"Not Found!: Default branch not found", "INFO");
                 return Result<UserDto>.NotFound("Default branch not found.");
             }
-                
-
+            
             //..validate all roles exist before starting transaction
-            foreach (var roleId in command.RoleIds) {
+            foreach (var roleId in req.RoleIds) {
                 var role = await _uow.Roles.GetByIdAsync(roleId, ct);
                 if (role is null)
                     return Result<UserDto>.NotFound($"Role {roleId} not found.");
@@ -42,14 +45,14 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
                 // ..create user
                 var user = new AppUser
                 {
-                    Username = command.Username,
-                    Email = command.Email,
-                    PasswordHash = BCrypt.Net.BCrypt.HashPassword(command.Password, workFactor: 12),
-                    FirstName = command.FirstName,
-                    MiddleName = command.MiddleName,
-                    LastName = command.LastName,
-                    PhoneNumber = command.PhoneNumber,
-                    DefaultBranchId = command.DefaultBranchId,
+                    Username = req.Username,
+                    Email = req.Email,
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword(req.Password, workFactor: 12),
+                    FirstName = req.FirstName,
+                    MiddleName = req.MiddleName,
+                    LastName = req.LastName,
+                    PhoneNumber = req.PhoneNumber,
+                    DefaultBranchId = req.DefualtBranchId,
                     IsActive = true
                 };
 
@@ -58,11 +61,22 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
                 await _uow.CommitAuditAsync(token); 
 
                 //..assign roles
-                foreach (var roleId in command.RoleIds)
+                foreach (var roleId in req.RoleIds)
                     await _uow.Users.AssignRoleToUserAsync(user.Id, roleId, token);
 
                 //..default branch access is always granted
-                await _uow.Users.AssignBranchAccessAsync(user.Id, command.DefaultBranchId, canPost: true, token);
+                await _uow.Users.AssignBranchAccessAsync(user.Id, req.DefualtBranchId, canPost: true, token);
+
+                //..grant additional branch access
+                foreach (var ba in req.AdditionalBranchAccess
+                    .Where(ba => ba.BranchId != req.DefualtBranchId)) {
+                    await _uow.Users.AddBranchAccessAsync(new UserBranchAccess {
+                        UserId = user.Id,
+                        BranchId = ba.BranchId,
+                        CanPost = ba.CanPost
+                    }, token);
+                }
+
                 //..second SaveChanges for roles and branch access
                 await _uow.CommitAuditAsync(token); 
 
@@ -70,7 +84,18 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
 
                 //..reload roles for response
                 var roles = await _uow.Roles.GetAllAsync(token);
-                var assignedRoleNames = roles.Where(r => command.RoleIds.Contains(r.Id)).Select(r => r.Name);
+                var assignedRoleNames = roles.Where(r => req.RoleIds.Contains(r.Id)).Select(r => r.Name);
+
+                //..record password history
+                await _uow.Users.AddPasswordHistoryAsync(new PasswordHistory
+                {
+                    UserId = user.Id,
+                    PasswordHash = user.PasswordHash,
+                    ChangedOn = DateTime.UtcNow,
+                    CreatedBy = "system"
+                }, token);
+
+                logger.Log($"User created: {user.Username} ({user.FirstName} {user.LastName})", "ACCESS-OK");
 
                 return new UserDto
                 {

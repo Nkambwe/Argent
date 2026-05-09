@@ -13,10 +13,10 @@ namespace Argent.Api.Domain.Entities.Accounting.Cashflow {
         public string? Email { get; set; }
         public string? Fax { get; set; }
 
-        public Guid? IbanId { get; set; }
+        public long? IbanId { get; set; }
         public Iban? Iban { get; set; }
 
-        public Guid? SwiftId { get; set; }
+        public long? SwiftId { get; set; }
         public Swift? Swift { get; set; }
 
         public ICollection<BankBranch> Branches { get; set; } = [];

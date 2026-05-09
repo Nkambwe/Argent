@@ -8,7 +8,7 @@ namespace Argent.Api.Domain.Entities.Banking {
         public decimal MaximumLimit { get; set; }
         public decimal MinimumLimit { get; set; }
         public long AppUserId { get; set; }
-        public virtual AppUser? AppUser { get; set; }
+        public virtual AppUser AppUser { get; set; } = null!;
         public virtual ICollection<TellerLedgerAccount> TellerLedgerAccounts { get; set; } = [];
     }
 

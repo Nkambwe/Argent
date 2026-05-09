@@ -8,6 +8,6 @@ namespace Argent.Api.Domain.Entities.Accounting {
         public DateTime? FromDate { get; set; }
         public DateTime? ToDate { get; set; }
         public long? BranchId {  get; set; }
-        public virtual Branch? Branch { get; set; }
+        public virtual Branch Branch { get; set; } = null!;
     }
 }

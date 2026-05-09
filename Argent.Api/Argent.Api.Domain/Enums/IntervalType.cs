@@ -4,9 +4,9 @@ namespace Argent.Api.Domain.Enums {
     /// Period intervals type defined as in days, weeks, months, or years
     /// </summary>
     public enum IntervalType {
-        Days = 1,
-        Weeks = 2,
-        Months = 3,
-        Years = 4
+        Daily = 1,
+        Weekly = 2,
+        Monthly = 3,
+        Yearly = 4
     }
 }

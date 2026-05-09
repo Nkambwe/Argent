@@ -46,7 +46,7 @@ namespace Argent.Api.Infrastructure.Data.Configurations.Accounting.Ledgers.Confi
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(c => c.GeneralLedgerEntry)
-                .WithMany()
+                .WithMany(c => c.JournalEntries)
                 .HasForeignKey(c => c.GeneralLedgerEntryId)
                 .OnDelete(DeleteBehavior.Restrict);
         }

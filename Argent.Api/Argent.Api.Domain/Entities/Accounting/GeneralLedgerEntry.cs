@@ -22,12 +22,14 @@ namespace Argent.Api.Domain.Entities.Accounting {
         public long LedgerAccountId { get; set; }
         public LedgerAccount LedgerAccount { get; set; } = null!;
 
-        /// <summary>Tax group applied to this posting line, if any.</summary>
+        /// <summary
+        /// >Tax group applied to this posting line, if any.
+        /// </summary>
         public long? TaxGroupId { get; set; }
-        public TaxGroup? TaxGroup { get; set; }   
+        public TaxGroup TaxGroup { get; set; } = null!;
 
         public ICollection<CardLedgerEntry> CardEntries { get; set; } = [];
-        public ICollection<VoucherLine> VoucherLines { get; set; } = [];
+        public ICollection<VoucherEntry> VoucherLines { get; set; } = [];
         public ICollection<JournalEntry> JournalEntries { get; set; } = [];
     }
 }

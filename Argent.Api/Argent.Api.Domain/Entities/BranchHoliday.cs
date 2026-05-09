@@ -17,6 +17,6 @@ namespace Argent.Api.Domain.Entities {
         /// If Recurrence = Annual, only Month+Day are used for matching — year is ignored.
         /// </summary>
         public bool IsActive { get; set; } = true;
-        public string? Notes { get; set; }
+        public string Notes { get; set; } = string.Empty;
     }
 }

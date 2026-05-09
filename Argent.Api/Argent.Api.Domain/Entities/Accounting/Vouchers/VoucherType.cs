@@ -27,14 +27,12 @@ namespace Argent.Api.Domain.Entities.Accounting.Vouchers {
         public bool IsSystem { get; set; }
         public bool IsActive { get; set; } = true;
         public long? GeneralPostingGroupId { get; set; }
-        public GeneralPostingGroup? GeneralPostingGroup { get; set; }
+        public GeneralPostingGroup GeneralPostingGroup { get; set; } = null!;
         public long? BranchPostingGroupId { get; set; }
-        public BranchPostingGroup? BranchPostingGroup { get; set; }
+        public BranchPostingGroup BranchPostingGroup { get; set; } = null!;
         public long? BusinessPostingGroupId { get; set; }
-        public BusinessPostingGroup? BusinessPostingGroup { get; set; }
-        public long? ReasonId { get; set; }
-        public GeneralReason? Reason { get; set; }  
-        public ICollection<VoucherLine> Vouchers { get; set; } = [];
+        public BusinessPostingGroup BusinessPostingGroup { get; set; } = null!;
+        public ICollection<VoucherEntry> Vouchers { get; set; } = [];
         public ICollection<CashierVoucherType> Cashiers { get; set; } = [];
     }
 }

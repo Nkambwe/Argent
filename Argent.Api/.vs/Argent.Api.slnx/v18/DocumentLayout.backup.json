@@ -3,32 +3,24 @@
   "WorkspaceRootPath": "C:\\Projects\\Argent\\Argent\\Argent.Api\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api.infrastructure\\data\\configurations\\accounting.ledgers.configurations\\journalentryconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|solutionrelative:argent.api.infrastructure\\data\\configurations\\accounting.ledgers.configurations\\journalentryconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api.infrastructure\\data\\accountingseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|solutionrelative:argent.api.infrastructure\\data\\accountingseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api.infrastructure\\data\\configurations\\accounting.core.configurations\\revenuecenterconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|solutionrelative:argent.api.infrastructure\\data\\configurations\\accounting.core.configurations\\revenuecenterconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api.infrastructure\\data\\databaseseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|solutionrelative:argent.api.infrastructure\\data\\databaseseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AD69CA74-2DC7-C91A-F40C-FEEE883F240C}|Argent.Api.Domain\\Argent.Api.Domain.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api.domain\\entities\\accounting\\cashflow\\cheque.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AD69CA74-2DC7-C91A-F40C-FEEE883F240C}|Argent.Api.Domain\\Argent.Api.Domain.csproj|solutionrelative:argent.api.domain\\entities\\accounting\\cashflow\\cheque.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{AD69CA74-2DC7-C91A-F40C-FEEE883F240C}|Argent.Api.Domain\\Argent.Api.Domain.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api.domain\\entities\\accounting\\documents\\transactiondocumenttype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AD69CA74-2DC7-C91A-F40C-FEEE883F240C}|Argent.Api.Domain\\Argent.Api.Domain.csproj|solutionrelative:argent.api.domain\\entities\\accounting\\documents\\transactiondocumenttype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api.infrastructure\\data\\appdatacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|solutionrelative:argent.api.infrastructure\\data\\appdatacontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api.infrastructure\\data\\configurations\\accounting.ledgers.configurations\\voucherlineconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|solutionrelative:argent.api.infrastructure\\data\\configurations\\accounting.ledgers.configurations\\voucherlineconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AD69CA74-2DC7-C91A-F40C-FEEE883F240C}|Argent.Api.Domain\\Argent.Api.Domain.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api.domain\\entities\\accounting\\taxes\\taxgroup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AD69CA74-2DC7-C91A-F40C-FEEE883F240C}|Argent.Api.Domain\\Argent.Api.Domain.csproj|solutionrelative:argent.api.domain\\entities\\accounting\\taxes\\taxgroup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AD69CA74-2DC7-C91A-F40C-FEEE883F240C}|Argent.Api.Domain\\Argent.Api.Domain.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api.domain\\entities\\accounting\\taxes\\taxableitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AD69CA74-2DC7-C91A-F40C-FEEE883F240C}|Argent.Api.Domain\\Argent.Api.Domain.csproj|solutionrelative:argent.api.domain\\entities\\accounting\\taxes\\taxableitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AD69CA74-2DC7-C91A-F40C-FEEE883F240C}|Argent.Api.Domain\\Argent.Api.Domain.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api.domain\\entities\\accounting\\charges\\productreference.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AD69CA74-2DC7-C91A-F40C-FEEE883F240C}|Argent.Api.Domain\\Argent.Api.Domain.csproj|solutionrelative:argent.api.domain\\entities\\accounting\\charges\\productreference.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{AD69CA74-2DC7-C91A-F40C-FEEE883F240C}|Argent.Api.Domain\\Argent.Api.Domain.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api.domain\\entities\\accounting\\vouchers\\voucherentry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AD69CA74-2DC7-C91A-F40C-FEEE883F240C}|Argent.Api.Domain\\Argent.Api.Domain.csproj|solutionrelative:argent.api.domain\\entities\\accounting\\vouchers\\voucherentry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -43,113 +35,66 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "JournalEntryConfiguration.cs",
-              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Data\\Configurations\\Accounting.Ledgers.Configurations\\JournalEntryConfiguration.cs",
-              "RelativeDocumentMoniker": "Argent.Api.Infrastructure\\Data\\Configurations\\Accounting.Ledgers.Configurations\\JournalEntryConfiguration.cs",
-              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Data\\Configurations\\Accounting.Ledgers.Configurations\\JournalEntryConfiguration.cs",
-              "RelativeToolTip": "Argent.Api.Infrastructure\\Data\\Configurations\\Accounting.Ledgers.Configurations\\JournalEntryConfiguration.cs",
-              "ViewState": "AgIAACUAAAAAAAAAAAD4vy0AAAAzAAAAAAAAAA==",
+              "Title": "AccountingSeeder.cs",
+              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Data\\AccountingSeeder.cs",
+              "RelativeDocumentMoniker": "Argent.Api.Infrastructure\\Data\\AccountingSeeder.cs",
+              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Data\\AccountingSeeder.cs",
+              "RelativeToolTip": "Argent.Api.Infrastructure\\Data\\AccountingSeeder.cs",
+              "ViewState": "AgIAAFIBAAAAAAAAAAAIwFMBAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-05T16:57:53.557Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "RevenueCenterConfiguration.cs",
-              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Data\\Configurations\\Accounting.Core.Configurations\\RevenueCenterConfiguration.cs",
-              "RelativeDocumentMoniker": "Argent.Api.Infrastructure\\Data\\Configurations\\Accounting.Core.Configurations\\RevenueCenterConfiguration.cs",
-              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Data\\Configurations\\Accounting.Core.Configurations\\RevenueCenterConfiguration.cs",
-              "RelativeToolTip": "Argent.Api.Infrastructure\\Data\\Configurations\\Accounting.Core.Configurations\\RevenueCenterConfiguration.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-05T16:57:21.798Z",
+              "WhenOpened": "2026-05-09T13:46:39.37Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Cheque.cs",
-              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Domain\\Entities\\Accounting\\Cashflow\\Cheque.cs",
-              "RelativeDocumentMoniker": "Argent.Api.Domain\\Entities\\Accounting\\Cashflow\\Cheque.cs",
-              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Domain\\Entities\\Accounting\\Cashflow\\Cheque.cs",
-              "RelativeToolTip": "Argent.Api.Domain\\Entities\\Accounting\\Cashflow\\Cheque.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAWwBYAAAAWAAAAAAAAAA==",
+              "Title": "TransactionDocumentType.cs",
+              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Domain\\Entities\\Accounting\\Documents\\TransactionDocumentType.cs",
+              "RelativeDocumentMoniker": "Argent.Api.Domain\\Entities\\Accounting\\Documents\\TransactionDocumentType.cs",
+              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Domain\\Entities\\Accounting\\Documents\\TransactionDocumentType.cs",
+              "RelativeToolTip": "Argent.Api.Domain\\Entities\\Accounting\\Documents\\TransactionDocumentType.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAYwBwAAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-05T16:56:21.07Z",
+              "WhenOpened": "2026-05-09T13:38:40.514Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "AppDataContext.cs",
-              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Data\\AppDataContext.cs",
-              "RelativeDocumentMoniker": "Argent.Api.Infrastructure\\Data\\AppDataContext.cs",
-              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Data\\AppDataContext.cs",
-              "RelativeToolTip": "Argent.Api.Infrastructure\\Data\\AppDataContext.cs",
-              "ViewState": "AgIAAGkAAAAAAAAAAAA2wDoAAAAAAAAAAAAAAA==",
+              "Title": "VoucherLineConfiguration.cs",
+              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Data\\Configurations\\Accounting.Ledgers.Configurations\\VoucherLineConfiguration.cs",
+              "RelativeDocumentMoniker": "Argent.Api.Infrastructure\\Data\\Configurations\\Accounting.Ledgers.Configurations\\VoucherLineConfiguration.cs",
+              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Data\\Configurations\\Accounting.Ledgers.Configurations\\VoucherLineConfiguration.cs",
+              "RelativeToolTip": "Argent.Api.Infrastructure\\Data\\Configurations\\Accounting.Ledgers.Configurations\\VoucherLineConfiguration.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAqwCUAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T23:00:11.297Z",
+              "WhenOpened": "2026-05-09T13:37:41.079Z",
               "EditorCaption": ""
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "Orientation": 0,
-      "VerticalTabListWidth": 256,
-      "FloatingWindowState": {
-        "Id": "82aa4509-6511-43dd-ab32-6cd0d0d175eb",
-        "Display": 1,
-        "X": 74,
-        "Y": 301,
-        "Width": 907,
-        "Height": 928,
-        "WindowState": 2
-      },
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
+            },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "TaxGroup.cs",
-              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Domain\\Entities\\Accounting\\Taxes\\TaxGroup.cs",
-              "RelativeDocumentMoniker": "Argent.Api.Domain\\Entities\\Accounting\\Taxes\\TaxGroup.cs",
-              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Domain\\Entities\\Accounting\\Taxes\\TaxGroup.cs",
-              "RelativeToolTip": "Argent.Api.Domain\\Entities\\Accounting\\Taxes\\TaxGroup.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAkAAABCAAAAAAAAAA==",
+              "Title": "VoucherEntry.cs",
+              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Domain\\Entities\\Accounting\\Vouchers\\VoucherEntry.cs",
+              "RelativeDocumentMoniker": "Argent.Api.Domain\\Entities\\Accounting\\Vouchers\\VoucherEntry.cs",
+              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Domain\\Entities\\Accounting\\Vouchers\\VoucherEntry.cs",
+              "RelativeToolTip": "Argent.Api.Domain\\Entities\\Accounting\\Vouchers\\VoucherEntry.cs",
+              "ViewState": "AgIAADEAAAAAAAAAAAAjwDcAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-03T15:43:38.4Z",
+              "WhenOpened": "2026-05-09T13:36:54.746Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "TaxableItem.cs",
-              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Domain\\Entities\\Accounting\\Taxes\\TaxableItem.cs",
-              "RelativeDocumentMoniker": "Argent.Api.Domain\\Entities\\Accounting\\Taxes\\TaxableItem.cs",
-              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Domain\\Entities\\Accounting\\Taxes\\TaxableItem.cs",
-              "RelativeToolTip": "Argent.Api.Domain\\Entities\\Accounting\\Taxes\\TaxableItem.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAA9AAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "DatabaseSeeder.cs",
+              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Data\\DatabaseSeeder.cs",
+              "RelativeDocumentMoniker": "Argent.Api.Infrastructure\\Data\\DatabaseSeeder.cs",
+              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Data\\DatabaseSeeder.cs",
+              "RelativeToolTip": "Argent.Api.Infrastructure\\Data\\DatabaseSeeder.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAnwCUAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-03T15:09:04.75Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ProductReference.cs",
-              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Domain\\Entities\\Accounting\\Charges\\ProductReference.cs",
-              "RelativeDocumentMoniker": "Argent.Api.Domain\\Entities\\Accounting\\Charges\\ProductReference.cs",
-              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Domain\\Entities\\Accounting\\Charges\\ProductReference.cs",
-              "RelativeToolTip": "Argent.Api.Domain\\Entities\\Accounting\\Charges\\ProductReference.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T01:34:42.257Z",
+              "WhenOpened": "2026-05-09T12:51:24.403Z",
               "EditorCaption": ""
             }
           ]

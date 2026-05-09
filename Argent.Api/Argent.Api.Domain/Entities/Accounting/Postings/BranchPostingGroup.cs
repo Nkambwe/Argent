@@ -10,10 +10,10 @@ namespace Argent.Api.Domain.Entities.Accounting.Postings {
         public string Code { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public bool IsActive { get; set; } = true;
-        public string? Notes { get; set; }
+        public string Notes { get; set; } = string.Empty;
 
         /*Branch GL account mappings*/
-        public string? ReceivablesAccountNumber { get; set; }
-        public string? PayablesAccountNumber { get; set; }
+        public string ReceivablesAccountNumber { get; set; } = string.Empty;
+        public string PayablesAccountNumber { get; set; } = string.Empty;
     }
 }

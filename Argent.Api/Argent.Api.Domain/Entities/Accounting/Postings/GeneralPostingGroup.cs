@@ -25,10 +25,10 @@ namespace Argent.Api.Domain.Entities.Accounting.Postings {
         public string Code { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public bool IsActive { get; set; } = true;
-        public string? Notes { get; set; }
-        public string? SalesAccountNumber { get; set; }
-        public string? PurchasesAccountNumber { get; set; }
-        public string? DiscountAccountNumber { get; set; }
-        public string? CostOfGoodsAccountNumber { get; set; }
+        public string Notes { get; set; } = string.Empty;
+        public string SalesAccountNumber { get; set; } = string.Empty;
+        public string PurchasesAccountNumber { get; set; } = string.Empty;
+        public string DiscountAccountNumber { get; set; } = string.Empty;
+        public string CostOfGoodsAccountNumber { get; set; } = string.Empty;
     }
 }

@@ -11,11 +11,11 @@ namespace Argent.Api.Domain.Entities.Accounting.Postings {
         public string Description { get; set; } = string.Empty;
         public BusinessType BusinessType { get; set; }
         public bool IsActive { get; set; } = true;
-        public string? Notes { get; set; }
+        public string Notes { get; set; } = string.Empty;
 
         /*Business GL account mappings*/
-        public string? ReceivablesAccountNumber { get; set; }
-        public string? PayablesAccountNumber { get; set; }
-        public string? PrepaymentAccountNumber { get; set; }
+        public string ReceivablesAccountNumber { get; set; } = string.Empty;
+        public string PayablesAccountNumber { get; set; } = string.Empty;
+        public string PrepaymentAccountNumber { get; set; } = string.Empty;
     }
 }

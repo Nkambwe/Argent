@@ -1,4 +1,5 @@
 ﻿using Argent.Api.Domain.Common;
+using Argent.Api.Domain.Entities.Accounting.Vouchers;
 
 namespace Argent.Api.Domain.Entities.Accounting.Documents {
     /// <summary>
@@ -25,5 +26,6 @@ namespace Argent.Api.Domain.Entities.Accounting.Documents {
 
         public ICollection<SeriesNumber> SeriesNumbers { get; set; } = [];
         public ICollection<TransactionDocument> Documents { get; set; } = [];
+        public ICollection<VoucherEntry> VoucherEntries { get; set; } = [];
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Argent.Api.Domain.Entities.Accounting.Charges;
 using Argent.Api.Domain.Entities.Accounting.Taxes;
+using Argent.Api.Domain.Entities.Banking.Loans;
 
 namespace Argent.Api.Domain.Entities.Products {
     /// <summary>
@@ -42,10 +43,10 @@ namespace Argent.Api.Domain.Entities.Products {
         //public virtual Coverage Coverage { get; set; }
         //public virtual ICollection<Policy> Policies { get; set; }
         //public virtual ICollection<InsuranceProductProvider> Providers { get; set; }
-        public virtual ICollection<ChargeStage> ChargeStages { get; set; } = [];
+        public virtual ICollection<LoanChargeStage> ChargeStages { get; set; } = [];
         //public virtual ICollection<InsuranceProductTaxGroup> TaxGroups { get; set; }
         public virtual ICollection<TaxableItem> TaxableItems { get; set; } = [];
-        public virtual ICollection<ChargeItem> ChargedItems { get; set; } = [];
+        public virtual ICollection<InsuranceProductChargeItem> InsuranceProductChargeItem { get; set; } = [];
         //public virtual ICollection<InsurancetProductParam> ProductParams { get; set; } = [];
     }
 }

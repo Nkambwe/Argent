@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Argent.Api.Infrastructure.Data.Configurations.Accounting.Ledgers.Configurations {
 
-    public class VoucherLineConfiguration : IEntityTypeConfiguration<VoucherLine> {
+    public class VoucherLineConfiguration : IEntityTypeConfiguration<VoucherEntry> {
 
-        public void Configure(EntityTypeBuilder<VoucherLine> builder) {
+        public void Configure(EntityTypeBuilder<VoucherEntry> builder) {
             builder.ToTable("acc_voucher_lines");
             builder.Property(v => v.TransactionId).IsRequired().HasMaxLength(50);
             builder.Property(v => v.Particulars).HasMaxLength(300);
@@ -30,12 +30,12 @@ namespace Argent.Api.Infrastructure.Data.Configurations.Accounting.Ledgers.Confi
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(v => v.TransactionDocumentType)
-                .WithMany()
+                .WithMany(v => v.VoucherEntries)
                 .HasForeignKey(v => v.TransactionDocumentTypeId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(v => v.TransactionDocument)
-                .WithMany()
+                .WithMany(v => v.VoucherEntries)
                 .HasForeignKey(v => v.TransactionDocumentId)
                 .OnDelete(DeleteBehavior.Restrict);
 

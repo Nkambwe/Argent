@@ -1,5 +1,6 @@
 ﻿using Argent.Api.Domain.Common;
-using Argent.Api.Domain.Entities.Products;
+using Argent.Api.Domain.Entities.Accounting.Taxes;
+using Argent.Api.Domain.Entities.Banking.Loans;
 
 namespace Argent.Api.Domain.Entities.Accounting.Charges {
     /// <summary>
@@ -28,12 +29,14 @@ namespace Argent.Api.Domain.Entities.Accounting.Charges {
         /// </summary>
         public string? LedgerCode { get; set; }
         public long? TaxId { get; set; }
-        //public Tax Tax { get; set; }    // filled when Tax module is built
-        public long? ProductId { get; set; }
-        public ProductType? ProductType { get; set; }
-
+        public Tax Tax { get; set; } = null!;
+        public virtual ICollection<TimedepositProductChargeItem> TimedepositProductChargeItems { get; set; } = [];
+        public virtual ICollection<InsuranceProductChargeItem> InsuranceProductChargeItems { get; set; } = [];
+        public virtual ICollection<ShareProductChargeItem> ShareProductChargeItems { get; set; } = [];
+        public virtual ICollection<SavingProductChargeItem> SavingProductChargeItems { get; set; } = [];
+        public virtual ICollection<LoanProductChargeItem> LoanProductChargeItems { get; set; } = [];
         public ICollection<ChargeItemCharge> Charges { get; set; } = [];
-        public ICollection<ChargeStage> ChargeStages { get; set; } = [];
+        public ICollection<LoanChargeStage> ChargeStages { get; set; } = [];
         public ICollection<ChargeLedgerEntry> ChargeLedgerEntries { get; set; } = [];
         public ICollection<RegistrationLedgerEntry> RegistrationLedgerEntries { get; set; } = [];
     }

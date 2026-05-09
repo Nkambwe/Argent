@@ -57,16 +57,7 @@ namespace Argent.Api.Controllers {
         [ProducesResponseType(400)]
         [ProducesResponseType(409)]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserRequest request, CancellationToken ct) {
-            var result = await _mediator.Send(new CreateUserCommand(
-                request.Username,
-                request.Email,
-                request.Password,
-                request.FirstName,
-                request.MiddleName,
-                request.LastName,
-                request.PhoneNumber,
-                request.DefualtBranchId,
-                request.RoleIds), ct);
+            var result = await _mediator.Send(new CreateUserCommand(request), ct);
 
             return result.IsSuccess ? StatusCode(201, result.Data) : result.ErrorCode switch {
                 "DUPLICATE_USERNAME" => Conflict(new { result.Error }),

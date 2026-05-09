@@ -85,7 +85,15 @@ namespace Argent.Api
 
             //..seed permissions and default roles
             // Safe to run every startup — idempotent, skips existing records
-            await DatabaseSeeder.SeedAsync(app.Services);
+            try {
+                await DatabaseSeeder.SeedAsync(app.Services);
+            }
+            catch (Exception ex) {
+                Console.WriteLine($"SEEDER FAILED: {ex.Message}");
+                Console.WriteLine(ex.StackTrace);
+                //..let the app start anyway
+                // throw;  
+            }
 
             //..middleware pipeline
             app.UseGlobalExceptionHandler();

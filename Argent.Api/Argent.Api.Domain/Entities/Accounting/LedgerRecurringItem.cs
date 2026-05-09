@@ -1,7 +1,7 @@
 ﻿using Argent.Api.Domain.Common;
 using Argent.Api.Domain.Enums;
 
-namespace Argent.Api.Domain.Entities.Accounting.Cashflow {
+namespace Argent.Api.Domain.Entities.Accounting {
     /// <summary>
     /// A scheduled automatic GL posting — e.g. monthly rent, salaries, depreciation.
     ///
@@ -10,7 +10,7 @@ namespace Argent.Api.Domain.Entities.Accounting.Cashflow {
     ///
     /// Linked to a Branch for branch-level recurring entries.
     /// </summary>
-    public class RecurringItem : BaseEntity {
+    public class LedgerRecurringItem : BaseEntity {
         public string Code { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
 
@@ -45,6 +45,6 @@ namespace Argent.Api.Domain.Entities.Accounting.Cashflow {
         /// Optional branch restriction — null = applies to all branches.
         /// </summary>
         public long? BranchId { get; set; }
-        public Branch? Branch { get; set; }
+        public Branch Branch { get; set; } = null!;
     }
 }

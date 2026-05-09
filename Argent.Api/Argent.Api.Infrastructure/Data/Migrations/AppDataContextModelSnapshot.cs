@@ -619,6 +619,4581 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     b.ToTable("user_roles", "mfi");
                 });
 
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.AccountReference", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsSystem")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("Series")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_references_code")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("acc_references", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.AccountReferenceValue", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<bool>("AllowManualEntry")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<DateOnly?>("End")
+                        .HasColumnType("date");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("ReferenceId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateOnly?>("Start")
+                        .HasColumnType("date");
+
+                    b.Property<bool>("Suspended")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReferenceId", "Code")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_reference_values_ref_code")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("acc_reference_values", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.AccountsChart", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("ChartName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.Property<int>("ChartType")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChartName")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_charts_name")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("acc_charts", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.BankLedgerEntry", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<decimal>("Balance")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<long>("BankAccountId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Clearance")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("Credit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("CurrencyCode")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<decimal>("Debit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)");
+
+                    b.Property<string>("FolioCode")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("LedgerCode")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.Property<int>("Nature")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("PostedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("Reconciled")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("TransactionCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<long?>("TransactionDocumentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("TransactionType")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("VoucherNumber")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BankAccountId")
+                        .HasDatabaseName("ix_acc_bank_ledger_account");
+
+                    b.HasIndex("TransactionCode")
+                        .HasDatabaseName("ix_acc_bank_ledger_txn");
+
+                    b.HasIndex("TransactionDocumentId");
+
+                    b.HasIndex("BankAccountId", "Reconciled")
+                        .HasDatabaseName("ix_acc_bank_ledger_account_reconciled");
+
+                    b.ToTable("acc_bank_ledger", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.BranchLedgerAccount", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("BranchAccountNumber")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<long>("BranchId")
+                        .HasMaxLength(80)
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("LedgerAccountId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("LedgerAccountNumber")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<bool>("Suspend")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BranchId");
+
+                    b.ToTable("acc_branch_ledger", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.BranchReference", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long?>("BranchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.Property<DateTime?>("FromDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("ReferenceValueId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Series")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<bool>("Suspend")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
+
+                    b.Property<DateTime?>("ToDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BranchId");
+
+                    b.HasIndex("ReferenceValueId");
+
+                    b.ToTable("branch_references", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.CardLedgerEntry", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<long>("CardId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("ExternalTransactionId")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("FolioCode")
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<long>("GeneralLedgerEntryId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Particulars")
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)");
+
+                    b.Property<DateTime>("TransactionDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CardId")
+                        .HasDatabaseName("ix_acc_card_ledger_card");
+
+                    b.HasIndex("GeneralLedgerEntryId");
+
+                    b.ToTable("acc_card_ledger", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Cashflow.Bank", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("Contact")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.Property<string>("Fax")
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.Property<long?>("IbanId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<long?>("SwiftId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Telephone")
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_banks_code")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.HasIndex("IbanId");
+
+                    b.HasIndex("SwiftId");
+
+                    b.ToTable("acc_banks", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Cashflow.BankAccount", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("AccountFor")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("AccountName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<string>("AccountNumber")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("AllowedOperations")
+                        .HasColumnType("integer");
+
+                    b.Property<long>("BankBranchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("CreditLimit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("ExcludeBranches")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("HasChequeBook")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("HolderCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("IbanNumber")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<long?>("LedgerAccountId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("MultiCurrency")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("SwiftNumber")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("WithdrawInterval")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("WithdrawIntervalUnit")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LedgerAccountId");
+
+                    b.HasIndex("BankBranchId", "AccountNumber")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_bank_accounts_branch_number")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("acc_bank_accounts", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Cashflow.BankAccountCurrency", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("BankAccountId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long>("CurrencyId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CurrencyId");
+
+                    b.HasIndex("BankAccountId", "CurrencyId")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_bank_acct_currencies")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("acc_bank_account_currencies", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Cashflow.BankBranch", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("BankId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("BranchAddress")
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)");
+
+                    b.Property<string>("BranchCode")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("BranchContact")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<string>("BranchFax")
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.Property<string>("BranchName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.Property<string>("ContactDesignation")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("ContactEmail")
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("PrimaryLine")
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.Property<string>("SecondaryLine")
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BankId", "BranchCode")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_bank_branches_bank_code")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("acc_bank_branches", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Cashflow.Card", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CardNumber")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("Freeze")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Holder")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<decimal>("Limit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("TransactionType")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long>("VendorId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VendorId");
+
+                    b.ToTable("acc_cards", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Cashflow.CashAccount", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<bool>("AllowMultiCurrency")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("LedgerAccountId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("LedgerNumber")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.Property<decimal>("MaximumPayout")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MinimumPayout")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LedgerAccountId")
+                        .HasDatabaseName("ix_acc_cash_accounts_ledger");
+
+                    b.ToTable("acc_cash_accounts", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Cashflow.Cashier", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CurrentBranch")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("DefaultAccount")
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<decimal>("LowerLimit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("UpperLimit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<long?>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_cashiers_code")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("acc_cashiers", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Cashflow.CashierAccount", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("CashAccountId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("CashierId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CashAccountId");
+
+                    b.HasIndex("CashierId", "CashAccountId")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_cashier_accounts")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("acc_cashier_accounts", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Cashflow.CashierBranchAccess", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("BranchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("CashierId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BranchId");
+
+                    b.HasIndex("CashierId", "BranchId")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_cashier_branch_access")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("acc_cashier_branch_access", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Cashflow.Cheque", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("AmountInWords")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)");
+
+                    b.Property<long>("ChequeBookId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("IssuerAccount")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("Number")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.Property<string>("Recipient")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<string>("RecipientAccount")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<bool>("Reversed")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChequeBookId", "Number")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_cheques_book_number")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("acc_cheques", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Cashflow.ChequeBook", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("BankAccountId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("FirstChequeNumber")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("LastChequeNumber")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.Property<string>("LastIssuedCheque")
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.Property<int>("NumberOfLeafs")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("SerialNumber")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BankAccountId");
+
+                    b.HasIndex("SerialNumber")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_cheque_books_serial")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("acc_cheque_books", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Cashflow.Iban", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Narration")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_ibans_code")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("acc_ibans", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Cashflow.Swift", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_swifts_code")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("acc_swifts", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.ChargeLedgerEntry", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<long>("ChargeItemId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Customer")
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("LedgerNumber")
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<string>("LoanNumber")
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<DateTime>("PostedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Product")
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<string>("Series")
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<string>("TransactionCode")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChargeItemId");
+
+                    b.ToTable("acc_charge_ledger_entry", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Charges.Charge", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<bool>("AppliesToInsurance")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("AppliesToLoans")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("AppliesToRegistration")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("AppliesToSavings")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("AppliesToShares")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("AppliesToTimeDeposits")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("ChargeName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsRated")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("LastCount")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Notes")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("Series")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_charges_code")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("acc_charges", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Charges.ChargeGroup", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("GroupName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("LastSeries")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Notes")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("SeriesIdentifier")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("SeriesPrefix")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GroupName")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_charge_groups_name")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("acc_charge_groups", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Charges.ChargeGroupItem", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("ChargeGroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ChargeName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("FlatAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsRated")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Notes")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<decimal>("Rate")
+                        .HasColumnType("decimal(10,4)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChargeGroupId");
+
+                    b.ToTable("acc_charge_group_items", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Charges.ChargeItem", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("ChargeOn")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<decimal>("FixedAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsRated")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("LedgerCode")
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.Property<decimal>("Percentage")
+                        .HasColumnType("decimal(10,4)");
+
+                    b.Property<long?>("SavingProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("TaxId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_charge_items_code")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.HasIndex("SavingProductId");
+
+                    b.HasIndex("TaxId");
+
+                    b.ToTable("acc_charge_items", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Charges.ChargeItemCharge", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("ChargeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("ChargeItemId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChargeId");
+
+                    b.HasIndex("ChargeItemId", "ChargeId")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_charge_item_charges")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("acc_charge_item_charges", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Charges.InsuranceProductChargeItem", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("ChargeItemId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long>("InsuranceProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChargeItemId");
+
+                    b.HasIndex("InsuranceProductId");
+
+                    b.ToTable("InsuranceProductChargeItem", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Charges.LoanProductChargeItem", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("ChargeItemId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("LoanProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChargeItemId");
+
+                    b.HasIndex("LoanProductId");
+
+                    b.ToTable("LoanProductChargeItem", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Charges.SavingProductChargeItem", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("ChargeItemId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("SavingProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChargeItemId");
+
+                    b.HasIndex("SavingProductId");
+
+                    b.ToTable("SavingProductChargeItem", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Charges.ShareProductChargeItem", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("ChargeItemId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("ShareProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChargeItemId");
+
+                    b.HasIndex("ShareProductId");
+
+                    b.ToTable("ShareProductChargeItem", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Charges.TimedepositProductChargeItem", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("ChargeItemId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("TimedepositProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChargeItemId");
+
+                    b.HasIndex("TimedepositProductId");
+
+                    b.ToTable("TimedepositProductChargeItem", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.ChequeLedgerEntry", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<long>("ChequeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("FolioCode")
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Particulars")
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("TransactionDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChequeId")
+                        .HasDatabaseName("ix_acc_cheque_ledger");
+
+                    b.ToTable("acc_cheque_ledger", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.CostCenter", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long?>("BranchId")
+                        .HasMaxLength(80)
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CenterName")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("character varying(80)");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("FromDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("Suspend")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("ToDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BranchId");
+
+                    b.ToTable("acc_cost_center", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Currencies.Currency", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<string>("Country")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsBaseCurrency")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsSystem")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<int>("Precision")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Round")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("SmallUnit")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("Symbol")
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_currencies_code")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.HasIndex("IsBaseCurrency")
+                        .HasDatabaseName("ix_acc_currencies_base");
+
+                    b.ToTable("acc_currencies", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Currencies.Denomination", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long>("CurrencyId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("Symbol")
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("Value")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CurrencyId");
+
+                    b.ToTable("acc_denominations", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Currencies.ExchangeRate", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Against")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<decimal>("Average")
+                        .HasColumnType("decimal(18,6)");
+
+                    b.Property<decimal>("Buy")
+                        .HasColumnType("decimal(18,6)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long>("CurrencyId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("EffectiveFrom")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("EffectiveTo")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsRunning")
+                        .HasColumnType("boolean");
+
+                    b.Property<decimal>("Sale")
+                        .HasColumnType("decimal(18,6)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CurrencyId", "Against", "IsRunning")
+                        .HasDatabaseName("ix_acc_exchange_rates_currency_pair_running");
+
+                    b.ToTable("acc_exchange_rates", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Documents.TransactionDocument", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DocumentName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<string>("DocumentNumber")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<long>("DocumentTypeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Notes")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("TransactionCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DocumentNumber")
+                        .HasDatabaseName("ix_acc_transaction_docs_number");
+
+                    b.HasIndex("DocumentTypeId");
+
+                    b.HasIndex("TransactionCode")
+                        .HasDatabaseName("ix_acc_transaction_docs_code");
+
+                    b.ToTable("acc_transaction_documents", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Documents.TransactionDocumentType", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsSystem")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Notes")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("TypeName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_document_types_code")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("acc_document_types", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.FinancialYear", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long?>("BranchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("Closed")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateOnly>("EndDate")
+                        .HasColumnType("date");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("Period")
+                        .HasColumnType("integer");
+
+                    b.Property<DateOnly>("StartDate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("YearName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BranchId", "Closed")
+                        .HasDatabaseName("ix_acc_financial_years_branch_closed");
+
+                    b.ToTable("acc_financial_years", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Folio", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long>("FolioTypeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Notes")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("Particulars")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_folios_code")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.HasIndex("FolioTypeId");
+
+                    b.ToTable("acc_folios", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.FolioType", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("TypeName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_folio_types_code")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("acc_folio_types", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.GeneralLedgerEntry", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("BusinessReference")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("Cashier")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("ChargeReference")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<bool>("Closed")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("ClosedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Comment")
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("Credit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("CurrencyCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<decimal>("Debit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("ExchangeAmount")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<string>("FolioCode")
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("GeneralReference")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("LedgerAccountId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("LedgerNumber")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.Property<long?>("MonthlyClosureId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Particulars")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)");
+
+                    b.Property<DateTime>("PostedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("PostingSeries")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("Reference1")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("Reference2")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("Reference3")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("Reference4")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("Reference5")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("Reference6")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<decimal>("TaxCharge1")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TaxCharge2")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("TaxCode")
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<long?>("TaxGroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("TransactionCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("VoucherNumber")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LedgerAccountId")
+                        .HasDatabaseName("ix_acc_gl_ledger_account");
+
+                    b.HasIndex("MonthlyClosureId")
+                        .HasDatabaseName("ix_acc_gl_period");
+
+                    b.HasIndex("PostedOn")
+                        .HasDatabaseName("ix_acc_gl_posted_on");
+
+                    b.HasIndex("TaxGroupId");
+
+                    b.HasIndex("TransactionCode")
+                        .HasDatabaseName("ix_acc_gl_txn_code");
+
+                    b.HasIndex("LedgerAccountId", "PostedOn")
+                        .HasDatabaseName("ix_acc_gl_account_date");
+
+                    b.ToTable("acc_general_ledger", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Journals.CashierJournalType", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("CashierId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("JournalTypeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("JournalTypeId");
+
+                    b.HasIndex("CashierId", "JournalTypeId")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_cashier_journal_types")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("acc_cashier_journal_types", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Journals.JournalEntry", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<bool>("Approved")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("ApprovedBy")
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.Property<string>("BusinessReference")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("Cashier")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("ChargeReference")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<bool>("Closed")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("ClosedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Comment")
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("Credit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("CurrencyCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<decimal>("Debit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("ExchangeAmount")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<string>("FolioCode")
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<long?>("GeneralLedgerEntryId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("GeneralReference")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("JournalTypeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("LedgerNumber")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.Property<long?>("MonthlyClosureId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Particulars")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)");
+
+                    b.Property<DateTime>("PostedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("PostingSeries")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("Reference1")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("Reference2")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("Reference3")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("Reference4")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("Reference5")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("Reference6")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<bool>("Reversed")
+                        .HasColumnType("boolean");
+
+                    b.Property<decimal>("TaxCharge1")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TaxCharge2")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("TaxCode")
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("TransactionCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("TransactionId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("UnPosted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("Voided")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("VoucherNumber")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GeneralLedgerEntryId");
+
+                    b.HasIndex("JournalTypeId");
+
+                    b.HasIndex("MonthlyClosureId");
+
+                    b.HasIndex("PostedOn")
+                        .HasDatabaseName("ix_acc_journal_entries_posted_on");
+
+                    b.HasIndex("TransactionCode")
+                        .HasDatabaseName("ix_acc_journal_entries_txn");
+
+                    b.HasIndex("UnPosted", "Approved")
+                        .HasDatabaseName("ix_acc_journal_entries_status");
+
+                    b.ToTable("acc_journal_entries", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Journals.JournalType", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("AccountClassification")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("AllowTaxDifference")
+                        .HasColumnType("boolean");
+
+                    b.Property<long?>("BranchPostingGroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("BusinessPostingGroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DefaultLedgerNumber")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("GeneralPostingGroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsSystem")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("JournalName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.Property<bool>("MultiCurrency")
+                        .HasColumnType("boolean");
+
+                    b.Property<long?>("ReasonId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ReferenceValue1")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("ReferenceValue2")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("ReferenceValue3")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("ReferenceValue4")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("ReferenceValue5")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("ReferenceValue6")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<bool>("RequireVoucher")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("SeriesIdentifier")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BranchPostingGroupId");
+
+                    b.HasIndex("BusinessPostingGroupId");
+
+                    b.HasIndex("GeneralPostingGroupId");
+
+                    b.HasIndex("JournalName")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_journal_types_name")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("acc_journal_types", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Journals.JournalTypeTaxGroup", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("JournalTypeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("TaxGroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TaxGroupId");
+
+                    b.HasIndex("JournalTypeId", "TaxGroupId")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_journal_type_tax_group")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("acc_journal_type_tax_group", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.LedgerAccount", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("AccountCategory")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("AccountClassification")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("AccountNature")
+                        .HasColumnType("integer");
+
+                    b.Property<long>("AccountsChartId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("AllowManualPosting")
+                        .HasColumnType("boolean");
+
+                    b.Property<decimal>("Balance")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("CurrencyId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("FolioId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("GroupIndex")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("LedgerAccountHeaderId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("LedgerIndex")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("LedgerName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<string>("LedgerNumber")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.Property<int>("NormalBalance")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Notes")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<int>("PostingType")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("ShowParticulars")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("Suspended")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountsChartId")
+                        .HasDatabaseName("ix_acc_ledger_accounts_chart");
+
+                    b.HasIndex("CurrencyId");
+
+                    b.HasIndex("FolioId");
+
+                    b.HasIndex("LedgerAccountHeaderId")
+                        .HasDatabaseName("ix_acc_ledger_accounts_header");
+
+                    b.HasIndex("LedgerNumber")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_ledger_accounts_number")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("acc_ledger_accounts", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.LedgerAccountHeader", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("AccountCategory")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("AccountClassification")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("AccountNature")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long>("GroupIndex")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("LedgerIndex")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("LedgerName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<string>("LedgerNumber")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.Property<string>("ParentHeader")
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LedgerNumber")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_ledger_headers_number")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("acc_ledger_headers", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.LedgerAccountReference", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("LedgerAccountId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("ReferenceId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReferenceId");
+
+                    b.HasIndex("LedgerAccountId", "ReferenceId")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_ledger_refs_account_ref")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("acc_ledger_account_references", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.LedgerAccountTotal", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("AccountCategory")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("AccountClassification")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("AccountNature")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long>("GroupIndex")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("LedgerAccountHeaderId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("LedgerIndex")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("LedgerName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<string>("LedgerNumber")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.Property<string>("TotalRange")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LedgerAccountHeaderId");
+
+                    b.ToTable("acc_ledger_totals", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.LedgerRecurringItem", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool>("AutoPost")
+                        .HasColumnType("boolean");
+
+                    b.Property<long?>("BranchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreditLedger")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.Property<string>("DebitLedger")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateOnly?>("EndsOn")
+                        .HasColumnType("date");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.Property<int>("PostDay")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PostingType")
+                        .HasColumnType("integer");
+
+                    b.Property<DateOnly>("StartsOn")
+                        .HasColumnType("date");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BranchId");
+
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_recurring_items_code")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("acc_ledger_recurring_items", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.MonthlyClosure", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CloseDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long>("FinancialYearId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("Month")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FinancialYearId", "Month")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_monthly_closures_year_month")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("acc_monthly_closures", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Postings.BranchPostingGroup", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("PayablesAccountNumber")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<string>("ReceivablesAccountNumber")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_branch_posting_groups_code")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("acc_branch_posting_groups", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Postings.BusinessPostingGroup", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("BusinessType")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("PayablesAccountNumber")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<string>("PrepaymentAccountNumber")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<string>("ReceivablesAccountNumber")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_business_posting_groups_code")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("acc_business_posting_groups", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Postings.GeneralPostingGroup", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("CostOfGoodsAccountNumber")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<string>("DiscountAccountNumber")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("PurchasesAccountNumber")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<string>("SalesAccountNumber")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_gen_posting_groups_code")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("acc_general_posting_groups", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.RegistrationLedgerEntry", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<long>("ChargeItemId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ClientCode")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("PostedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("TransactionCode")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChargeItemId");
+
+                    b.ToTable("acc_registration_ledger", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.RevenueCenter", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long?>("BranchId")
+                        .HasMaxLength(80)
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CenterName")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("character varying(80)");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("FromDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("Suspend")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("ToDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BranchId");
+
+                    b.ToTable("acc_branch_revenue_center", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.SeriesNumber", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<bool>("AllowManualOverride")
+                        .HasColumnType("boolean");
+
+                    b.Property<long?>("BranchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CustomSeries")
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<long>("DocumentTypeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("EndNumber")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Identifier")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("LastNumber")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("LastUsedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long>("StartNumber")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateOnly>("StartsOn")
+                        .HasColumnType("date");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BranchId");
+
+                    b.HasIndex("DocumentTypeId", "BranchId", "IsDefault")
+                        .HasDatabaseName("ix_acc_series_numbers_doctype_branch_default");
+
+                    b.ToTable("acc_series_numbers", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Taxes.Tax", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.Property<decimal>("FlatAmount")
+                        .HasColumnType("numeric");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsRated")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("Rate")
+                        .HasColumnType("numeric");
+
+                    b.Property<bool>("Suspend")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("TaxGroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_taxes_code")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.HasIndex("TaxGroupId");
+
+                    b.ToTable("acc_taxes", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Taxes.TaxGroup", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("LastSeries")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("SerieIdentifier")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("SeriePrefix")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TaxGroups", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Taxes.TaxableItem", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("InsuranceProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Item")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.Property<string>("ItemCode")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<long?>("LoanProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("SavingProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("ShareProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("Started")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("Suspend")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("TaxId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("TimedepositProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InsuranceProductId");
+
+                    b.HasIndex("ItemCode")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_tax_items_code")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.HasIndex("LoanProductId");
+
+                    b.HasIndex("SavingProductId");
+
+                    b.HasIndex("ShareProductId");
+
+                    b.HasIndex("TaxId");
+
+                    b.HasIndex("TimedepositProductId");
+
+                    b.ToTable("acc_tax_items", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Taxes.VendorTax", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("TaxId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long>("VendorId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TaxId");
+
+                    b.HasIndex("VendorId", "TaxId")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_vendor_taxes")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("acc_vendor_taxes", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Vouchers.CashierVoucherType", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("CashierId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long>("VoucherTypeId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VoucherTypeId");
+
+                    b.HasIndex("CashierId", "VoucherTypeId")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_cashier_voucher_types")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("acc_cashier_voucher_types", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Vouchers.VoucherEntry", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Authorized")
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.Property<string>("CashierCode")
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<int>("Clearance")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("Credit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Debit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("FolioCode")
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<long?>("GeneralLedgerEntryId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Particulars")
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)");
+
+                    b.Property<int>("Payment")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("PostedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Ref")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("RelatesTo")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<long>("TransactionDocumentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("TransactionDocumentTypeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("TransactionId")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("VoucherNumber")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<long>("VoucherTypeId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GeneralLedgerEntryId");
+
+                    b.HasIndex("PostedOn")
+                        .HasDatabaseName("ix_acc_voucher_lines_posted_on");
+
+                    b.HasIndex("TransactionDocumentId");
+
+                    b.HasIndex("TransactionDocumentTypeId");
+
+                    b.HasIndex("TransactionId")
+                        .HasDatabaseName("ix_acc_voucher_lines_txn");
+
+                    b.HasIndex("VoucherTypeId");
+
+                    b.ToTable("acc_voucher_lines", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Vouchers.VoucherType", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long?>("BranchPostingGroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("BusinessPostingGroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Category")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DefaultLedgerNumber")
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("GeneralPostingGroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsSystem")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("Posting")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("SeriesIdentifier")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("VoucherName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BranchPostingGroupId");
+
+                    b.HasIndex("BusinessPostingGroupId");
+
+                    b.HasIndex("GeneralPostingGroupId");
+
+                    b.HasIndex("VoucherName")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_voucher_types_name")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("acc_voucher_types", "mfi");
+                });
+
             modelBuilder.Entity("Argent.Api.Domain.Entities.Audit.AuditLog", b =>
                 {
                     b.Property<long>("Id")
@@ -711,6 +5286,261 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     b.ToTable("audit_logs", "mfi");
                 });
 
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Banking.Loans.LoanChargeStage", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<bool>("AfterApproval")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("AtAccountClosure")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("AtAccountOpening")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("AtDisbursement")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("BeforeApplication")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("BeforeApproval")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("ChargeItemId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("InsuranceProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("LoanProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("Recurring")
+                        .HasColumnType("boolean");
+
+                    b.Property<long?>("SavingProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("ShareProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("TimedepositProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InsuranceProductId");
+
+                    b.HasIndex("SavingProductId");
+
+                    b.HasIndex("ShareProductId");
+
+                    b.HasIndex("TimedepositProductId");
+
+                    b.HasIndex("ChargeItemId", "Id")
+                        .HasDatabaseName("ix_lnr_charge_stages_charge_item");
+
+                    b.HasIndex("LoanProductId", "Id")
+                        .HasDatabaseName("ix_lnr_charge_stages_loan_product");
+
+                    b.ToTable("lnr_charge_stages", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Banking.Loans.LoanOfficer", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("AppUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal>("ApprovalLimit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("LoanOfficerCode")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("LoanOfficerCode")
+                        .HasDatabaseName("ix_loan_officer_code");
+
+                    b.ToTable("lnr_loan_officer", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Banking.Loans.LoanOfficerLedgerAccount", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("LegderAccountId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("LoanOfficerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LegderAccountId");
+
+                    b.HasIndex("LoanOfficerId", "LegderAccountId")
+                        .IsUnique()
+                        .HasDatabaseName("ux_lnr_loan_officer_ledger")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("lnr_loan_officer_acc", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Banking.Loans.RevolvingFund", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long>("CurrencyId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("DonorId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("Ended")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<decimal>("LoanablePercentage")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("SavingsBased")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("Started")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CurrencyId");
+
+                    b.ToTable("RevolvingFund", "mfi");
+                });
+
             modelBuilder.Entity("Argent.Api.Domain.Entities.Banking.Savings.SavingPartner", b =>
                 {
                     b.Property<long>("Id")
@@ -768,6 +5598,112 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     b.ToTable("kyc_saving_partners", "mfi");
                 });
 
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Banking.Teller", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("AppUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<decimal>("MaximumLimit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MinimumLimit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("TellerCode")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("TellerCode")
+                        .HasDatabaseName("ix_teller_code");
+
+                    b.ToTable("tellers", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Banking.TellerLedgerAccount", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("LegderAccountId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("TellerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LegderAccountId");
+
+                    b.HasIndex("TellerId", "LegderAccountId")
+                        .IsUnique()
+                        .HasDatabaseName("ux_bnk_teller_ledger")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("bnk_teller_acc", "mfi");
+                });
+
             modelBuilder.Entity("Argent.Api.Domain.Entities.Branch", b =>
                 {
                     b.Property<long>("Id")
@@ -775,6 +5711,9 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .HasColumnType("bigint");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long?>("AccountsChartId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -839,6 +5778,8 @@ namespace Argent.Api.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AccountsChartId");
+
                     b.HasIndex("BranchCode")
                         .IsUnique()
                         .HasDatabaseName("ux_branches_sol_id")
@@ -895,6 +5836,7 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .HasColumnType("character varying(150)");
 
                     b.Property<string>("Notes")
+                        .IsRequired()
                         .HasMaxLength(300)
                         .HasColumnType("character varying(300)");
 
@@ -2360,6 +7302,690 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     b.ToTable("organizations", "mfi");
                 });
 
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Products.InsuranceProduct", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("AdministrativeCostLedgerAccount")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("AllowPremiumModification")
+                        .HasColumnType("boolean");
+
+                    b.Property<long?>("ChargeGroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("ChargeMonthlyPremium")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("ClaimLedgerAccount")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<long>("CoverageId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("Fees")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("FeesLedgerAccount")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("MaximumInsuredAge")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("MaximumInsuredPersons")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("MinimumInsuredAge")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("MinimumInsuredPersons")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("PercentageAdministrativeAmount")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal>("PercentageClaimAmount")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("Period")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<long>("ProductTypeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("UseChargeGroups")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("VatInclusive")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChargeGroupId");
+
+                    b.HasIndex("ProductTypeId");
+
+                    b.ToTable("InsuranceProduct", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Products.InsuranceProductTaxGroup", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("ProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("TaxGroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("TaxGroupId");
+
+                    b.ToTable("InsuranceProductTaxGroup", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Products.LoanProduct", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long?>("ChargeGroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("FundId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<long>("ProductTypeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("SectorId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("UseChargeGroups")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("UseClasses")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("VatInclusive")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChargeGroupId");
+
+                    b.HasIndex("FundId");
+
+                    b.HasIndex("ProductTypeId");
+
+                    b.ToTable("LoanProduct", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Products.LoanProductTaxGroup", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("ProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("TaxGroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("TaxGroupId");
+
+                    b.ToTable("LoanProductTaxGroup", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Products.ProductType", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Series")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductType", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Products.SavingProduct", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<bool>("AllowOverdraft")
+                        .HasColumnType("boolean");
+
+                    b.Property<long?>("ChargeGroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("ChargeWithdraws")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("InterestRate")
+                        .HasColumnType("numeric");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("LimitWithdraw")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("MaximumWithdraws")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("MinimumBalance")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal>("MinimumInterestOffered")
+                        .HasColumnType("numeric");
+
+                    b.Property<bool>("OfferInterest")
+                        .HasColumnType("boolean");
+
+                    b.Property<decimal>("OverdraftInterest")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<long>("ProductTypeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("UseChargeGroups")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("VatInclusive")
+                        .HasColumnType("boolean");
+
+                    b.Property<decimal>("WithdrawPenalty")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChargeGroupId");
+
+                    b.HasIndex("ProductTypeId");
+
+                    b.ToTable("SavingProduct", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Products.SavingProductTaxGroup", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("SavingProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("TaxGroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SavingProductId");
+
+                    b.HasIndex("TaxGroupId");
+
+                    b.ToTable("SavingProductTaxGroup", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Products.ShareProduct", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long?>("ChargeGroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<long>("ProductTypeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("UseChargeGroups")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("VatInclusive")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChargeGroupId");
+
+                    b.HasIndex("ProductTypeId");
+
+                    b.ToTable("ShareProduct", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Products.ShareProductTaxGroup", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("ProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("TaxGroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("TaxGroupId");
+
+                    b.ToTable("ShareProductTaxGroup", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Products.TimedepositProduct", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<bool>("CapitalizeInterest")
+                        .HasColumnType("boolean");
+
+                    b.Property<long?>("ChargeGroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("ForfeitInterestForPrematureWithdraw")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<decimal>("MaximumAmount")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal>("MinimumAmount")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("Period")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PeriodType")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("PrematureWithdrawsPenalty")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<long>("ProductTypeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("TierInterest")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("UseChargeGroups")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("VatInclusive")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("WithdrawMode")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChargeGroupId");
+
+                    b.HasIndex("ProductTypeId");
+
+                    b.ToTable("TimedepositProduct", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Products.TimedepositProductTaxGroup", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("TaxGroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("TimedepositProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TaxGroupId");
+
+                    b.HasIndex("TimedepositProductId");
+
+                    b.ToTable("TimedepositProductTaxGroup", "mfi");
+                });
+
             modelBuilder.Entity("Argent.Api.Domain.Entities.Settings.RoleGroupPolicyOverride", b =>
                 {
                     b.Property<long>("Id")
@@ -2552,6 +8178,67 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .HasFilter("\"IsDeleted\" = false");
 
                     b.ToTable("system_policies", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Support.GeneralReason", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Notes")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Category", "Code")
+                        .IsUnique()
+                        .HasDatabaseName("ux_general_reasons_category_code")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("kyc_general_reasons", "mfi");
                 });
 
             modelBuilder.Entity("Argent.Api.Domain.Entities.Support.KycLookup.CustomerFilter", b =>
@@ -3110,67 +8797,6 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     b.ToTable("kyc_villages", "mfi");
                 });
 
-            modelBuilder.Entity("Argent.Api.Domain.Entities.Support.KycSupport.GeneralReason", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
-
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("DeletedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Notes")
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<DateTime?>("UpdatedOn")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Category", "Code")
-                        .IsUnique()
-                        .HasDatabaseName("ux_general_reasons_category_code")
-                        .HasFilter("\"IsDeleted\" = false");
-
-                    b.ToTable("kyc_general_reasons", "mfi");
-                });
-
             modelBuilder.Entity("Argent.Api.Domain.Entities.Support.KycSupport.IncomeHistory", b =>
                 {
                     b.Property<long>("Id")
@@ -3374,6 +9000,1090 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .HasDatabaseName("ix_rejected_customers_customer");
 
                     b.ToTable("kyc_rejected_customers", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.BusinessContact", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("BusinessTitle")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)");
+
+                    b.Property<string>("ContactPerson")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("EmailAddress")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("VendorId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VendorId");
+
+                    b.ToTable("business_contracts", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.DeliveryDefaults", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Currency")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("character varying(3)");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeliveryAddress")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)");
+
+                    b.Property<string>("Receiver")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("character varying(120)");
+
+                    b.Property<string>("ReferenceGroup")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)");
+
+                    b.Property<string>("ReferenceValue")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("VendorId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VendorId");
+
+                    b.ToTable("delivery_defaults", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.DeliveryMode", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("delivery_mode", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.DeliveryTerms", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasDatabaseName("ux_vendor_delivery_terms")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("vendor_delivery_terms", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.DiscountGroup", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("GroupName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasDatabaseName("ux_discount_groups")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("discount_groups", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.InvoicingDefault", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("InvoicingAddress")
+                        .HasMaxLength(180)
+                        .HasColumnType("character varying(180)");
+
+                    b.Property<string>("InvoicingLedger")
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("MultiBranchInvoiceAccount")
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<bool>("PriceIncludesSalesTax")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("PriceIncludesVat")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("PriceIncludesWithHoldingTax")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("VendorId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VendorId");
+
+                    b.ToTable("invoicing_defaults", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.PaymentDefault", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long?>("BankAccountId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("PaymentMethod")
+                        .HasColumnType("integer");
+
+                    b.Property<long?>("PaymentTermId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("VendorId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BankAccountId");
+
+                    b.HasIndex("PaymentTermId");
+
+                    b.HasIndex("VendorId");
+
+                    b.ToTable("payment_defaults", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.PaymentTerm", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Terms")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("payment_terms", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.PriceGroup", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("GroupName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasDatabaseName("ux_price_groups")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("price_groups", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.PurchaseOrderClassification", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("character varying(120)");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("purchase_order_classifications", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.PurchaseOrderDefault", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long?>("BankAccountId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("DiscountGroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("MultiBranchAccount")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("character varying(40)");
+
+                    b.Property<long?>("PriceGroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("PurchaseOrderClassificationId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("VendorGroupId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("VendorId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("VendorItemGroupId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BankAccountId");
+
+                    b.HasIndex("DiscountGroupId");
+
+                    b.HasIndex("PriceGroupId");
+
+                    b.HasIndex("PurchaseOrderClassificationId");
+
+                    b.HasIndex("VendorGroupId");
+
+                    b.HasIndex("VendorId");
+
+                    b.HasIndex("VendorItemGroupId");
+
+                    b.ToTable("purchase_order_defaults", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.PurchasingDefault", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("ContactPerson")
+                        .IsRequired()
+                        .HasMaxLength(180)
+                        .HasColumnType("character varying(180)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Currency")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("character varying(3)");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)");
+
+                    b.Property<string>("PurchaseOfficer")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("character varying(120)");
+
+                    b.Property<string>("ReferenceGroup")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("ReferenceValue")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long>("VendorId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VendorId");
+
+                    b.ToTable("purchase_defaults", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.Vendor", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Alias")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("DeliverTermsId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("DeliveryModeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Language")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("LedgerAccount")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)");
+
+                    b.Property<int>("Priority")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Series")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("VendorGroupId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DeliverTermsId");
+
+                    b.HasIndex("DeliveryModeId");
+
+                    b.HasIndex("VendorGroupId");
+
+                    b.ToTable("vendor", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.VendorAddress", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("For")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsPrimary")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("VendorId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VendorId");
+
+                    b.ToTable("vendor_addresses", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.VendorBankAccount", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("BankAccountId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long>("VendorId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BankAccountId");
+
+                    b.HasIndex("VendorId", "BankAccountId")
+                        .IsUnique()
+                        .HasDatabaseName("ux_vendor_bank_accounts")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("vendor_bank_accounts", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.VendorGroup", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("GroupName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasDatabaseName("ux_vendor_group_code")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("vendor_groups", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.VendorItemGroup", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("ItemGroup")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique()
+                        .HasDatabaseName("ux_vendor_item_groups")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("vendor_item_groups", "mfi");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.VendorReference", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("ReferenceValueId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long>("VendorId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReferenceValueId");
+
+                    b.HasIndex("VendorId", "ReferenceValueId")
+                        .IsUnique()
+                        .HasDatabaseName("ux_acc_vendor_reference_values")
+                        .HasFilter("\"IsDeleted\" = false");
+
+                    b.ToTable("acc_vendor_references", "mfi");
+                });
+
+            modelBuilder.Entity("BankLedgerEntryChequeLedgerEntry", b =>
+                {
+                    b.Property<long>("BankEntriesId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("ChequeEntriesId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("BankEntriesId", "ChequeEntriesId");
+
+                    b.HasIndex("ChequeEntriesId");
+
+                    b.ToTable("acc_cheque_bank_ledger_links", "mfi");
                 });
 
             modelBuilder.Entity("Argent.Api.Domain.Entities.Kyc.KycBusinesses.Business", b =>
@@ -3813,6 +10523,933 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.AccountReferenceValue", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.AccountReference", "AccountReference")
+                        .WithMany("ReferenceValues")
+                        .HasForeignKey("ReferenceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AccountReference");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.BankLedgerEntry", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Cashflow.BankAccount", "BankAccount")
+                        .WithMany("BankTransactions")
+                        .HasForeignKey("BankAccountId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Documents.TransactionDocument", "TransactionDocument")
+                        .WithMany("BankTransactions")
+                        .HasForeignKey("TransactionDocumentId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("BankAccount");
+
+                    b.Navigation("TransactionDocument");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.BranchLedgerAccount", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.LedgerAccount", "LedgerAccount")
+                        .WithMany("BranchLedgerAccounts")
+                        .HasForeignKey("BranchId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Branch", "Branch")
+                        .WithMany("BranchLedgerAccounts")
+                        .HasForeignKey("BranchId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
+
+                    b.Navigation("Branch");
+
+                    b.Navigation("LedgerAccount");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.BranchReference", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Branch", "Branch")
+                        .WithMany()
+                        .HasForeignKey("BranchId");
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.AccountReferenceValue", "ReferenceValue")
+                        .WithMany("BranchReferences")
+                        .HasForeignKey("ReferenceValueId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Branch");
+
+                    b.Navigation("ReferenceValue");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.CardLedgerEntry", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Cashflow.Card", "Card")
+                        .WithMany("CardLedgerEntries")
+                        .HasForeignKey("CardId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.GeneralLedgerEntry", "GeneralLedgerEntry")
+                        .WithMany("CardEntries")
+                        .HasForeignKey("GeneralLedgerEntryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Card");
+
+                    b.Navigation("GeneralLedgerEntry");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Cashflow.Bank", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Cashflow.Iban", "Iban")
+                        .WithMany("Banks")
+                        .HasForeignKey("IbanId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Cashflow.Swift", "Swift")
+                        .WithMany("Banks")
+                        .HasForeignKey("SwiftId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Iban");
+
+                    b.Navigation("Swift");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Cashflow.BankAccount", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Cashflow.BankBranch", "BankBranch")
+                        .WithMany("Accounts")
+                        .HasForeignKey("BankBranchId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.LedgerAccount", "LedgerAccount")
+                        .WithMany("BankAccounts")
+                        .HasForeignKey("LedgerAccountId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("BankBranch");
+
+                    b.Navigation("LedgerAccount");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Cashflow.BankAccountCurrency", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Cashflow.BankAccount", "BankAccount")
+                        .WithMany("Currencies")
+                        .HasForeignKey("BankAccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Currencies.Currency", "Currency")
+                        .WithMany("BankAccounts")
+                        .HasForeignKey("CurrencyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BankAccount");
+
+                    b.Navigation("Currency");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Cashflow.BankBranch", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Cashflow.Bank", "Bank")
+                        .WithMany("Branches")
+                        .HasForeignKey("BankId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Bank");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Cashflow.Card", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Vendors.Vendor", "Vendor")
+                        .WithMany("Cards")
+                        .HasForeignKey("VendorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Vendor");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Cashflow.CashAccount", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.LedgerAccount", "LedgerAccount")
+                        .WithMany("CashAccounts")
+                        .HasForeignKey("LedgerAccountId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("LedgerAccount");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Cashflow.Cashier", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Access.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Cashflow.CashierAccount", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Cashflow.CashAccount", "CashAccount")
+                        .WithMany("CashierAccounts")
+                        .HasForeignKey("CashAccountId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Cashflow.Cashier", "Cashier")
+                        .WithMany("CashierAccounts")
+                        .HasForeignKey("CashierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CashAccount");
+
+                    b.Navigation("Cashier");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Cashflow.CashierBranchAccess", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Branch", "Branch")
+                        .WithMany()
+                        .HasForeignKey("BranchId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Cashflow.Cashier", "Cashier")
+                        .WithMany("BranchAccess")
+                        .HasForeignKey("CashierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Branch");
+
+                    b.Navigation("Cashier");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Cashflow.Cheque", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Cashflow.ChequeBook", "ChequeBook")
+                        .WithMany("Cheques")
+                        .HasForeignKey("ChequeBookId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("ChequeBook");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Cashflow.ChequeBook", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Cashflow.BankAccount", "BankAccount")
+                        .WithMany("ChequeBooks")
+                        .HasForeignKey("BankAccountId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("BankAccount");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.ChargeLedgerEntry", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Charges.ChargeItem", "ChargeItem")
+                        .WithMany("ChargeLedgerEntries")
+                        .HasForeignKey("ChargeItemId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("ChargeItem");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Charges.ChargeGroupItem", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Charges.ChargeGroup", "ChargeGroup")
+                        .WithMany("Items")
+                        .HasForeignKey("ChargeGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ChargeGroup");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Charges.ChargeItem", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Products.SavingProduct", null)
+                        .WithMany("ChargedItems")
+                        .HasForeignKey("SavingProductId");
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Taxes.Tax", "Tax")
+                        .WithMany("ChargedItems")
+                        .HasForeignKey("TaxId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Tax");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Charges.ChargeItemCharge", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Charges.Charge", "Charge")
+                        .WithMany("ChargeItems")
+                        .HasForeignKey("ChargeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Charges.ChargeItem", "ChargeItem")
+                        .WithMany("Charges")
+                        .HasForeignKey("ChargeItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Charge");
+
+                    b.Navigation("ChargeItem");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Charges.InsuranceProductChargeItem", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Charges.ChargeItem", "ChargeItem")
+                        .WithMany("InsuranceProductChargeItems")
+                        .HasForeignKey("ChargeItemId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Products.InsuranceProduct", "InsuranceProduct")
+                        .WithMany("InsuranceProductChargeItem")
+                        .HasForeignKey("InsuranceProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ChargeItem");
+
+                    b.Navigation("InsuranceProduct");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Charges.LoanProductChargeItem", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Charges.ChargeItem", "ChargeItem")
+                        .WithMany("LoanProductChargeItems")
+                        .HasForeignKey("ChargeItemId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Products.LoanProduct", "LoanProduct")
+                        .WithMany("LoanProductChargeItems")
+                        .HasForeignKey("LoanProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ChargeItem");
+
+                    b.Navigation("LoanProduct");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Charges.SavingProductChargeItem", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Charges.ChargeItem", "ChargeItem")
+                        .WithMany("SavingProductChargeItems")
+                        .HasForeignKey("ChargeItemId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Products.SavingProduct", "SavingProduct")
+                        .WithMany()
+                        .HasForeignKey("SavingProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ChargeItem");
+
+                    b.Navigation("SavingProduct");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Charges.ShareProductChargeItem", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Charges.ChargeItem", "ChargeItem")
+                        .WithMany("ShareProductChargeItems")
+                        .HasForeignKey("ChargeItemId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Products.ShareProduct", "ShareProduct")
+                        .WithMany("ShareProductChargeItems")
+                        .HasForeignKey("ShareProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ChargeItem");
+
+                    b.Navigation("ShareProduct");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Charges.TimedepositProductChargeItem", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Charges.ChargeItem", "ChargeItem")
+                        .WithMany("TimedepositProductChargeItems")
+                        .HasForeignKey("ChargeItemId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Products.TimedepositProduct", "TimedepositProduct")
+                        .WithMany("TimedepositProductChargeItems")
+                        .HasForeignKey("TimedepositProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ChargeItem");
+
+                    b.Navigation("TimedepositProduct");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.ChequeLedgerEntry", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Cashflow.Cheque", "Cheque")
+                        .WithMany()
+                        .HasForeignKey("ChequeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Cheque");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.CostCenter", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Branch", "Branch")
+                        .WithMany("CostCenters")
+                        .HasForeignKey("BranchId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Branch");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Currencies.Denomination", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Currencies.Currency", "Currency")
+                        .WithMany("Denominations")
+                        .HasForeignKey("CurrencyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Currency");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Currencies.ExchangeRate", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Currencies.Currency", "Currency")
+                        .WithMany("ExchangeRates")
+                        .HasForeignKey("CurrencyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Currency");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Documents.TransactionDocument", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Documents.TransactionDocumentType", "DocumentType")
+                        .WithMany("Documents")
+                        .HasForeignKey("DocumentTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("DocumentType");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.FinancialYear", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Branch", "Branch")
+                        .WithMany()
+                        .HasForeignKey("BranchId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Branch");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Folio", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.FolioType", "FolioType")
+                        .WithMany("Folios")
+                        .HasForeignKey("FolioTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("FolioType");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.GeneralLedgerEntry", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.LedgerAccount", "LedgerAccount")
+                        .WithMany()
+                        .HasForeignKey("LedgerAccountId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.MonthlyClosure", "MonthlyClosure")
+                        .WithMany("Entries")
+                        .HasForeignKey("MonthlyClosureId");
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Taxes.TaxGroup", "TaxGroup")
+                        .WithMany()
+                        .HasForeignKey("TaxGroupId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("LedgerAccount");
+
+                    b.Navigation("MonthlyClosure");
+
+                    b.Navigation("TaxGroup");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Journals.CashierJournalType", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Cashflow.Cashier", "Cashier")
+                        .WithMany("JournalTypes")
+                        .HasForeignKey("CashierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Journals.JournalType", "JournalType")
+                        .WithMany("Cashiers")
+                        .HasForeignKey("JournalTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Cashier");
+
+                    b.Navigation("JournalType");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Journals.JournalEntry", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.GeneralLedgerEntry", "GeneralLedgerEntry")
+                        .WithMany("JournalEntries")
+                        .HasForeignKey("GeneralLedgerEntryId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Journals.JournalType", "JournalType")
+                        .WithMany("Journals")
+                        .HasForeignKey("JournalTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.MonthlyClosure", "MonthlyClosure")
+                        .WithMany()
+                        .HasForeignKey("MonthlyClosureId");
+
+                    b.Navigation("GeneralLedgerEntry");
+
+                    b.Navigation("JournalType");
+
+                    b.Navigation("MonthlyClosure");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Journals.JournalType", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Postings.BranchPostingGroup", "BranchPostingGroup")
+                        .WithMany()
+                        .HasForeignKey("BranchPostingGroupId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Postings.BusinessPostingGroup", "BusinessPostingGroup")
+                        .WithMany()
+                        .HasForeignKey("BusinessPostingGroupId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Postings.GeneralPostingGroup", "GeneralPostingGroup")
+                        .WithMany()
+                        .HasForeignKey("GeneralPostingGroupId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("BranchPostingGroup");
+
+                    b.Navigation("BusinessPostingGroup");
+
+                    b.Navigation("GeneralPostingGroup");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Journals.JournalTypeTaxGroup", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Journals.JournalType", "JournalType")
+                        .WithMany("TaxGroups")
+                        .HasForeignKey("JournalTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Taxes.TaxGroup", "TaxGroup")
+                        .WithMany("JournalTypes")
+                        .HasForeignKey("TaxGroupId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("JournalType");
+
+                    b.Navigation("TaxGroup");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.LedgerAccount", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.AccountsChart", "AccountsChart")
+                        .WithMany("LedgerAccounts")
+                        .HasForeignKey("AccountsChartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Currencies.Currency", "Currency")
+                        .WithMany("LedgerAccounts")
+                        .HasForeignKey("CurrencyId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Folio", "Folio")
+                        .WithMany("LedgerAccounts")
+                        .HasForeignKey("FolioId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.LedgerAccountHeader", "LedgerAccountHeader")
+                        .WithMany("LedgerAccounts")
+                        .HasForeignKey("LedgerAccountHeaderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("AccountsChart");
+
+                    b.Navigation("Currency");
+
+                    b.Navigation("Folio");
+
+                    b.Navigation("LedgerAccountHeader");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.LedgerAccountReference", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.LedgerAccount", "LedgerAccount")
+                        .WithMany("References")
+                        .HasForeignKey("LedgerAccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.AccountReference", "Reference")
+                        .WithMany("LedgerAccounts")
+                        .HasForeignKey("ReferenceId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("LedgerAccount");
+
+                    b.Navigation("Reference");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.LedgerAccountTotal", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.LedgerAccountHeader", "LedgerAccountHeader")
+                        .WithMany("TotalLabels")
+                        .HasForeignKey("LedgerAccountHeaderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("LedgerAccountHeader");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.LedgerRecurringItem", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Branch", "Branch")
+                        .WithMany()
+                        .HasForeignKey("BranchId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Branch");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.MonthlyClosure", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.FinancialYear", "FinancialYear")
+                        .WithMany("MonthlyClosures")
+                        .HasForeignKey("FinancialYearId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FinancialYear");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.RegistrationLedgerEntry", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Charges.ChargeItem", "ChargeItem")
+                        .WithMany("RegistrationLedgerEntries")
+                        .HasForeignKey("ChargeItemId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("ChargeItem");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.RevenueCenter", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Branch", "Branch")
+                        .WithMany("RevenueCenters")
+                        .HasForeignKey("BranchId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Branch");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.SeriesNumber", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Branch", "Branch")
+                        .WithMany()
+                        .HasForeignKey("BranchId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Documents.TransactionDocumentType", "DocumentType")
+                        .WithMany("SeriesNumbers")
+                        .HasForeignKey("DocumentTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Branch");
+
+                    b.Navigation("DocumentType");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Taxes.Tax", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Taxes.TaxGroup", "TaxGroup")
+                        .WithMany("Taxes")
+                        .HasForeignKey("TaxGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TaxGroup");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Taxes.TaxableItem", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Products.TimedepositProduct", "TimedepositProduct")
+                        .WithMany("TaxableItems")
+                        .HasForeignKey("InsuranceProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Argent.Api.Domain.Entities.Products.LoanProduct", "LoanProduct")
+                        .WithMany("TaxableItems")
+                        .HasForeignKey("LoanProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Argent.Api.Domain.Entities.Products.SavingProduct", "SavingProduct")
+                        .WithMany("TaxableItems")
+                        .HasForeignKey("SavingProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Argent.Api.Domain.Entities.Products.ShareProduct", "ShareProduct")
+                        .WithMany("TaxableItems")
+                        .HasForeignKey("ShareProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Taxes.Tax", "Tax")
+                        .WithMany("TaxableItems")
+                        .HasForeignKey("TaxId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Products.InsuranceProduct", "InsuranceProduct")
+                        .WithMany("TaxableItems")
+                        .HasForeignKey("TimedepositProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("InsuranceProduct");
+
+                    b.Navigation("LoanProduct");
+
+                    b.Navigation("SavingProduct");
+
+                    b.Navigation("ShareProduct");
+
+                    b.Navigation("Tax");
+
+                    b.Navigation("TimedepositProduct");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Taxes.VendorTax", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Vendors.Vendor", "Vendor")
+                        .WithMany("Taxes")
+                        .HasForeignKey("TaxId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Taxes.Tax", "Tax")
+                        .WithMany("Vendors")
+                        .HasForeignKey("VendorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Tax");
+
+                    b.Navigation("Vendor");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Vouchers.CashierVoucherType", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Cashflow.Cashier", "Cashier")
+                        .WithMany("VoucherTypes")
+                        .HasForeignKey("CashierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Vouchers.VoucherType", "VoucherType")
+                        .WithMany("Cashiers")
+                        .HasForeignKey("VoucherTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Cashier");
+
+                    b.Navigation("VoucherType");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Vouchers.VoucherEntry", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.GeneralLedgerEntry", "GeneralLedgerEntry")
+                        .WithMany("VoucherLines")
+                        .HasForeignKey("GeneralLedgerEntryId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Documents.TransactionDocument", "TransactionDocument")
+                        .WithMany("VoucherEntries")
+                        .HasForeignKey("TransactionDocumentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Documents.TransactionDocumentType", "TransactionDocumentType")
+                        .WithMany("VoucherEntries")
+                        .HasForeignKey("TransactionDocumentTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Vouchers.VoucherType", "VoucherType")
+                        .WithMany("Vouchers")
+                        .HasForeignKey("VoucherTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("GeneralLedgerEntry");
+
+                    b.Navigation("TransactionDocument");
+
+                    b.Navigation("TransactionDocumentType");
+
+                    b.Navigation("VoucherType");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Vouchers.VoucherType", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Postings.BranchPostingGroup", "BranchPostingGroup")
+                        .WithMany()
+                        .HasForeignKey("BranchPostingGroupId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Postings.BusinessPostingGroup", "BusinessPostingGroup")
+                        .WithMany()
+                        .HasForeignKey("BusinessPostingGroupId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Postings.GeneralPostingGroup", "GeneralPostingGroup")
+                        .WithMany()
+                        .HasForeignKey("GeneralPostingGroupId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("BranchPostingGroup");
+
+                    b.Navigation("BusinessPostingGroup");
+
+                    b.Navigation("GeneralPostingGroup");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Banking.Loans.LoanChargeStage", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Charges.ChargeItem", "ChargeItem")
+                        .WithMany("ChargeStages")
+                        .HasForeignKey("ChargeItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Products.LoanProduct", "LoanProduct")
+                        .WithMany("ChargeStages")
+                        .HasForeignKey("ChargeItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Products.InsuranceProduct", null)
+                        .WithMany("ChargeStages")
+                        .HasForeignKey("InsuranceProductId");
+
+                    b.HasOne("Argent.Api.Domain.Entities.Products.SavingProduct", null)
+                        .WithMany("ChargeStages")
+                        .HasForeignKey("SavingProductId");
+
+                    b.HasOne("Argent.Api.Domain.Entities.Products.ShareProduct", null)
+                        .WithMany("ChargeStages")
+                        .HasForeignKey("ShareProductId");
+
+                    b.HasOne("Argent.Api.Domain.Entities.Products.TimedepositProduct", null)
+                        .WithMany("ChargeStages")
+                        .HasForeignKey("TimedepositProductId");
+
+                    b.Navigation("ChargeItem");
+
+                    b.Navigation("LoanProduct");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Banking.Loans.LoanOfficer", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Access.AppUser", "AppUser")
+                        .WithMany("LoanOfficers")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Banking.Loans.LoanOfficerLedgerAccount", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.LedgerAccount", "LedgerAccount")
+                        .WithMany("LoanOfficerLedgerAccounts")
+                        .HasForeignKey("LegderAccountId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Banking.Loans.LoanOfficer", "LoanOfficer")
+                        .WithMany("LoanOfficerLedgerAccounts")
+                        .HasForeignKey("LoanOfficerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("LedgerAccount");
+
+                    b.Navigation("LoanOfficer");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Banking.Loans.RevolvingFund", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Currencies.Currency", "Currency")
+                        .WithMany("RevolvingFunds")
+                        .HasForeignKey("CurrencyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Currency");
+                });
+
             modelBuilder.Entity("Argent.Api.Domain.Entities.Banking.Savings.SavingPartner", b =>
                 {
                     b.HasOne("Argent.Api.Domain.Entities.Kyc.KycIndividuals.Individual", null)
@@ -3824,8 +11461,42 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .HasForeignKey("MemberId");
                 });
 
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Banking.Teller", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Access.AppUser", "AppUser")
+                        .WithMany("Tellers")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Banking.TellerLedgerAccount", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.LedgerAccount", "LedgerAccount")
+                        .WithMany("TellerLedgerAccounts")
+                        .HasForeignKey("LegderAccountId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Banking.Teller", "Teller")
+                        .WithMany("TellerLedgerAccounts")
+                        .HasForeignKey("TellerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("LedgerAccount");
+
+                    b.Navigation("Teller");
+                });
+
             modelBuilder.Entity("Argent.Api.Domain.Entities.Branch", b =>
                 {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.AccountsChart", null)
+                        .WithMany("Branches")
+                        .HasForeignKey("AccountsChartId");
+
                     b.HasOne("Argent.Api.Domain.Entities.Organization", "Organization")
                         .WithMany("Branches")
                         .HasForeignKey("OrganizationId")
@@ -3904,7 +11575,7 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .WithMany("BlackLists")
                         .HasForeignKey("CustomerBaseId");
 
-                    b.HasOne("Argent.Api.Domain.Entities.Support.KycSupport.GeneralReason", "Reason")
+                    b.HasOne("Argent.Api.Domain.Entities.Support.GeneralReason", "Reason")
                         .WithMany()
                         .HasForeignKey("ReasonId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -3922,7 +11593,7 @@ namespace Argent.Api.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Argent.Api.Domain.Entities.Kyc.CustomerExit", b =>
                 {
-                    b.HasOne("Argent.Api.Domain.Entities.Support.KycSupport.GeneralReason", "Reason")
+                    b.HasOne("Argent.Api.Domain.Entities.Support.GeneralReason", "Reason")
                         .WithMany()
                         .HasForeignKey("ReasonId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -4096,7 +11767,7 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Argent.Api.Domain.Entities.Support.KycSupport.GeneralReason", "Reason")
+                    b.HasOne("Argent.Api.Domain.Entities.Support.GeneralReason", "Reason")
                         .WithMany()
                         .HasForeignKey("ReasonId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -4144,13 +11815,199 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .WithMany("Unlocks")
                         .HasForeignKey("CustomerBaseId");
 
-                    b.HasOne("Argent.Api.Domain.Entities.Support.KycSupport.GeneralReason", "Reason")
+                    b.HasOne("Argent.Api.Domain.Entities.Support.GeneralReason", "Reason")
                         .WithMany()
                         .HasForeignKey("ReasonId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Reason");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Products.InsuranceProduct", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Charges.ChargeGroup", "ChargeGroup")
+                        .WithMany("InsuranceProducts")
+                        .HasForeignKey("ChargeGroupId");
+
+                    b.HasOne("Argent.Api.Domain.Entities.Products.ProductType", "ProductType")
+                        .WithMany("InsuranceProducts")
+                        .HasForeignKey("ProductTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ChargeGroup");
+
+                    b.Navigation("ProductType");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Products.InsuranceProductTaxGroup", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Products.InsuranceProduct", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Taxes.TaxGroup", "TaxGroup")
+                        .WithMany("InsuranceProducts")
+                        .HasForeignKey("TaxGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("TaxGroup");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Products.LoanProduct", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Charges.ChargeGroup", "ChargeGroup")
+                        .WithMany("LoanProducts")
+                        .HasForeignKey("ChargeGroupId");
+
+                    b.HasOne("Argent.Api.Domain.Entities.Banking.Loans.RevolvingFund", "Fund")
+                        .WithMany()
+                        .HasForeignKey("FundId");
+
+                    b.HasOne("Argent.Api.Domain.Entities.Products.ProductType", "ProductType")
+                        .WithMany("LoanProducts")
+                        .HasForeignKey("ProductTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ChargeGroup");
+
+                    b.Navigation("Fund");
+
+                    b.Navigation("ProductType");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Products.LoanProductTaxGroup", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Products.LoanProduct", "Product")
+                        .WithMany("TaxGroups")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Taxes.TaxGroup", "TaxGroup")
+                        .WithMany("LoanProducts")
+                        .HasForeignKey("TaxGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("TaxGroup");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Products.SavingProduct", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Charges.ChargeGroup", "ChargeGroup")
+                        .WithMany("SavingProducts")
+                        .HasForeignKey("ChargeGroupId");
+
+                    b.HasOne("Argent.Api.Domain.Entities.Products.ProductType", "ProductType")
+                        .WithMany("SavingProducts")
+                        .HasForeignKey("ProductTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ChargeGroup");
+
+                    b.Navigation("ProductType");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Products.SavingProductTaxGroup", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Products.SavingProduct", "SavingProduct")
+                        .WithMany("TaxGroups")
+                        .HasForeignKey("SavingProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Taxes.TaxGroup", "TaxGroup")
+                        .WithMany("SavingProducts")
+                        .HasForeignKey("TaxGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SavingProduct");
+
+                    b.Navigation("TaxGroup");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Products.ShareProduct", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Charges.ChargeGroup", "ChargeGroup")
+                        .WithMany("ShareProducts")
+                        .HasForeignKey("ChargeGroupId");
+
+                    b.HasOne("Argent.Api.Domain.Entities.Products.ProductType", "ProductType")
+                        .WithMany("ShareProducts")
+                        .HasForeignKey("ProductTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ChargeGroup");
+
+                    b.Navigation("ProductType");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Products.ShareProductTaxGroup", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Products.ShareProduct", "Product")
+                        .WithMany("TaxGroups")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Taxes.TaxGroup", "TaxGroup")
+                        .WithMany("ShareProducts")
+                        .HasForeignKey("TaxGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("TaxGroup");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Products.TimedepositProduct", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Charges.ChargeGroup", "ChargeGroup")
+                        .WithMany("TimedepositProducts")
+                        .HasForeignKey("ChargeGroupId");
+
+                    b.HasOne("Argent.Api.Domain.Entities.Products.ProductType", "ProductType")
+                        .WithMany("TimedepositProducts")
+                        .HasForeignKey("ProductTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ChargeGroup");
+
+                    b.Navigation("ProductType");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Products.TimedepositProductTaxGroup", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Taxes.TaxGroup", "TaxGroup")
+                        .WithMany("TimedepositProducts")
+                        .HasForeignKey("TaxGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Products.TimedepositProduct", "TimedepositProduct")
+                        .WithMany()
+                        .HasForeignKey("TimedepositProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TaxGroup");
+
+                    b.Navigation("TimedepositProduct");
                 });
 
             modelBuilder.Entity("Argent.Api.Domain.Entities.Settings.RoleGroupPolicyOverride", b =>
@@ -4204,6 +12061,209 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Reason");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.BusinessContact", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Vendors.Vendor", "Vendor")
+                        .WithMany("BusinessContacts")
+                        .HasForeignKey("VendorId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Vendor");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.DeliveryDefaults", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Vendors.Vendor", "Vendor")
+                        .WithMany("DeliveryDefaults")
+                        .HasForeignKey("VendorId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Vendor");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.InvoicingDefault", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Vendors.Vendor", "Vendor")
+                        .WithMany("InvoicingDefaults")
+                        .HasForeignKey("VendorId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Vendor");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.PaymentDefault", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Cashflow.BankAccount", "BankAccount")
+                        .WithMany("PaymentDefault")
+                        .HasForeignKey("BankAccountId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Argent.Api.Domain.Entities.Vendors.PaymentTerm", "PaymentTerm")
+                        .WithMany("PaymentDefaults")
+                        .HasForeignKey("PaymentTermId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Argent.Api.Domain.Entities.Vendors.Vendor", "Vendor")
+                        .WithMany("VendorPaymentDefaults")
+                        .HasForeignKey("VendorId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("BankAccount");
+
+                    b.Navigation("PaymentTerm");
+
+                    b.Navigation("Vendor");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.PurchaseOrderDefault", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Cashflow.BankAccount", "BankAccount")
+                        .WithMany("PurchaseOrderDefaults")
+                        .HasForeignKey("BankAccountId");
+
+                    b.HasOne("Argent.Api.Domain.Entities.Vendors.DiscountGroup", "DiscountGroup")
+                        .WithMany("PurchaseOrderDefaults")
+                        .HasForeignKey("DiscountGroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Argent.Api.Domain.Entities.Vendors.PriceGroup", "PriceGroup")
+                        .WithMany("PurchaseOrderDefaults")
+                        .HasForeignKey("PriceGroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Argent.Api.Domain.Entities.Vendors.PurchaseOrderClassification", "PurchaseOrderClassification")
+                        .WithMany("PurchaseOrderDefaults")
+                        .HasForeignKey("PurchaseOrderClassificationId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Argent.Api.Domain.Entities.Vendors.VendorGroup", "VendorGroup")
+                        .WithMany("PurchaseOrderDefaults")
+                        .HasForeignKey("VendorGroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Argent.Api.Domain.Entities.Vendors.Vendor", "Vendor")
+                        .WithMany("PurchaseOrderDefaults")
+                        .HasForeignKey("VendorId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Argent.Api.Domain.Entities.Vendors.VendorItemGroup", "VendorItemGroup")
+                        .WithMany("PurchaseOrderDefaults")
+                        .HasForeignKey("VendorItemGroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("BankAccount");
+
+                    b.Navigation("DiscountGroup");
+
+                    b.Navigation("PriceGroup");
+
+                    b.Navigation("PurchaseOrderClassification");
+
+                    b.Navigation("Vendor");
+
+                    b.Navigation("VendorGroup");
+
+                    b.Navigation("VendorItemGroup");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.PurchasingDefault", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Vendors.Vendor", "Vendor")
+                        .WithMany("PurchasingDefaults")
+                        .HasForeignKey("VendorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Vendor");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.Vendor", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Vendors.DeliveryTerms", "DeliveryTerm")
+                        .WithMany("Vendors")
+                        .HasForeignKey("DeliverTermsId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Argent.Api.Domain.Entities.Vendors.DeliveryMode", "DeliveryMode")
+                        .WithMany("Vendors")
+                        .HasForeignKey("DeliveryModeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Argent.Api.Domain.Entities.Vendors.VendorGroup", "VendorGroup")
+                        .WithMany("Vendors")
+                        .HasForeignKey("VendorGroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("DeliveryMode");
+
+                    b.Navigation("DeliveryTerm");
+
+                    b.Navigation("VendorGroup");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.VendorAddress", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Vendors.Vendor", "Vendor")
+                        .WithMany("VendorAddresses")
+                        .HasForeignKey("VendorId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Vendor");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.VendorBankAccount", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Vendors.Vendor", "Vendor")
+                        .WithMany("BankAccounts")
+                        .HasForeignKey("BankAccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.Cashflow.BankAccount", "BankAccount")
+                        .WithMany("VendorAcounts")
+                        .HasForeignKey("VendorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("BankAccount");
+
+                    b.Navigation("Vendor");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.VendorReference", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Vendors.Vendor", "Vendor")
+                        .WithMany("RefereceValues")
+                        .HasForeignKey("ReferenceValueId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.AccountReferenceValue", "ReferenceValue")
+                        .WithMany("VendorReferences")
+                        .HasForeignKey("VendorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("ReferenceValue");
+
+                    b.Navigation("Vendor");
+                });
+
+            modelBuilder.Entity("BankLedgerEntryChequeLedgerEntry", b =>
+                {
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.BankLedgerEntry", null)
+                        .WithMany()
+                        .HasForeignKey("BankEntriesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Argent.Api.Domain.Entities.Accounting.ChequeLedgerEntry", null)
+                        .WithMany()
+                        .HasForeignKey("ChequeEntriesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Argent.Api.Domain.Entities.Kyc.KycBusinesses.Business", b =>
@@ -4411,9 +12471,13 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                 {
                     b.Navigation("BranchAccess");
 
+                    b.Navigation("LoanOfficers");
+
                     b.Navigation("PasswordHistory");
 
                     b.Navigation("RefreshTokens");
+
+                    b.Navigation("Tellers");
 
                     b.Navigation("UserRoles");
                 });
@@ -4439,6 +12503,256 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     b.Navigation("PolicyOverrides");
                 });
 
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.AccountReference", b =>
+                {
+                    b.Navigation("LedgerAccounts");
+
+                    b.Navigation("ReferenceValues");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.AccountReferenceValue", b =>
+                {
+                    b.Navigation("BranchReferences");
+
+                    b.Navigation("VendorReferences");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.AccountsChart", b =>
+                {
+                    b.Navigation("Branches");
+
+                    b.Navigation("LedgerAccounts");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Cashflow.Bank", b =>
+                {
+                    b.Navigation("Branches");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Cashflow.BankAccount", b =>
+                {
+                    b.Navigation("BankTransactions");
+
+                    b.Navigation("ChequeBooks");
+
+                    b.Navigation("Currencies");
+
+                    b.Navigation("PaymentDefault");
+
+                    b.Navigation("PurchaseOrderDefaults");
+
+                    b.Navigation("VendorAcounts");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Cashflow.BankBranch", b =>
+                {
+                    b.Navigation("Accounts");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Cashflow.Card", b =>
+                {
+                    b.Navigation("CardLedgerEntries");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Cashflow.CashAccount", b =>
+                {
+                    b.Navigation("CashierAccounts");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Cashflow.Cashier", b =>
+                {
+                    b.Navigation("BranchAccess");
+
+                    b.Navigation("CashierAccounts");
+
+                    b.Navigation("JournalTypes");
+
+                    b.Navigation("VoucherTypes");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Cashflow.ChequeBook", b =>
+                {
+                    b.Navigation("Cheques");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Cashflow.Iban", b =>
+                {
+                    b.Navigation("Banks");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Cashflow.Swift", b =>
+                {
+                    b.Navigation("Banks");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Charges.Charge", b =>
+                {
+                    b.Navigation("ChargeItems");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Charges.ChargeGroup", b =>
+                {
+                    b.Navigation("InsuranceProducts");
+
+                    b.Navigation("Items");
+
+                    b.Navigation("LoanProducts");
+
+                    b.Navigation("SavingProducts");
+
+                    b.Navigation("ShareProducts");
+
+                    b.Navigation("TimedepositProducts");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Charges.ChargeItem", b =>
+                {
+                    b.Navigation("ChargeLedgerEntries");
+
+                    b.Navigation("ChargeStages");
+
+                    b.Navigation("Charges");
+
+                    b.Navigation("InsuranceProductChargeItems");
+
+                    b.Navigation("LoanProductChargeItems");
+
+                    b.Navigation("RegistrationLedgerEntries");
+
+                    b.Navigation("SavingProductChargeItems");
+
+                    b.Navigation("ShareProductChargeItems");
+
+                    b.Navigation("TimedepositProductChargeItems");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Currencies.Currency", b =>
+                {
+                    b.Navigation("BankAccounts");
+
+                    b.Navigation("Denominations");
+
+                    b.Navigation("ExchangeRates");
+
+                    b.Navigation("LedgerAccounts");
+
+                    b.Navigation("RevolvingFunds");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Documents.TransactionDocument", b =>
+                {
+                    b.Navigation("BankTransactions");
+
+                    b.Navigation("VoucherEntries");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Documents.TransactionDocumentType", b =>
+                {
+                    b.Navigation("Documents");
+
+                    b.Navigation("SeriesNumbers");
+
+                    b.Navigation("VoucherEntries");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.FinancialYear", b =>
+                {
+                    b.Navigation("MonthlyClosures");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Folio", b =>
+                {
+                    b.Navigation("LedgerAccounts");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.FolioType", b =>
+                {
+                    b.Navigation("Folios");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.GeneralLedgerEntry", b =>
+                {
+                    b.Navigation("CardEntries");
+
+                    b.Navigation("JournalEntries");
+
+                    b.Navigation("VoucherLines");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Journals.JournalType", b =>
+                {
+                    b.Navigation("Cashiers");
+
+                    b.Navigation("Journals");
+
+                    b.Navigation("TaxGroups");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.LedgerAccount", b =>
+                {
+                    b.Navigation("BankAccounts");
+
+                    b.Navigation("BranchLedgerAccounts");
+
+                    b.Navigation("CashAccounts");
+
+                    b.Navigation("LoanOfficerLedgerAccounts");
+
+                    b.Navigation("References");
+
+                    b.Navigation("TellerLedgerAccounts");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.LedgerAccountHeader", b =>
+                {
+                    b.Navigation("LedgerAccounts");
+
+                    b.Navigation("TotalLabels");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.MonthlyClosure", b =>
+                {
+                    b.Navigation("Entries");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Taxes.Tax", b =>
+                {
+                    b.Navigation("ChargedItems");
+
+                    b.Navigation("TaxableItems");
+
+                    b.Navigation("Vendors");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Taxes.TaxGroup", b =>
+                {
+                    b.Navigation("InsuranceProducts");
+
+                    b.Navigation("JournalTypes");
+
+                    b.Navigation("LoanProducts");
+
+                    b.Navigation("SavingProducts");
+
+                    b.Navigation("ShareProducts");
+
+                    b.Navigation("Taxes");
+
+                    b.Navigation("TimedepositProducts");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Accounting.Vouchers.VoucherType", b =>
+                {
+                    b.Navigation("Cashiers");
+
+                    b.Navigation("Vouchers");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Banking.Loans.LoanOfficer", b =>
+                {
+                    b.Navigation("LoanOfficerLedgerAccounts");
+                });
+
             modelBuilder.Entity("Argent.Api.Domain.Entities.Banking.Savings.SavingPartner", b =>
                 {
                     b.Navigation("Identifications");
@@ -4446,9 +12760,20 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     b.Navigation("Images");
                 });
 
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Banking.Teller", b =>
+                {
+                    b.Navigation("TellerLedgerAccounts");
+                });
+
             modelBuilder.Entity("Argent.Api.Domain.Entities.Branch", b =>
                 {
+                    b.Navigation("BranchLedgerAccounts");
+
+                    b.Navigation("CostCenters");
+
                     b.Navigation("Holidays");
+
+                    b.Navigation("RevenueCenters");
                 });
 
             modelBuilder.Entity("Argent.Api.Domain.Entities.Kyc.CustomerBase", b =>
@@ -4499,9 +12824,140 @@ namespace Argent.Api.Infrastructure.Data.Migrations
                     b.Navigation("Branches");
                 });
 
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Products.InsuranceProduct", b =>
+                {
+                    b.Navigation("ChargeStages");
+
+                    b.Navigation("InsuranceProductChargeItem");
+
+                    b.Navigation("TaxableItems");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Products.LoanProduct", b =>
+                {
+                    b.Navigation("ChargeStages");
+
+                    b.Navigation("LoanProductChargeItems");
+
+                    b.Navigation("TaxGroups");
+
+                    b.Navigation("TaxableItems");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Products.ProductType", b =>
+                {
+                    b.Navigation("InsuranceProducts");
+
+                    b.Navigation("LoanProducts");
+
+                    b.Navigation("SavingProducts");
+
+                    b.Navigation("ShareProducts");
+
+                    b.Navigation("TimedepositProducts");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Products.SavingProduct", b =>
+                {
+                    b.Navigation("ChargeStages");
+
+                    b.Navigation("ChargedItems");
+
+                    b.Navigation("TaxGroups");
+
+                    b.Navigation("TaxableItems");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Products.ShareProduct", b =>
+                {
+                    b.Navigation("ChargeStages");
+
+                    b.Navigation("ShareProductChargeItems");
+
+                    b.Navigation("TaxGroups");
+
+                    b.Navigation("TaxableItems");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Products.TimedepositProduct", b =>
+                {
+                    b.Navigation("ChargeStages");
+
+                    b.Navigation("TaxableItems");
+
+                    b.Navigation("TimedepositProductChargeItems");
+                });
+
             modelBuilder.Entity("Argent.Api.Domain.Entities.Settings.SystemPolicy", b =>
                 {
                     b.Navigation("Overrides");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.DeliveryMode", b =>
+                {
+                    b.Navigation("Vendors");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.DeliveryTerms", b =>
+                {
+                    b.Navigation("Vendors");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.DiscountGroup", b =>
+                {
+                    b.Navigation("PurchaseOrderDefaults");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.PaymentTerm", b =>
+                {
+                    b.Navigation("PaymentDefaults");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.PriceGroup", b =>
+                {
+                    b.Navigation("PurchaseOrderDefaults");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.PurchaseOrderClassification", b =>
+                {
+                    b.Navigation("PurchaseOrderDefaults");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.Vendor", b =>
+                {
+                    b.Navigation("BankAccounts");
+
+                    b.Navigation("BusinessContacts");
+
+                    b.Navigation("Cards");
+
+                    b.Navigation("DeliveryDefaults");
+
+                    b.Navigation("InvoicingDefaults");
+
+                    b.Navigation("PurchaseOrderDefaults");
+
+                    b.Navigation("PurchasingDefaults");
+
+                    b.Navigation("RefereceValues");
+
+                    b.Navigation("Taxes");
+
+                    b.Navigation("VendorAddresses");
+
+                    b.Navigation("VendorPaymentDefaults");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.VendorGroup", b =>
+                {
+                    b.Navigation("PurchaseOrderDefaults");
+
+                    b.Navigation("Vendors");
+                });
+
+            modelBuilder.Entity("Argent.Api.Domain.Entities.Vendors.VendorItemGroup", b =>
+                {
+                    b.Navigation("PurchaseOrderDefaults");
                 });
 
             modelBuilder.Entity("Argent.Api.Domain.Entities.Kyc.KycBusinesses.Business", b =>

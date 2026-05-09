@@ -12,9 +12,9 @@ namespace Argent.Api.Domain.Entities.Accounting {
         public string BranchAccountNumber { get; set; } = string.Empty;
         public bool Suspend { get; set; }
         public long LedgerAccountId { get; set; }
-        public virtual LedgerAccount? LedgerAccount { get; set; }
+        public virtual LedgerAccount LedgerAccount { get; set; } = null!;
         public long BranchId { get; set; }
-        public virtual Branch? Branch { get; set; }
+        public virtual Branch Branch { get; set; } = null!;
 
     }
 }

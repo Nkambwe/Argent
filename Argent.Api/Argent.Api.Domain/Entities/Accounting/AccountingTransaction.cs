@@ -24,7 +24,6 @@ namespace Argent.Api.Domain.Entities.Accounting {
         /// Batch identifier — all lines with the same code form one double-entry set.
         /// </summary>
         public string TransactionCode { get; set; } = string.Empty;
-
         public DateTime PostedOn { get; set; } = DateTime.UtcNow;
 
         /// <summary>
@@ -48,10 +47,9 @@ namespace Argent.Api.Domain.Entities.Accounting {
         public string PostingSeries { get; set; } = string.Empty;
 
         /// <summary>
-        /// Voucher reference number.
+        /// Voucher reference number
         /// </summary>
-        public string? VoucherNumber { get; set; }
-
+        public string VoucherNumber { get; set; } = string.Empty;
         public decimal Debit { get; set; }
         public decimal Credit { get; set; }
 

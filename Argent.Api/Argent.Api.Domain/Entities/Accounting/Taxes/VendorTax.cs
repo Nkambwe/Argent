@@ -4,10 +4,10 @@ using Argent.Api.Domain.Entities.Vendors;
 namespace Argent.Api.Domain.Entities.Accounting.Taxes {
     public class VendorTax : BaseEntity {
         public long VendorId { get; set; }
-        public virtual Vendor? Vendor { get; set; }
+        public virtual Vendor Vendor { get; set; } = null!;
         public long TaxId { get; set; }
-        public virtual Tax? Tax { get; set; }
-        
+        public virtual Tax Tax { get; set; } = null!;
+
     }
 
 }

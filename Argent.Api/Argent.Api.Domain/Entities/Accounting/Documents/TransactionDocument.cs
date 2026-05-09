@@ -16,15 +16,13 @@ namespace Argent.Api.Domain.Entities.Accounting.Documents {
         /// Used to find all posting lines for this document across the ledger.
         /// </summary>
         public string TransactionCode { get; set; } = string.Empty;
-
         public string DocumentNumber { get; set; } = string.Empty;
         public string DocumentName { get; set; } = string.Empty;
         public string? Notes { get; set; }
-
-        public Guid DocumentTypeId { get; set; }
+        public long DocumentTypeId { get; set; }
         public TransactionDocumentType DocumentType { get; set; } = null!;
 
-        public ICollection<VoucherLine> VoucherLines { get; set; } = [];
-        public ICollection<BankLedgerEntry> BankLines { get; set; } = [];
+        public ICollection<VoucherEntry> VoucherEntries { get; set; } = [];
+        public ICollection<BankLedgerEntry> BankTransactions { get; set; } = [];
     }
 }

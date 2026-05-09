@@ -17,7 +17,7 @@ namespace Argent.Api.Domain.Entities.Accounting.Cashflow {
         public string? SecondaryLine { get; set; }
         public string? BranchFax { get; set; }
 
-        public Guid BankId { get; set; }
+        public long BankId { get; set; }
         public Bank Bank { get; set; } = null!;
 
         public ICollection<BankAccount> Accounts { get; set; } = [];
