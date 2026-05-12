@@ -4,20 +4,32 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Argent.Api.Infrastructure.Repositories {
     public class OrganizationRepository(AppDataContext context) : Repository<Organization>(context), IOrganizationRepository {
-        public async Task<Organization?> GetWithBranchesAsync(long organizationId, CancellationToken token = default)
-            => await _dbSet
-                .Include(o => o.Branches.Where(b => !b.IsDeleted))
-                .FirstOrDefaultAsync(o => o.Id == organizationId && !o.IsDeleted, token);
 
+        #region Organization
+
+        public async Task<Organization?> GetOrganizationAsync(CancellationToken ct = default)
+             => await _dbSet.Include(o => o.Branches.Where(b => !b.IsDeleted)).FirstOrDefaultAsync(ct);
+
+        public async Task<Organization?> GetWithBranchesAsync(long organizationId, CancellationToken token = default)
+            => await _dbSet.Include(o => o.Branches.Where(b => !b.IsDeleted))
+                .FirstOrDefaultAsync(o => o.Id == organizationId && !o.IsDeleted, token);
         public async Task<bool> RegistrationNumberExistsAsync(string registrationNumber, CancellationToken token = default)
-            => await _dbSet.AnyAsync(o => o.RegistrationNumber == registrationNumber && !o.IsDeleted, token);
+           => await _dbSet.AnyAsync(o => o.RegistrationNumber == registrationNumber && !o.IsDeleted, token);
+
+        #endregion
+
+        #region Branch
+
+        public async Task<IEnumerable<Branch>> GetBranchesAsync(CancellationToken ct = default)
+            => await _context.Branches.Include(b => b.Holidays.Where(h => !h.IsDeleted))
+                .OrderByDescending(b => b.IsDefault).ThenBy(b => b.BranchName).ToListAsync(ct);
 
         public async Task<Branch?> GetBranchByIdAsync(long branchId, CancellationToken token = default)
-            => await _context.Branches.FirstOrDefaultAsync(b => b.Id == branchId && !b.IsDeleted, token);
+             => await _context.Branches.Include(b => b.Holidays.Where(h => !h.IsDeleted))
+            .FirstOrDefaultAsync(b => b.Id == branchId && !b.IsDeleted, token);
 
         public async Task<IEnumerable<Branch>> GetBranchesByOrganizationAsync(long organizationId, CancellationToken ct = default)
-            => await _context.Branches
-                .Where(b => b.OrganizationId == organizationId && !b.IsDeleted)
+            => await _context.Branches.Where(b => b.OrganizationId == organizationId && !b.IsDeleted)
                 .OrderByDescending(b => b.IsDefault)
                 .ThenBy(b => b.BranchName)
                 .ToListAsync(ct);
@@ -29,12 +41,28 @@ namespace Argent.Api.Infrastructure.Repositories {
             => await _context.Branches
                 .AnyAsync(b => b.OrganizationId == organizationId && b.BranchName == branchName && !b.IsDeleted, ct);
 
+        public async Task<bool> BranchCodeExistsAsync(string code, long? excludeId = null, CancellationToken ct = default)
+            => await _context.Branches.AnyAsync(b => b.BranchCode == code && !b.IsDeleted && (excludeId == null || b.Id != excludeId.Value), ct);
+
+        public async Task<bool> HasAnyBranchAsync(CancellationToken token = default)
+           => await _context.Branches.AnyAsync(b => !b.IsDeleted, token);
+
         public async Task AddBranchAsync(Branch branch, CancellationToken ct = default)
             => await _context.Branches.AddAsync(branch, ct);
 
         public void UpdateBranch(Branch branch) {
             branch.UpdatedOn = DateTime.UtcNow;
             _context.Branches.Update(branch);
+        }
+
+        public async Task ClearDefaultBranchAsync(CancellationToken ct = default) {
+            var currentDefault = await _context.Branches.FirstOrDefaultAsync(b => b.IsDefault && !b.IsDeleted, ct);
+
+            if (currentDefault is null) return;
+
+            currentDefault.IsDefault = false;
+            currentDefault.UpdatedOn = DateTime.UtcNow;
+            _context.Branches.Update(currentDefault);
         }
 
         public async Task ClearAndSetDefaultBranchAsync(long organizationId, long newDefaultBranchId, CancellationToken ct = default) {
@@ -59,6 +87,23 @@ namespace Argent.Api.Infrastructure.Repositories {
             }
         }
 
+        #endregion
+
+        #region Holidays
+
+        public async Task<BranchHoliday?> GetHolidayByIdAsync(long id, CancellationToken ct = default)
+            => await _context.BranchHolidays.FirstOrDefaultAsync(h => h.Id == id && !h.IsDeleted, ct);
+
+        public async Task AddHolidayAsync(BranchHoliday holiday, CancellationToken ct = default)
+            => await _context.BranchHolidays.AddAsync(holiday, ct);
+
+        public async void RemoveHoliday(BranchHoliday holiday)
+           //..hard delete
+           => _context.BranchHolidays.Remove(holiday);  
+
+        #endregion
+
+        #region Status
         /// <summary>
         /// Check if we can connect to the database
         /// </summary>
@@ -72,5 +117,8 @@ namespace Argent.Api.Infrastructure.Repositories {
         /// <returns></returns>
         public async Task<bool> IsInitlialized()
             => await EntityFrameworkQueryableExtensions.AnyAsync(_context.Organizations);
+
+        #endregion
+
     }
 }

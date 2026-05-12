@@ -44,6 +44,8 @@ namespace Argent.Api.Infrastructure.Repositories.Access {
         #region Password history
         Task<IEnumerable<PasswordHistory>> GetPasswordHistoryAsync(long userId, int count, CancellationToken token = default);
         Task AddPasswordHistoryAsync(PasswordHistory history, CancellationToken token = default);
+        Task<int> CountActiveRoleAssignmentsAsync(long roleId, CancellationToken ct);
         #endregion
+
     }
 }

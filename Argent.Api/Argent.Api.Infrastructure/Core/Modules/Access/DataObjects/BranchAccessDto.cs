@@ -3,6 +3,7 @@
         public long BranchId { get; set; }
         public string BranchCode { get; set; } = string.Empty;
         public string BranchName { get; set; } = string.Empty;
+        public bool IsDefault { get; set; }
         public bool CanPost { get; set; }
     }
 }

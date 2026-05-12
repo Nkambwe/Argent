@@ -1,4 +1,5 @@
 ﻿namespace Argent.Api.Infrastructure.Core.Modules.Access.DataObjects {
+    
     public class UserDto {
         public long Id { get; set; }
         public string Username { get; set; } = string.Empty;
@@ -19,4 +20,5 @@
         public IEnumerable<BranchAccessDto> BranchAccess { get; set; } = [];
         
     }
+
 }

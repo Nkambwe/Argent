@@ -55,6 +55,9 @@ namespace Argent.Api.Infrastructure.Repositories.Access {
             userRole.DeletedOn = DateTime.UtcNow;
         }
 
+        public async Task<int> CountActiveRoleAssignmentsAsync(long roleId, CancellationToken ct)
+            => await _context.UserRoles.CountAsync(ur => ur.RoleId == roleId, ct);
+
         #endregion
 
         #region Branch access

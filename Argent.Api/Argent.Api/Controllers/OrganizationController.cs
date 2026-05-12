@@ -1,7 +1,8 @@
-﻿using Argent.Api.Infrastructure.Core.Commands.Organization;
+﻿using Argent.Api.Infrastructure.Core.Commands.Organizations;
 using Argent.Api.Infrastructure.Core.Modules.Organization.DataObjects;
 using Argent.Api.Infrastructure.Core.Modules.Organization.RequestObjects;
 using Argent.Api.Infrastructure.Core.Queries;
+using Argent.Api.Infrastructure.Core.Queries.Organizations;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -42,19 +43,8 @@ namespace Argent.Api.Controllers {
         [ProducesResponseType(typeof(OrganizationDto), 201)]
         [ProducesResponseType(400)]
         [ProducesResponseType(409)]
-        public async Task<IActionResult> Create([FromBody] OrganizationCreateRequest request, CancellationToken ct) {
-            var result = await _mediator.Send(new CreateOrganizationCommand(
-                request.RegisteredName,
-                request.ShortName,
-                request.RegistrationNumber,
-                request.BusinessLine,
-                request.ContactEmail,
-                request.DefaultBranch.BranchCode,
-                request.DefaultBranch.BranchName,
-                request.DefaultBranch.Address,
-                request.DefaultBranch.EmailAddress,
-                request.DefaultBranch.PostalAddress
-            ), ct);
+        public async Task<IActionResult> Create([FromBody] CreateOrganizationRequest request, CancellationToken ct) {
+            var result = await _mediator.Send(new CreateOrganizationCommand(request), ct);
 
             if (!result.IsSuccess) {
                 return result.ErrorCode switch
@@ -75,14 +65,8 @@ namespace Argent.Api.Controllers {
         [ProducesResponseType(typeof(OrganizationDto), 200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<IActionResult> Update(long id, [FromBody] OrganizationUpdateRequest request, CancellationToken ct) {
-            var result = await _mediator.Send(new UpdateOrganizationCommand(
-                id,
-                request.RegisteredName,
-                request.ShortName,
-                request.BusinessLine,
-                request.ContactEmail
-            ), ct);
+        public async Task<IActionResult> Update(long id, [FromBody] UpdateOrganizationRequest request, CancellationToken ct) {
+            var result = await _mediator.Send(new UpdateOrganizationCommand(id, request), ct);
 
             return result.IsSuccess ? Ok(result.Data) : result.ErrorCode == "NOT_FOUND" ? NotFound(new { result.Error }) : BadRequest(new { result.Error });
         }
@@ -150,7 +134,7 @@ namespace Argent.Api.Controllers {
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         public async Task<IActionResult> SetDefaultBranch(long organizationId, long branchId, CancellationToken ct) {
-            var result = await _mediator.Send(new SetDefaultBranchCommand(organizationId, branchId), ct);
+            var result = await _mediator.Send(new SetDefaultBranchCommand(branchId), ct);
             return result.IsSuccess ? Ok(result.Data) : result.ErrorCode == "NOT_FOUND" ? NotFound(new { result.Error }) : BadRequest(new { result.Error });
         }
     }

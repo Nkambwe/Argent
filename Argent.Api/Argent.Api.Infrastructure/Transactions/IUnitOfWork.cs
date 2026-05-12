@@ -1,5 +1,6 @@
 ﻿using Argent.Api.Infrastructure.Repositories;
 using Argent.Api.Infrastructure.Repositories.Access;
+using Argent.Api.Infrastructure.Repositories.Accounting;
 using Argent.Api.Infrastructure.Repositories.Kyc;
 using Argent.Api.Infrastructure.Repositories.Settings;
 
@@ -23,6 +24,7 @@ namespace Argent.Api.Infrastructure.Transactions {
          IAuditRepository Audits { get; }
          IConfigurationRepository Configs { get; }
          ICustomerRepository Customers { get; }
+        IAccountRepository Accounting { get; }
 
         Task<int> CommitAsync(CancellationToken token = default);
         Task RollbackAsync(CancellationToken token = default);

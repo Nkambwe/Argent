@@ -1,5 +1,4 @@
 ﻿using Argent.Api.Infrastructure.Core.Common;
-using Argent.Api.Infrastructure.Core.Common.Interfaces;
 using Argent.Api.Infrastructure.Core.Modules.Access.DataObjects;
 using Argent.Api.Infrastructure.Logging;
 using Argent.Api.Infrastructure.Transactions;
@@ -71,4 +70,5 @@ namespace Argent.Api.Infrastructure.Core.Commands.Access {
             return Result<UserDto>.Success(result);
         }
     }
+
 }

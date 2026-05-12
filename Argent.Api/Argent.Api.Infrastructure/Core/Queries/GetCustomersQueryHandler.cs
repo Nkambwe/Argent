@@ -8,6 +8,7 @@ using Argent.Api.Infrastructure.Core.Common.Interfaces;
 using Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects;
 using Argent.Api.Infrastructure.Transactions;
 using MediatR;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Argent.Api.Infrastructure.Core.Queries {
     public class GetCustomersQueryHandler(IUnitOfWork uow, IUserContext userContext)
@@ -68,13 +69,8 @@ namespace Argent.Api.Infrastructure.Core.Queries {
                 RegisteredOn = c.RegisteredOn
             });
 
-            return Result<PagedResult<CustomerSummaryDto>>.Success(new PagedResult<CustomerSummaryDto>
-            {
-                Items = dtos,
-                TotalCount = total,
-                Page = query.Page,
-                PageSize = query.PageSize
-            });
+            return Result<PagedResult<CustomerSummaryDto>>
+                .Success(new PagedResult<CustomerSummaryDto>(dtos, total, query.Page, query.PageSize));
         }
 
         private static string GetDisplayName(CustomerBase c, CustomerType type) => type switch {

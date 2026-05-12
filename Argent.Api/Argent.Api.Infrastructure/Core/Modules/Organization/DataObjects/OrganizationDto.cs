@@ -6,8 +6,9 @@
         public string RegistrationNumber { get; set; } = string.Empty;
         public string BusinessLine { get; set; } = string.Empty;
         public string ContactEmail { get; set; } = string.Empty;
+        public int BranchCount { get; set; } = 0;
         public bool IsActive { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedOn { get; set; }
         public IEnumerable<BranchDto> Branches { get; set; } = [];
     }
 }

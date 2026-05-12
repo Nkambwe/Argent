@@ -3,6 +3,7 @@ using Argent.Api.Infrastructure.Core.Common;
 using Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects;
 using Argent.Api.Infrastructure.Transactions;
 using MediatR;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Argent.Api.Infrastructure.Core.Queries {
     public class GetGroupMembersQueryHandler(IUnitOfWork uow): IRequestHandler<GetGroupMembersQuery, Result<PagedResult<CustomerSummaryDto>>> {
@@ -29,12 +30,8 @@ namespace Argent.Api.Infrastructure.Core.Queries {
                 RegisteredOn = m.RegisteredOn
             });
 
-            return Result<PagedResult<CustomerSummaryDto>>.Success(new PagedResult<CustomerSummaryDto> {
-                Items = dtos,
-                TotalCount = total,
-                Page = query.Page,
-                PageSize = query.PageSize
-            });
+            return Result<PagedResult<CustomerSummaryDto>>
+                .Success(new PagedResult<CustomerSummaryDto>(dtos, total, query.Page, query.PageSize));
         }
     }
 

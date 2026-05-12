@@ -1,4 +1,4 @@
-﻿using Argent.Api.Infrastructure.Core.Commands.Organization;
+﻿using Argent.Api.Infrastructure.Core.Commands.Organizations;
 using FluentValidation;
 
 namespace Argent.Api.Infrastructure.Core.Validation.Organization {

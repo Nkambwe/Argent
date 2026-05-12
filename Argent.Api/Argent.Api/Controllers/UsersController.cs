@@ -172,7 +172,14 @@ namespace Argent.Api.Controllers {
                     Name = role.Name,
                     Description = role.Description,
                     IsSystemRole = role.IsSystemRole,
-                    Permissions = full?.RolePermissions.Where(rp => !rp.IsDeleted).Select(rp => rp.Permission.Name) ?? []
+                    Permissions = [.. full!.RolePermissions.Where(rp => !rp.IsDeleted).Select(rp => new PermissionDto
+                    {
+                        Id = rp.Permission.Id,
+                        Name = rp.Permission.Name,
+                        Module = rp.Permission.Module,
+                        Action = rp.Permission.Action,
+                        Description = rp.Permission.Description
+                    })]
                 });
             }
 

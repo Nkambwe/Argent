@@ -168,10 +168,10 @@ C:\Projects\Argent\Argent\Argent.Api\Argent.Api\obj\Debug\net10.0\staticwebasset
 C:\Projects\Argent\Argent\Argent.Api\Argent.Api\obj\Debug\net10.0\staticwebassets.development.json
 C:\Projects\Argent\Argent\Argent.Api\Argent.Api\obj\Debug\net10.0\staticwebassets.build.endpoints.json
 C:\Projects\Argent\Argent\Argent.Api\Argent.Api\obj\Debug\net10.0\swae.build.ex.cache
+C:\Projects\Argent\Argent\Argent.Api\Argent.Api\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
 C:\Projects\Argent\Argent\Argent.Api\Argent.Api\obj\Debug\net10.0\Argent.Api.csproj.Up2Date
 C:\Projects\Argent\Argent\Argent.Api\Argent.Api\obj\Debug\net10.0\Argent.Api.dll
 C:\Projects\Argent\Argent\Argent.Api\Argent.Api\obj\Debug\net10.0\refint\Argent.Api.dll
 C:\Projects\Argent\Argent\Argent.Api\Argent.Api\obj\Debug\net10.0\Argent.Api.pdb
 C:\Projects\Argent\Argent\Argent.Api\Argent.Api\obj\Debug\net10.0\Argent.Api.genruntimeconfig.cache
 C:\Projects\Argent\Argent\Argent.Api\Argent.Api\obj\Debug\net10.0\ref\Argent.Api.dll
-C:\Projects\Argent\Argent\Argent.Api\Argent.Api\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
