@@ -1,5 +1,498 @@
 [
   {
+    "ContainingType": "Argent.Api.Controllers.AccountingController",
+    "Method": "GetCharts",
+    "RelativePath": "api/Accounting/charts",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Argent.Api.Infrastructure.Core.Modules.Accounting.DataObjects.AccountsChartDto, Argent.Api.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.AccountingController",
+    "Method": "GetHeaders",
+    "RelativePath": "api/Accounting/headers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "classification",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "nature",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Argent.Api.Infrastructure.Core.Modules.Accounting.DataObjects.LedgerAccountHeaderDto, Argent.Api.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.AccountingController",
+    "Method": "CreateHeader",
+    "RelativePath": "api/Accounting/headers",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Accounting.DataObjects.CreateLedgerHeaderRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Accounting.DataObjects.LedgerAccountHeaderDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 201
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 409
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.AccountingController",
+    "Method": "GetHeaderById",
+    "RelativePath": "api/Accounting/headers/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Accounting.DataObjects.LedgerAccountHeaderDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 404
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.AccountingController",
+    "Method": "UpdateHeader",
+    "RelativePath": "api/Accounting/headers/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int64",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Accounting.DataObjects.UpdateLedgerHeaderRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Accounting.DataObjects.LedgerAccountHeaderDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 404
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.AccountingController",
+    "Method": "DeleteHeader",
+    "RelativePath": "api/Accounting/headers/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 404
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.AccountingController",
+    "Method": "GetLedgerAccounts",
+    "RelativePath": "api/Accounting/ledgers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Classification",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Nature",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Suspended",
+        "Type": "System.Nullable\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "HeaderId",
+        "Type": "System.Nullable\u00601[[System.Int64, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "PageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Argent.Api.Infrastructure.Core.Common.PagedResult\u00601[[Argent.Api.Infrastructure.Core.Modules.Accounting.DataObjects.LedgerAccountDto, Argent.Api.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.AccountingController",
+    "Method": "CreateLedgerAccount",
+    "RelativePath": "api/Accounting/ledgers",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Accounting.DataObjects.CreateLedgerAccountRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Accounting.DataObjects.LedgerAccountDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 201
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 409
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.AccountingController",
+    "Method": "GetLedgerAccountById",
+    "RelativePath": "api/Accounting/ledgers/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Accounting.DataObjects.LedgerAccountDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 404
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.AccountingController",
+    "Method": "UpdateLedgerAccount",
+    "RelativePath": "api/Accounting/ledgers/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int64",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Accounting.DataObjects.UpdateLedgerAccountRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Accounting.DataObjects.LedgerAccountDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 404
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.AccountingController",
+    "Method": "DeleteLedgerAccount",
+    "RelativePath": "api/Accounting/ledgers/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 404
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.AccountingController",
+    "Method": "ActivateLedgerAccount",
+    "RelativePath": "api/Accounting/ledgers/{id}/activate",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 404
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.AccountingController",
+    "Method": "SuspendLedgerAccount",
+    "RelativePath": "api/Accounting/ledgers/{id}/suspend",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 404
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.AuthController",
+    "Method": "ChangePassword",
+    "RelativePath": "api/Auth/change-password",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Access.RequestObjects.ChangePasswordRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 400
+      }
+    ]
+  },
+  {
     "ContainingType": "Argent.Api.Controllers.AuthController",
     "Method": "Login",
     "RelativePath": "api/Auth/login",
@@ -108,22 +601,65 @@
     ]
   },
   {
-    "ContainingType": "Argent.Api.Controllers.AuthController",
-    "Method": "CreateUser",
-    "RelativePath": "api/Auth/users",
+    "ContainingType": "Argent.Api.Controllers.BranchesController",
+    "Method": "AddHoliday",
+    "RelativePath": "api/branches/add-holiday/{id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int64",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Organization.RequestObjects.AddHolidayRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Organization.DataObjects.BranchHolidayDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 201
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 404
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.BranchesController",
+    "Method": "Create",
+    "RelativePath": "api/branches/create-branch",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "request",
-        "Type": "Argent.Api.Infrastructure.Core.Modules.Access.RequestObjects.CreateUserRequest",
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Organization.RequestObjects.CreateBranchRequest",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "Argent.Api.Infrastructure.Core.Modules.Access.DataObjects.UserDto",
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Organization.DataObjects.BranchDto",
         "MediaTypes": [
           "application/json"
         ],
@@ -142,6 +678,206 @@
           "application/json"
         ],
         "StatusCode": 409
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.BranchesController",
+    "Method": "Deactivate",
+    "RelativePath": "api/branches/deactivate-branch/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 404
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.BranchesController",
+    "Method": "GetById",
+    "RelativePath": "api/branches/get-branch{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Organization.DataObjects.BranchDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 404
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.BranchesController",
+    "Method": "GetAll",
+    "RelativePath": "api/branches/get-branches",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Argent.Api.Infrastructure.Core.Modules.Organization.DataObjects.BranchDto, Argent.Api.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.BranchesController",
+    "Method": "RemoveHoliday",
+    "RelativePath": "api/branches/remove-branch-holiday/{id}/holidays/{holidayId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int64",
+        "IsRequired": true
+      },
+      {
+        "Name": "holidayId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 404
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.BranchesController",
+    "Method": "SetDefault",
+    "RelativePath": "api/branches/set-default/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Organization.DataObjects.BranchDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 404
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.BranchesController",
+    "Method": "Update",
+    "RelativePath": "api/branches/update-branch/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int64",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Organization.RequestObjects.UpdateBranchRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Organization.DataObjects.BranchDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 404
       }
     ]
   },
@@ -793,40 +1529,15 @@
   },
   {
     "ContainingType": "Argent.Api.Controllers.OrganizationController",
-    "Method": "Get",
-    "RelativePath": "api/Organization",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "Argent.Api.Infrastructure.Core.Modules.Organization.DataObjects.OrganizationDto",
-        "MediaTypes": [
-          "application/json"
-        ],
-        "StatusCode": 200
-      },
-      {
-        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
-        "MediaTypes": [
-          "application/json"
-        ],
-        "StatusCode": 404
-      }
-    ]
-  },
-  {
-    "ContainingType": "Argent.Api.Controllers.OrganizationController",
     "Method": "Create",
-    "RelativePath": "api/Organization",
+    "RelativePath": "api/Organization/create-organization",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "request",
-        "Type": "Argent.Api.Infrastructure.Core.Modules.Organization.RequestObjects.OrganizationCreateRequest",
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Organization.RequestObjects.CreateOrganizationRequest",
         "IsRequired": true
       }
     ],
@@ -856,8 +1567,33 @@
   },
   {
     "ContainingType": "Argent.Api.Controllers.OrganizationController",
+    "Method": "Get",
+    "RelativePath": "api/Organization/get-organization",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Organization.DataObjects.OrganizationDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 404
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.OrganizationController",
     "Method": "GetById",
-    "RelativePath": "api/Organization/{id}",
+    "RelativePath": "api/Organization/get-organization-by-id/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -888,7 +1624,7 @@
   {
     "ContainingType": "Argent.Api.Controllers.OrganizationController",
     "Method": "Update",
-    "RelativePath": "api/Organization/{id}",
+    "RelativePath": "api/Organization/update-organization/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -900,7 +1636,7 @@
       },
       {
         "Name": "request",
-        "Type": "Argent.Api.Infrastructure.Core.Modules.Organization.RequestObjects.OrganizationUpdateRequest",
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Organization.RequestObjects.UpdateOrganizationRequest",
         "IsRequired": true
       }
     ],
@@ -929,58 +1665,40 @@
     ]
   },
   {
-    "ContainingType": "Argent.Api.Controllers.OrganizationController",
-    "Method": "GetBranches",
-    "RelativePath": "api/Organization/{organizationId}/branches",
+    "ContainingType": "Argent.Api.Controllers.RoleGroupsController",
+    "Method": "GetAll",
+    "RelativePath": "api/role-groups",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [
-      {
-        "Name": "organizationId",
-        "Type": "System.Int64",
-        "IsRequired": true
-      }
-    ],
+    "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Argent.Api.Infrastructure.Core.Modules.Organization.DataObjects.BranchDto, Argent.Api.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Argent.Api.Infrastructure.Core.Modules.Access.DataObjects.RoleGroupDto, Argent.Api.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "application/json"
         ],
         "StatusCode": 200
-      },
-      {
-        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
-        "MediaTypes": [
-          "application/json"
-        ],
-        "StatusCode": 404
       }
     ]
   },
   {
-    "ContainingType": "Argent.Api.Controllers.OrganizationController",
-    "Method": "CreateBranch",
-    "RelativePath": "api/Organization/{organizationId}/branches",
+    "ContainingType": "Argent.Api.Controllers.RoleGroupsController",
+    "Method": "Create",
+    "RelativePath": "api/role-groups",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "organizationId",
-        "Type": "System.Int64",
-        "IsRequired": true
-      },
-      {
         "Name": "request",
-        "Type": "Argent.Api.Infrastructure.Core.Modules.Organization.RequestObjects.BranchCreateRequest",
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Access.RequestObjects.CreateRoleGroupRequest",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "Argent.Api.Infrastructure.Core.Modules.Organization.DataObjects.BranchDto",
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Access.DataObjects.RoleGroupDto",
         "MediaTypes": [
           "application/json"
         ],
@@ -998,39 +1716,27 @@
         "MediaTypes": [
           "application/json"
         ],
-        "StatusCode": 404
-      },
-      {
-        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
-        "MediaTypes": [
-          "application/json"
-        ],
         "StatusCode": 409
       }
     ]
   },
   {
-    "ContainingType": "Argent.Api.Controllers.OrganizationController",
-    "Method": "GetBranch",
-    "RelativePath": "api/Organization/{organizationId}/branches/{branchId}",
+    "ContainingType": "Argent.Api.Controllers.RoleGroupsController",
+    "Method": "GetById",
+    "RelativePath": "api/role-groups/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "organizationId",
-        "Type": "System.Int64",
-        "IsRequired": true
-      },
-      {
-        "Name": "branchId",
+        "Name": "id",
         "Type": "System.Int64",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "Argent.Api.Infrastructure.Core.Modules.Organization.DataObjects.BranchDto",
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Access.DataObjects.RoleGroupDto",
         "MediaTypes": [
           "application/json"
         ],
@@ -1046,27 +1752,511 @@
     ]
   },
   {
-    "ContainingType": "Argent.Api.Controllers.OrganizationController",
-    "Method": "SetDefaultBranch",
-    "RelativePath": "api/Organization/{organizationId}/branches/{branchId}/set-default",
-    "HttpMethod": "PATCH",
+    "ContainingType": "Argent.Api.Controllers.RoleGroupsController",
+    "Method": "Update",
+    "RelativePath": "api/role-groups/{id}",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "organizationId",
+        "Name": "id",
         "Type": "System.Int64",
         "IsRequired": true
       },
       {
-        "Name": "branchId",
+        "Name": "request",
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Access.RequestObjects.UpdateRoleGroupRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Access.DataObjects.RoleGroupDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.RoleGroupsController",
+    "Method": "SetPolicyOverride",
+    "RelativePath": "api/role-groups/{id}/policy-overrides",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int64",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Access.RequestObjects.SetPolicyOverrideRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Access.DataObjects.PolicyOverrideDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.RoleGroupsController",
+    "Method": "RemovePolicyOverride",
+    "RelativePath": "api/role-groups/{id}/policy-overrides/{policyId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int64",
+        "IsRequired": true
+      },
+      {
+        "Name": "policyId",
         "Type": "System.Int64",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "Argent.Api.Infrastructure.Core.Modules.Organization.DataObjects.BranchDto",
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.RoleGroupsController",
+    "Method": "AssignRoles",
+    "RelativePath": "api/role-groups/{id}/roles",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int64",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Access.RequestObjects.AssignRolesToGroupRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Access.DataObjects.RoleGroupDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.RoleGroupsController",
+    "Method": "RemoveRole",
+    "RelativePath": "api/role-groups/{id}/roles/{roleId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int64",
+        "IsRequired": true
+      },
+      {
+        "Name": "roleId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.RoleGroupsController",
+    "Method": "GetSystemPolicies",
+    "RelativePath": "api/role-groups/system-policies",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "module",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Argent.Api.Infrastructure.Core.Modules.Access.DataObjects.SystemPolicyDto, Argent.Api.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.RolesController",
+    "Method": "GetRoles",
+    "RelativePath": "api/roles/all-roles",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Argent.Api.Infrastructure.Core.Modules.Access.DataObjects.RoleSummaryDto, Argent.Api.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.RolesController",
+    "Method": "AssignPermissions",
+    "RelativePath": "api/roles/assign-role-permissions/{id}/permissions",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int64",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Access.DataObjects.AssignPermissionsRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Access.DataObjects.RoleDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 404
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.RolesController",
+    "Method": "AssignRoles",
+    "RelativePath": "api/roles/assign-user-role/{id}/roles",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int64",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Access.RequestObjects.AssignRolesToUserRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Access.DataObjects.UserDetailDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 404
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.RolesController",
+    "Method": "Create",
+    "RelativePath": "api/roles/create-role",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Access.DataObjects.CreateRoleRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Access.DataObjects.RoleDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 201
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 409
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.RolesController",
+    "Method": "Delete",
+    "RelativePath": "api/roles/delete-role/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 404
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.RolesController",
+    "Method": "GetById",
+    "RelativePath": "api/roles/get-role/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Access.DataObjects.RoleDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 404
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.RolesController",
+    "Method": "GetRolesWithPermissions",
+    "RelativePath": "api/roles/get-roles-with-permissions",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Argent.Api.Infrastructure.Core.Modules.Access.DataObjects.RoleDto, Argent.Api.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.RolesController",
+    "Method": "GetPermissions",
+    "RelativePath": "api/roles/permissions",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "module",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Argent.Api.Infrastructure.Core.Modules.Access.DataObjects.PermissionDto, Argent.Api.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.RolesController",
+    "Method": "RemovePermission",
+    "RelativePath": "api/roles/remove-role-permission/{id}/permissions/{permissionId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int64",
+        "IsRequired": true
+      },
+      {
+        "Name": "permissionId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 404
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.RolesController",
+    "Method": "RemoveRole",
+    "RelativePath": "api/roles/remove-uer-role/{id}/roles/{roleId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int64",
+        "IsRequired": true
+      },
+      {
+        "Name": "roleId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 404
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.RolesController",
+    "Method": "Update",
+    "RelativePath": "api/roles/update-role/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int64",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Access.RequestObjects.UpdateRoleRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Access.DataObjects.RoleDto",
         "MediaTypes": [
           "application/json"
         ],
@@ -1090,62 +2280,92 @@
   },
   {
     "ContainingType": "Argent.Api.Controllers.UsersController",
-    "Method": "GetPermissions",
-    "RelativePath": "api/permissions",
-    "HttpMethod": "GET",
+    "Method": "RemoveBranchAccess",
+    "RelativePath": "api/Users/{id}/branches/{branchId}",
+    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int64",
+        "IsRequired": true
+      },
+      {
+        "Name": "branchId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Argent.Api.Infrastructure.Core.Modules.Access.DataObjects.PermissionDto, Argent.Api.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
         "MediaTypes": [
           "application/json"
         ],
-        "StatusCode": 200
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 404
       }
     ]
   },
   {
     "ContainingType": "Argent.Api.Controllers.UsersController",
-    "Method": "GetRoles",
-    "RelativePath": "api/roles",
-    "HttpMethod": "GET",
+    "Method": "AssignBranch",
+    "RelativePath": "api/Users/assign-branches/{id}",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
+    "Parameters": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Argent.Api.Infrastructure.Core.Modules.Access.DataObjects.RoleDto, Argent.Api.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "application/json"
-        ],
-        "StatusCode": 200
+        "Name": "id",
+        "Type": "System.Int64",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Access.RequestObjects.AssignBranchAccessRequest",
+        "IsRequired": true
       }
-    ]
-  },
-  {
-    "ContainingType": "Argent.Api.Controllers.UsersController",
-    "Method": "GetAll",
-    "RelativePath": "api/Users",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
+    ],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Argent.Api.Infrastructure.Core.Modules.Access.DataObjects.UserDto, Argent.Api.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Access.DataObjects.UserDetailDto",
         "MediaTypes": [
           "application/json"
         ],
         "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 404
       }
     ]
   },
   {
     "ContainingType": "Argent.Api.Controllers.UsersController",
     "Method": "Create",
-    "RelativePath": "api/Users",
+    "RelativePath": "api/Users/create-user",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -1182,8 +2402,44 @@
   },
   {
     "ContainingType": "Argent.Api.Controllers.UsersController",
+    "Method": "Deactivate",
+    "RelativePath": "api/Users/deactivate-user/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 404
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.UsersController",
     "Method": "GetById",
-    "RelativePath": "api/Users/{id}",
+    "RelativePath": "api/Users/get-user/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -1213,20 +2469,69 @@
   },
   {
     "ContainingType": "Argent.Api.Controllers.UsersController",
-    "Method": "GrantBranchAccess",
-    "RelativePath": "api/Users/{userId}/branch-access",
-    "HttpMethod": "POST",
+    "Method": "GetAll",
+    "RelativePath": "api/Users/get-users",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "userId",
+        "Name": "search",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "branchId",
+        "Type": "System.Nullable\u00601[[System.Int64, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "isActive",
+        "Type": "System.Nullable\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Argent.Api.Infrastructure.Core.Common.PagedResult\u00601[[Argent.Api.Infrastructure.Core.Modules.Access.DataObjects.UserSummaryDto, Argent.Api.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Argent.Api.Controllers.UsersController",
+    "Method": "UpdateBranchAccess",
+    "RelativePath": "api/Users/update-branch-bccess/{id}/branches/{branchId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int64",
+        "IsRequired": true
+      },
+      {
+        "Name": "branchId",
         "Type": "System.Int64",
         "IsRequired": true
       },
       {
         "Name": "request",
-        "Type": "Argent.Api.Infrastructure.Core.Modules.Access.RequestObjects.GrantBranchAccessRequest",
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Access.RequestObjects.UpdateBranchAccessRequest",
         "IsRequired": true
       }
     ],
@@ -1254,22 +2559,29 @@
   },
   {
     "ContainingType": "Argent.Api.Controllers.UsersController",
-    "Method": "ChangePassword",
-    "RelativePath": "api/Users/me/change-password",
-    "HttpMethod": "PATCH",
+    "Method": "Update",
+    "RelativePath": "api/Users/update-user/{id}",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
+        "Name": "id",
+        "Type": "System.Int64",
+        "IsRequired": true
+      },
+      {
         "Name": "request",
-        "Type": "Argent.Api.Infrastructure.Core.Modules.Access.RequestObjects.ChangePasswordRequest",
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Access.RequestObjects.UpdateUserRequest",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "System.Void",
-        "MediaTypes": [],
+        "Type": "Argent.Api.Infrastructure.Core.Modules.Access.DataObjects.UserDetailDto",
+        "MediaTypes": [
+          "application/json"
+        ],
         "StatusCode": 200
       },
       {
@@ -1284,7 +2596,7 @@
         "MediaTypes": [
           "application/json"
         ],
-        "StatusCode": 401
+        "StatusCode": 404
       }
     ]
   }

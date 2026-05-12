@@ -12,29 +12,30 @@ namespace Argent.Api.Infrastructure.Core.Modules.Accounting.RequestObjects {
         public async Task<Result<PagedResult<LedgerAccountDto>>> Handle(GetLedgerAccountsQuery query, CancellationToken ct) {
             var accounts = await _uow.Accounting.GetLedgerAccountsAsync(ct);
 
-            var filtered = accounts.AsQueryable();
+            var unfiltered = accounts.AsQueryable();
 
-            if (!string.IsNullOrWhiteSpace(query.Classification) &&
-                Enum.TryParse<AccountClassification>(query.Classification, out var cls))
-                filtered = filtered.Where(a => a.AccountClassification == cls);
+            var filters = query.Request;
+            if (!string.IsNullOrWhiteSpace(filters.Classification) &&
+                Enum.TryParse<AccountClassification>(filters.Classification, out var cls))
+                unfiltered = unfiltered.Where(a => a.AccountClassification == cls);
 
-            if (!string.IsNullOrWhiteSpace(query.Nature) &&
-                Enum.TryParse<AccountNature>(query.Nature, out var nature))
-                filtered = filtered.Where(a => a.AccountNature == nature);
+            if (!string.IsNullOrWhiteSpace(filters.Nature) &&
+                Enum.TryParse<AccountNature>(filters.Nature, out var nature))
+                unfiltered = unfiltered.Where(a => a.AccountNature == nature);
 
-            if (query.Suspended.HasValue)
-                filtered = filtered.Where(a => a.Suspended == query.Suspended.Value);
+            if (filters.Suspended.HasValue)
+                unfiltered = unfiltered.Where(a => a.Suspended == filters.Suspended.Value);
 
-            if (query.HeaderId.HasValue)
-                filtered = filtered.Where(a => a.LedgerAccountHeaderId == query.HeaderId.Value);
+            if (filters.HeaderId.HasValue)
+                unfiltered = unfiltered.Where(a => a.LedgerAccountHeaderId == filters.HeaderId.Value);
 
-            var total = filtered.Count();
-            var items = filtered.OrderBy(a => a.LedgerIndex).Skip((query.Page - 1) * query.PageSize).Take(query.PageSize)
+            var total = unfiltered.Count();
+            var items = unfiltered.OrderBy(a => a.LedgerIndex).Skip((filters.Page - 1) * filters.PageSize).Take(filters.PageSize)
                 .Select(AccountMapper.MapAccountToDto)
                 .ToList();
 
             return Result<PagedResult<LedgerAccountDto>>.Success(
-                new PagedResult<LedgerAccountDto>(items, total, query.Page, query.PageSize));
+                new PagedResult<LedgerAccountDto>(items, total, filters.Page, filters.PageSize));
         }
     }
 

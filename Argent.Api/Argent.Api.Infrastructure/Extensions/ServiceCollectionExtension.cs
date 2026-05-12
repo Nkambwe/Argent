@@ -48,6 +48,7 @@ namespace Argent.Api.Infrastructure.Extensions {
 
             //..register repositories
             services.AddScoped<IOrganizationRepository, OrganizationRepository>();
+            services.AddScoped<IBranchRepository, BranchRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPermissionRepository, PermissionRepository>();
             services.AddScoped<ISystemPolicyRepository, SystemPolicyRepository>();

@@ -1,8 +1,9 @@
 ﻿using Argent.Api.Infrastructure.Core.Commands.Access;
+using Argent.Api.Infrastructure.Core.Common;
 using Argent.Api.Infrastructure.Core.Common.Interfaces;
 using Argent.Api.Infrastructure.Core.Modules.Access.DataObjects;
 using Argent.Api.Infrastructure.Core.Modules.Access.RequestObjects;
-using Argent.Api.Infrastructure.Transactions;
+using Argent.Api.Infrastructure.Core.Queries.Access;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,84 +14,39 @@ namespace Argent.Api.Controllers {
     [Route("api/[controller]")]
     [Authorize]
     [Produces("application/json")]
-    public class UsersController(IMediator mediator, IUnitOfWork uow, IUserContext userContext) : ControllerBase {
+    public class UsersController(IMediator mediator, IUserContext userContext) : ControllerBase {
         private readonly IMediator _mediator = mediator;
-        private readonly IUnitOfWork _uow = uow;
         private readonly IUserContext _userContext = userContext;
 
+        #region Users
         /// <summary>
-        /// List all active users across the organization.
+        /// List all users with optional filtering by search term, branch, or active status.
         /// </summary>
-        [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<UserDto>), 200)]
-        public async Task<IActionResult> GetAll(CancellationToken ct) {
-            var users = await _uow.Users.GetAllAsync(ct);
-            var dtos = users.Select(u => new UserDto
-            {
-                Id = u.Id,
-                Username = u.Username,
-                Email = u.Email,
-                FirstName = u.FirstName,
-                LastName = u.LastName,
-                PhoneNumber = u.PhoneNumber,
-                DefaultBranchId = u.DefaultBranchId,
-                DefaultBranchCode = u.DefaultBranch?.BranchCode ?? string.Empty,
-                DefaultBranchName = u.DefaultBranch?.BranchName ?? string.Empty,
-                IsActive = u.IsActive,
-                LastLoginOn = u.LastLoginOn,
-                CreatedOn = u.CreatedOn
-            });
-
-            return Ok(dtos);
+        [HttpGet("get-users")]
+        [ProducesResponseType(typeof(PagedResult<UserSummaryDto>), 200)]
+        public async Task<IActionResult> GetAll([FromQuery] string? search, [FromQuery] long? branchId,
+            [FromQuery] bool? isActive, [FromQuery] int page = 1, [FromQuery] int pageSize = 20,
+            CancellationToken ct = default) {
+            var result = await _mediator.Send(new GetUsersQuery(search, branchId, isActive, page, pageSize), ct);
+            return result.IsSuccess ? Ok(result.Data) : BadRequest(new { result.Error });
         }
 
         /// <summary>
         /// Get a user by ID including their roles and branch access.
         /// </summary>
-        [HttpGet("{id:long}")]
+        [HttpGet("get-user/{id:long}")]
         [ProducesResponseType(typeof(UserDto), 200)]
         [ProducesResponseType(404)]
         public async Task<IActionResult> GetById(long id, CancellationToken ct) {
-            var user = await _uow.Users.GetByIdWithAccessAsync(id, ct);
-            if (user is null)
-                return NotFound(new { Error = "User not found." });
-
-            var permissions = await _uow.Permissions.GetUserPermissionsAsync(id, ct);
-            var branchAccess = await _uow.Users.GetBranchAccessAsync(id, ct);
-
-            return Ok(new UserDto
-            {
-                Id = user.Id,
-                Username = user.Username,
-                Email = user.Email,
-                FirstName = user.FirstName,
-                MiddleName = user.MiddleName,
-                LastName = user.LastName,
-                PhoneNumber = user.PhoneNumber,
-                DefaultBranchId = user.DefaultBranchId,
-                DefaultBranchCode = user.DefaultBranch?.BranchCode ?? string.Empty,
-                DefaultBranchName = user.DefaultBranch?.BranchName ?? string.Empty,
-                IsActive = user.IsActive,
-                LastLoginOn = user.LastLoginOn,
-                CreatedOn = user.CreatedOn,
-                Roles = user.UserRoles
-                    .Where(ur => !ur.IsDeleted)
-                    .Select(ur => ur.Role.Name),
-                BranchAccess = branchAccess.Select(ba => new BranchAccessDto
-                {
-                    BranchId = ba.BranchId,
-                    BranchCode = ba.Branch?.BranchCode ?? string.Empty,
-                    BranchName = ba.Branch?.BranchName ?? string.Empty,
-                    CanPost = ba.CanPost
-                })
-            });
+            var result = await _mediator.Send(new GetUserByIdQuery(id), ct);
+            return result.IsSuccess ? Ok(result.Data) : NotFound(new { result.Error });
         }
 
         /// <summary>
         /// Create a new system user. Requires Access.CreateUser permission.
         /// The user is automatically granted access to their home branch.
         /// </summary>
-        [HttpPost]
+        [HttpPost("create-user")]
         [ProducesResponseType(typeof(UserDto), 201)]
         [ProducesResponseType(400)]
         [ProducesResponseType(409)]
@@ -110,99 +66,82 @@ namespace Argent.Api.Controllers {
         }
 
         /// <summary>
-        /// Change the calling user's own password.
+        /// Update a user's profile details.
         /// </summary>
-        [HttpPatch("me/change-password")]
-        [ProducesResponseType(200)]
+        [HttpPut("update-user/{id:long}")]
+        [ProducesResponseType(typeof(UserDetailDto), 200)]
         [ProducesResponseType(400)]
-        [ProducesResponseType(401)]
-        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest request, CancellationToken ct) {
-            if (!_userContext.IsAuthenticated)
-                return Unauthorized();
-
-            if (request.NewPassword != request.ConfirmNewPassword)
-                return BadRequest(new { Error = "New password and confirmation do not match." });
-
-            var result = await _mediator.Send(new ChangePasswordCommand(_userContext.UserId, request), ct);
-            return result.IsSuccess ? Ok(new { Message = "Password changed successfully." }) : BadRequest(new { result.Error });
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> Update(long id, [FromBody] UpdateUserRequest request, CancellationToken ct) {
+            var result = await _mediator.Send(new UpdateUserCommand(id, request), ct);
+            return result.IsSuccess ? Ok(result.Data)
+                : result.ErrorCode == "NOT_FOUND" ? NotFound(new { result.Error })
+                : BadRequest(new { result.Error });
         }
 
         /// <summary>
-        /// Grant a user access to an additional branch.
+        /// Deactivate by soft-deleting a user. Their audit history is preserved.
+        /// The system admin account and your own account cannot be deactivated.
         /// </summary>
-        [HttpPost("{userId:long}/branch-access")]
+        [HttpDelete("deactivate-user/{id:long}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
-        public async Task<IActionResult> GrantBranchAccess(long userId, [FromBody] GrantBranchAccessRequest request, CancellationToken token) {
-            var user = await _uow.Users.GetByIdAsync(userId, token);
-            if (user is null)
-                return NotFound(new { Error = "User not found." });
+        public async Task<IActionResult> Deactivate(long id, CancellationToken ct) {
+            var result = await _mediator.Send(new DeactivateUserCommand(id), ct);
+            return result.IsSuccess ? Ok(new { Message = "User deactivated." })
+                : result.ErrorCode is "PROTECTED" or "SELF_DEACTIVATE"
+                    ? BadRequest(new { result.Error })
+                    : NotFound(new { result.Error });
+        }
 
-            var branch = await _uow.Organizations.GetBranchByIdAsync(request.BranchId, token);
-            if (branch is null)
-                return NotFound(new { Error = "Branch not found." });
+        #endregion
 
-            await _uow.Users.AssignBranchAccessAsync(userId, request.BranchId, request.CanPost, token);
-            await _uow.CommitAsync(token);
-
-            return Ok(new {
-                Message = $"Access to '{branch.BranchName}' granted to '{user.Username}'.",
-                BranchId = branch.Id,
-                branch.BranchCode,
-                branch.BranchName,
-                request.CanPost
-            });
+        #region Branch Access
+        /// <summary>
+        /// Grant a user access to an additional branch.
+        /// </summary>
+        [HttpPost("assign-branches/{id:long}")]
+        [ProducesResponseType(typeof(UserDetailDto), 200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> AssignBranch(long id, [FromBody] AssignBranchAccessRequest request, CancellationToken ct) {
+            var result = await _mediator.Send(
+                new AssignBranchAccessCommand(id, request.BranchId, request.CanPost), ct);
+            return result.IsSuccess ? Ok(result.Data)
+                : result.ErrorCode == "NOT_FOUND" ? NotFound(new { result.Error })
+                : BadRequest(new { result.Error });
         }
 
         /// <summary>
-        /// List all roles with their permissions.
+        /// Update the CanPost flag for a user's existing branch access.
         /// </summary>
-        [HttpGet("/api/roles")]
-        [ProducesResponseType(typeof(IEnumerable<RoleDto>), 200)]
-        public async Task<IActionResult> GetRoles(CancellationToken token) {
-            var roles = await _uow.Roles.GetAllAsync(token);
-            var dtos = new List<RoleDto>();
-
-            foreach (var role in roles) {
-                var full = await _uow.Roles.GetByIdAsync(role.Id, token);
-                dtos.Add(new RoleDto
-                {
-                    Id = role.Id,
-                    Name = role.Name,
-                    Description = role.Description,
-                    IsSystemRole = role.IsSystemRole,
-                    Permissions = [.. full!.RolePermissions.Where(rp => !rp.IsDeleted).Select(rp => new PermissionDto
-                    {
-                        Id = rp.Permission.Id,
-                        Name = rp.Permission.Name,
-                        Module = rp.Permission.Module,
-                        Action = rp.Permission.Action,
-                        Description = rp.Permission.Description
-                    })]
-                });
-            }
-
-            return Ok(dtos);
+        [HttpPut("update-branch-bccess/{id:long}/branches/{branchId:long}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> UpdateBranchAccess(long id, long branchId, [FromBody] UpdateBranchAccessRequest request, CancellationToken ct) {
+            var result = await _mediator.Send(new UpdateBranchAccessCommand(id, branchId, request.CanPost), ct);
+            return result.IsSuccess ? Ok(new { Message = "Branch access updated." })
+                : result.ErrorCode == "NOT_FOUND" ? NotFound(new { result.Error })
+                : BadRequest(new { result.Error });
         }
 
         /// <summary>
-        /// List all available permissions grouped by module.
+        /// Revoke a user's access to a branch.
+        /// Cannot remove access to the user's home branch.
         /// </summary>
-        [HttpGet("/api/permissions")]
-        [ProducesResponseType(typeof(IEnumerable<PermissionDto>), 200)]
-        public async Task<IActionResult> GetPermissions(CancellationToken ct) {
-            var permissions = await _uow.Permissions.GetAllAsync(ct);
-            var dtos = permissions.Select(p => new PermissionDto
-            {
-                Id = p.Id,
-                Name = p.Name,
-                Module = p.Module,
-                Action = p.Action,
-                Description = p.Description
-            });
-
-            return Ok(dtos);
+        [HttpDelete("{id:long}/branches/{branchId:long}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> RemoveBranchAccess(long id, long branchId, CancellationToken ct) {
+            var result = await _mediator.Send(new RemoveBranchAccessCommand(id, branchId), ct);
+            return result.IsSuccess ? Ok(new { Message = "Branch access revoked." })
+                : result.ErrorCode == "DEFAULT_BRANCH" ? BadRequest(new { result.Error })
+                : NotFound(new { result.Error });
         }
+
+        #endregion
     }
 }

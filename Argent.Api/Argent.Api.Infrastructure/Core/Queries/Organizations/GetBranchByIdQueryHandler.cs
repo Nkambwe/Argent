@@ -11,7 +11,7 @@ namespace Argent.Api.Infrastructure.Core.Queries.Organizations {
         public async Task<Result<BranchDto>> Handle(GetBranchByIdQuery query, CancellationToken ct) {
             var branch = await _uow.Organizations.GetBranchByIdAsync(query.BranchId, ct);
 
-            if (branch is null || branch.OrganizationId != query.OrganizationId)
+            if (branch is null)
                 return Result<BranchDto>.NotFound("Branch not found for this organization.");
 
             return Result<BranchDto>.Success(new BranchDto

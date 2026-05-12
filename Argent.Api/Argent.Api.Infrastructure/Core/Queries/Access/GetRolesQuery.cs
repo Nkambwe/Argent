@@ -4,5 +4,4 @@ using MediatR;
 
 namespace Argent.Api.Infrastructure.Core.Queries.Access {
     public record GetRolesQuery : IRequest<Result<IEnumerable<RoleSummaryDto>>>;
-
 }

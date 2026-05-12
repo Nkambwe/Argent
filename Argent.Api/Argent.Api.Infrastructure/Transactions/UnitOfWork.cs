@@ -16,6 +16,7 @@ namespace Argent.Api.Infrastructure.Transactions {
 
         //..module repositories
         public IOrganizationRepository Organizations => new OrganizationRepository(_context);
+        public IBranchRepository Branches => new BranchRepository(_context);
         public ISystemPolicyRepository SystemPolicies => new SystemPolicyRepository(_context);
         public IUserRepository Users => new UserRepository(_context);
         public IAuditRepository Audits => new AuditRepository(_context);

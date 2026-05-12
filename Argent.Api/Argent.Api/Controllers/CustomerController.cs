@@ -84,7 +84,7 @@ namespace Argent.Api.Controllers {
         [HttpGet("groups")]
         [ProducesResponseType(typeof(PagedResult<CustomerSummaryDto>), 200)]
         public async Task<IActionResult> GetGroups([FromQuery] long? branchId, [FromQuery] bool? active, [FromQuery] bool? approved,
-            [FromQuery] string? search,[FromQuery] int page = 1, [FromQuery] int pageSize = 20, CancellationToken token = default) {
+            [FromQuery] string? search, [FromQuery] int page = 1, [FromQuery] int pageSize = 20, CancellationToken token = default) {
             var result = await _mediator.Send(new GetCustomersQuery(CustomerType.Group, branchId, active, approved, search, page, pageSize), token);
             return result.IsSuccess ? Ok(result.Data) : BadRequest(new { result.Error });
         }
@@ -121,7 +121,7 @@ namespace Argent.Api.Controllers {
         [HttpGet("groups/{groupId:long}/members")]
         [ProducesResponseType(typeof(PagedResult<CustomerSummaryDto>), 200)]
         [ProducesResponseType(404)]
-        public async Task<IActionResult> GetGroupMembers(long groupId, [FromQuery] bool? active, [FromQuery] int page = 1, 
+        public async Task<IActionResult> GetGroupMembers(long groupId, [FromQuery] bool? active, [FromQuery] int page = 1,
             [FromQuery] int pageSize = 20, CancellationToken ct = default) {
             var result = await _mediator.Send(new GetGroupMembersQuery(groupId, active, page, pageSize), ct);
             return result.IsSuccess ? Ok(result.Data) : NotFound(new { result.Error });
@@ -138,13 +138,13 @@ namespace Argent.Api.Controllers {
             request.GroupId = groupId;
             var result = await _mediator.Send(new CreateMemberCommand(request, _userContext.CurrentBranchId), ct);
 
-            return result.IsSuccess ? StatusCode(201, result.Data) : result.ErrorCode 
+            return result.IsSuccess ? StatusCode(201, result.Data) : result.ErrorCode
                 switch
-                {
-                    "NOT_FOUND" => NotFound(new { result.Error }),
-                    "MAX_MEMBERS_REACHED" => BadRequest(new { result.Error }),
-                    _ => BadRequest(new { result.Error })
-                };
+            {
+                "NOT_FOUND" => NotFound(new { result.Error }),
+                "MAX_MEMBERS_REACHED" => BadRequest(new { result.Error }),
+                _ => BadRequest(new { result.Error })
+            };
         }
 
         #endregion
@@ -156,7 +156,7 @@ namespace Argent.Api.Controllers {
         /// </summary>
         [HttpGet("businesses")]
         [ProducesResponseType(typeof(PagedResult<CustomerSummaryDto>), 200)]
-        public async Task<IActionResult> GetBusinesses([FromQuery] long? branchId, [FromQuery] bool? active, [FromQuery] bool? approved, 
+        public async Task<IActionResult> GetBusinesses([FromQuery] long? branchId, [FromQuery] bool? active, [FromQuery] bool? approved,
             [FromQuery] string? search, [FromQuery] int page = 1, [FromQuery] int pageSize = 20, CancellationToken token = default) {
             var result = await _mediator.Send(new GetCustomersQuery(CustomerType.Business, branchId, active, approved, search, page, pageSize), token);
             return result.IsSuccess ? Ok(result.Data) : BadRequest(new { result.Error });

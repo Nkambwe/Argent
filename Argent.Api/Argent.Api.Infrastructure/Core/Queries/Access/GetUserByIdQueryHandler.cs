@@ -18,14 +18,17 @@ namespace Argent.Api.Infrastructure.Core.Queries.Access {
             return Result<UserDetailDto>.Success(new UserDetailDto
             {
                 Id = user.Id,
-                FullName = $"{user.FirstName} {user.MiddleName} {user.LastName}".Replace("  ", " ").Trim(),
+                FirstName = user.FirstName,
                 MiddleName = user.MiddleName,
+                LastName = user.LastName,
+                FullName = $"{user.FirstName} {user.MiddleName} {user.LastName}".Replace("  ", " ").Trim(),
                 Username = user.Username,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 IsActive = user.IsActive,
                 LastLoginOn = user.LastLoginOn,
                 DefaultBranchId = user.DefaultBranchId,
+                DefaultBranchCode = user.DefaultBranch?.BranchCode ?? string.Empty,
                 DefaultBranchName = user.DefaultBranch?.BranchName ?? string.Empty,
                 CreatedOn = user.CreatedOn,
                 Roles = user.UserRoles.Where(ur => !ur.IsDeleted)
@@ -33,11 +36,14 @@ namespace Argent.Api.Infrastructure.Core.Queries.Access {
                 BranchAccess = branchAccess.Select(ba => new BranchAccessDto
                 {
                     BranchId = ba.BranchId,
+                    BranchCode = ba.Branch?.BranchCode ?? string.Empty,
                     BranchName = ba.Branch?.BranchName ?? string.Empty,
                     CanPost = ba.CanPost,
                     IsDefault = ba.BranchId == user.DefaultBranchId
                 })
             });
+
+
         }
     }
 }

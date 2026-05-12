@@ -49,5 +49,4 @@ namespace Argent.Api.Infrastructure.Repositories {
 
         #endregion
     }
-
 }

@@ -15,6 +15,7 @@ namespace Argent.Api.Infrastructure.Transactions {
     public interface IUnitOfWork : IDisposable, IAsyncDisposable {
 
          IOrganizationRepository Organizations { get; }
+         IBranchRepository Branches { get; }
          ISystemPolicyRepository SystemPolicies { get; }
          IUserRepository Users { get; }
          IRoleRepository Roles { get; }

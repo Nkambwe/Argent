@@ -7,8 +7,5 @@ namespace Argent.Api.Infrastructure.Core.Queries.Organizations {
     /// <summary>
     /// Query to retrieve branches
     /// </summary>
-    /// <param name="OrganizationId"></param>
-    public record GetBranchesQuery(
-        long OrganizationId
-    ) : IRequest<Result<IEnumerable<BranchDto>>>;
+    public record GetBranchesQuery() : IRequest<Result<IEnumerable<BranchDto>>>;
 }

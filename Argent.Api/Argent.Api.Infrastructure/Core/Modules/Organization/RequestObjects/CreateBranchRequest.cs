@@ -1,9 +1,11 @@
 ﻿namespace Argent.Api.Infrastructure.Core.Modules.Organization.RequestObjects {
     public class CreateBranchRequest {
+        public long OrganizationId { get; set; }
         public string BranchCode { get; set; } = string.Empty;
         public string BranchName { get; set; } = string.Empty;
         public string Address { get; set; } = string.Empty;
         public string EmailAddress { get; set; } = string.Empty;
         public string? PostalAddress { get; set; }
+        public bool IsDefault { get; set; }
     }
 }

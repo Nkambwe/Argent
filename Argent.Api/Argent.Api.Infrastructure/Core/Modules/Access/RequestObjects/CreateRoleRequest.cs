@@ -1,4 +1,4 @@
-﻿namespace Argent.Api.Infrastructure.Core.Modules.Access.RequestObjects {
+﻿namespace Argent.Api.Infrastructure.Core.Modules.Access.DataObjects {
     public class CreateRoleRequest {
         public string Name { get; set; } = string.Empty;
         public string? Description { get; set; }

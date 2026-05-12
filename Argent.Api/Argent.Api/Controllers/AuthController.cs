@@ -1,6 +1,5 @@
 ﻿using Argent.Api.Infrastructure.Core.Commands.Access;
 using Argent.Api.Infrastructure.Core.Modules.Access;
-using Argent.Api.Infrastructure.Core.Modules.Access.DataObjects;
 using Argent.Api.Infrastructure.Core.Modules.Access.RequestObjects;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -48,25 +47,6 @@ namespace Argent.Api.Controllers {
             return result.IsSuccess ? Ok(result.Data) : Unauthorized(new { result.Error });
         }
 
-        /// <summary>
-        /// Create a new system user. Requires SystemAdmin permission.
-        /// </summary>
-        [HttpPost("users")]
-        [Authorize]
-        [ProducesResponseType(typeof(UserDto), 201)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(409)]
-        public async Task<IActionResult> CreateUser([FromBody] CreateUserRequest request, CancellationToken ct) {
-            var result = await _mediator.Send(new CreateUserCommand(request), ct);
-
-            return result.IsSuccess ? StatusCode(201, result.Data) : result.ErrorCode switch {
-                "DUPLICATE_USERNAME" => Conflict(new { result.Error }),
-                "DUPLICATE_EMAIL" => Conflict(new { result.Error }),
-                "NOT_FOUND" => NotFound(new { result.Error }),
-                _ => BadRequest(new { result.Error })
-            };
-        }
-
         [HttpPost("logout")]
         [Authorize]
         public async Task<IActionResult> Logout([FromBody] RefreshTokenRequest request, CancellationToken token) {
@@ -82,6 +62,23 @@ namespace Argent.Api.Controllers {
         }
 
         /// <summary>
+        /// Change the authenticated user's own password.
+        /// </summary>
+        [HttpPost("change-password")]
+        [Authorize]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest request, CancellationToken ct) {
+            var userId = GetCurrentUserId();
+            if (userId == 0)
+                return Unauthorized();
+
+            var result = await _mediator.Send(new ChangePasswordCommand(userId, request), ct);
+            return result.IsSuccess ? Ok(new { Message = "Password changed successfully." })
+                : BadRequest(new { result.Error });
+        }
+
+        /// <summary>
         /// Returns the calling user's resolved context from the JWT.
         /// </summary>
         [HttpGet("me")]
@@ -89,13 +86,19 @@ namespace Argent.Api.Controllers {
         [ProducesResponseType(200)]
         [ProducesResponseType(401)]
         public IActionResult Me() {
-            return Ok(new {
+            return Ok(new
+            {
                 userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value,
                 username = User.FindFirst("username")?.Value,
                 fullName = User.FindFirst("fullname")?.Value,
                 homeBranchId = User.FindFirst("homebranch")?.Value,
                 permissions = User.FindFirst("permissions")?.Value?.Split(',') ?? []
             });
+        }
+
+        private long GetCurrentUserId() {
+            var claim = User.FindFirst("userId")?.Value;
+            return long.TryParse(claim, out var id) ? id : 0;
         }
     }
 }

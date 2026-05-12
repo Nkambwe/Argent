@@ -14,13 +14,15 @@ namespace Argent.Api.Infrastructure.Core.Queries.Organizations {
         private readonly IUnitOfWork _uow = uow;
 
         public async Task<Result<IEnumerable<BranchDto>>> Handle(GetBranchesQuery query, CancellationToken ct) {
-            var org = await _uow.Organizations.GetByIdAsync(query.OrganizationId, ct);
-            if (org is null)
-                return Result<IEnumerable<BranchDto>>.NotFound("Organization not found.");
+            var branches = await _uow.Branches.GetAllAsync(ct);
 
-            var branches = await _uow.Organizations.GetBranchesByOrganizationAsync(query.OrganizationId, ct);
-
-            var dtos = branches.Select(b => new BranchDto {
+            IEnumerable<BranchDto> dtos;
+            if (!branches.Any()) {
+                dtos = [];
+                return Result<IEnumerable<BranchDto>>.Success(dtos);
+            }
+            
+            dtos = branches.Select(b => new BranchDto {
                 Id = b.Id,
                 OrganizationId = b.OrganizationId,
                 BranchCode = b.BranchCode,
