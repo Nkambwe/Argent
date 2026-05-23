@@ -1,10 +1,22 @@
 ﻿using Argent.Api.Domain.Entities.Accounting.Charges;
 using Argent.Api.Domain.Entities.Accounting.Taxes;
 using Argent.Api.Domain.Entities.Banking.Loans;
+using Argent.Api.Domain.Entities.Settings;
+using Argent.Api.Domain.Enums;
 
 namespace Argent.Api.Domain.Entities.Products {
     /// <summary>
-    /// Savings product record
+    /// A savings product defines the rules under which savings accounts are opened
+    /// and operated. Multiple accounts can exist under one product.
+    ///
+    /// Key behavioural flags:
+    ///   LimitWithdraw    — caps the number of withdrawals per month
+    ///   ChargeWithdraws  — applies a charge on each withdrawal
+    ///   AllowOverdraft   — permits overdraft facilities on savings accounts
+    ///   OfferInterest    — credits interest to the savings balance
+    ///
+    /// The detailed configuration (interest method, GL accounts, charges,
+    /// dormancy rules, etc.) lives in SavingProductConfiguration.
     /// </summary>
     public class SavingProduct : ProductBase {
         /// <summary>
@@ -47,14 +59,18 @@ namespace Argent.Api.Domain.Entities.Products {
         /// Get/Set the minimum interest amount that can be offered
         /// </summary>
         public decimal MinimumInterestOffered { get; set; }
+        public override ProductModuleType Module => ProductModuleType.Savings;
         public long ProductTypeId { get; set; }
         public virtual ProductType ProductType { get; set; } = null!;
         public long? ChargeGroupId { get; set; }
         public virtual ChargeGroup ChargeGroup { get; set; } = null!;
+        public SavingProductConfiguration? Configuration { get; set; }
+        public virtual ICollection<ProductParam> Params { get; set; } = [];
         public virtual ICollection<SavingProductTaxGroup> TaxGroups { get; set; } = [];
         public virtual ICollection<LoanChargeStage> ChargeStages { get; set; } = [];
         public virtual ICollection<TaxableItem> TaxableItems { get; set; } = [];
         public virtual ICollection<ChargeItem> ChargedItems { get; set; } = [];
+        public ICollection<ProductPostingAccount> PostingAccounts { get; set; } = [];
         //public virtual ICollection<SavingProductParam> ProductParams { get; set; } = [];
         //public virtual ICollection<WithdrawClass> WithdrawClasses { get; set; } = [];
         //public virtual ICollection<SavingAccount> SavingAccounts { get; set; } = [];

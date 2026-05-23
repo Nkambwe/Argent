@@ -7,7 +7,7 @@ using Argent.Api.Infrastructure.Core.Common.Interfaces;
 using Argent.Api.Infrastructure.Core.Modules.Kyc.DataObjects;
 using Argent.Api.Infrastructure.Core.Validation.Kyc;
 using Argent.Api.Infrastructure.Core.Commands.Kyc;
-using Argent.Api.Infrastructure.Core.Queries;
+using Argent.Api.Infrastructure.Core.Queries.Kyc;
 
 namespace Argent.Api.Controllers {
 

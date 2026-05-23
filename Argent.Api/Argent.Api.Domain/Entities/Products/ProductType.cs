@@ -1,26 +1,33 @@
 ﻿using Argent.Api.Domain.Common;
+using Argent.Api.Domain.Entities.Accounting.Charges;
+using Argent.Api.Domain.Entities.Accounting.Taxes;
+using Argent.Api.Domain.Entities.Banking.Loans;
+using Argent.Api.Domain.Enums;
 
 namespace Argent.Api.Domain.Entities.Products {
-
+    /// <summary>
+    /// An operator-defined sub-category of a product module.
+    /// e.g. Under SavingProduct: "Compulsory Savings", "Voluntary Savings", "Junior Savings"
+    /// e.g. Under LoanProduct: "Personal Loan", "Group Loan", "Business Loan", "Mortgage"
+    ///
+    /// ProductModuleType identifies which of the five modules this type belongs to.
+    /// Series is used for document numbering within the type.
+    /// </summary>
     public class ProductType : BaseEntity {
         public string Code { get; set; } = string.Empty;
-        public string Series { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
-        public virtual ICollection<TimedepositProduct> TimedepositProducts { get; set; } = [];
-        public virtual ICollection<InsuranceProduct> InsuranceProducts { get; set; } = [];
-        public virtual ICollection<ShareProduct> ShareProducts { get; set; } = [];
-        public virtual ICollection<SavingProduct> SavingProducts { get; set; } = [];
-        public virtual ICollection<LoanProduct> LoanProducts { get; set; } = [];
-        /// <summary>
-        /// Override product ToString() method
-        /// </summary>
-        /// <returns>Returns string representation of product class</returns>
-        public override string ToString() => $"{Code}-{Name}";
+        public int Series { get; set; }
+        public ProductModuleType Module { get; set; }
+        public bool IsSystem { get; set; }   // system types cannot be deleted
+        public bool IsActive { get; set; } = true;
+        public string? Description { get; set; }
 
-        /// <summary>
-        /// Override product GetHashCode() method
-        /// </summary>
-        /// <returns>Returns hashcode representation of product class's ToString() class</returns>
-        public override int GetHashCode() => ToString().GetHashCode() ^ 3;
+        public ICollection<SavingProduct> SavingProducts { get; set; } = [];
+        public ICollection<LoanProduct> LoanProducts { get; set; } = [];
+        public ICollection<ShareProduct> ShareProducts { get; set; } = [];
+        public ICollection<TimedepositProduct> TimedepositProducts { get; set; } = [];
+        public ICollection<InsuranceProduct> InsuranceProducts { get; set; } = [];
+
     }
+
 }

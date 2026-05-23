@@ -19,6 +19,7 @@ using Argent.Api.Domain.Entities.Kyc.KycBusinesses;
 using Argent.Api.Domain.Entities.Kyc.KycFiles;
 using Argent.Api.Domain.Entities.Kyc.KycGroups;
 using Argent.Api.Domain.Entities.Kyc.KycIndividuals;
+using Argent.Api.Domain.Entities.Products;
 using Argent.Api.Domain.Entities.Settings;
 using Argent.Api.Domain.Entities.Support;
 using Argent.Api.Domain.Entities.Support.KycLookup;
@@ -212,6 +213,18 @@ namespace Argent.Api.Infrastructure.Data {
         //..banking
         public DbSet<Teller> Tellers => Set<Teller>();
         public DbSet<TellerLedgerAccount> TellerLedgerAccounts => Set<TellerLedgerAccount>();
+
+        //..products
+        public DbSet<ProductType> ProductTypes => Set<ProductType>();
+        public DbSet<ProductPostingAccount> ProductPostingAccounts => Set<ProductPostingAccount>();
+        public DbSet<ProductParam> ProductParams => Set<ProductParam>();
+        public DbSet<SavingProduct> SavingProducts => Set<SavingProduct>();
+        public DbSet<LoanProduct> LoanProducts => Set<LoanProduct>();
+        public DbSet<ShareProduct> ShareProducts => Set<ShareProduct>();
+        public DbSet<TimedepositProduct> TimedepositProducts => Set<TimedepositProduct>();
+        public DbSet<InsuranceProduct> InsuranceProducts => Set<InsuranceProduct>();
+        public DbSet<TimedepositRate> TimedepositRates => Set<TimedepositRate>();
+        public DbSet<TimedepositInterestTier> TimedepositInterestTiers => Set<TimedepositInterestTier>();
 
         //..loans
         public DbSet<LoanChargeStage> LoanChargeStages => Set<LoanChargeStage>();

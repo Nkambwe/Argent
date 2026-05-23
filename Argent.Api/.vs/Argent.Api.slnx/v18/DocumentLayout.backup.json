@@ -3,28 +3,16 @@
   "WorkspaceRootPath": "C:\\Projects\\Argent\\Argent\\Argent.Api\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F6C3E7A1-B44D-0AE3-5E55-311EA8D3CF8E}|Argent.Api\\Argent.Api.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api\\controllers\\rolescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F6C3E7A1-B44D-0AE3-5E55-311EA8D3CF8E}|Argent.Api\\Argent.Api.csproj|solutionrelative:argent.api\\controllers\\rolescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api.infrastructure\\core\\queries\\products\\getproductpostingaccountsqueryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|solutionrelative:argent.api.infrastructure\\core\\queries\\products\\getproductpostingaccountsqueryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F6C3E7A1-B44D-0AE3-5E55-311EA8D3CF8E}|Argent.Api\\Argent.Api.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F6C3E7A1-B44D-0AE3-5E55-311EA8D3CF8E}|Argent.Api\\Argent.Api.csproj|solutionrelative:argent.api\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api.infrastructure\\core\\queries\\products\\getloanproductsqueryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|solutionrelative:argent.api.infrastructure\\core\\queries\\products\\getloanproductsqueryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F6C3E7A1-B44D-0AE3-5E55-311EA8D3CF8E}|Argent.Api\\Argent.Api.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api\\controllers\\branchescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F6C3E7A1-B44D-0AE3-5E55-311EA8D3CF8E}|Argent.Api\\Argent.Api.csproj|solutionrelative:argent.api\\controllers\\branchescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F6C3E7A1-B44D-0AE3-5E55-311EA8D3CF8E}|Argent.Api\\Argent.Api.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api\\controllers\\organizationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F6C3E7A1-B44D-0AE3-5E55-311EA8D3CF8E}|Argent.Api\\Argent.Api.csproj|solutionrelative:argent.api\\controllers\\organizationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F6C3E7A1-B44D-0AE3-5E55-311EA8D3CF8E}|Argent.Api\\Argent.Api.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F6C3E7A1-B44D-0AE3-5E55-311EA8D3CF8E}|Argent.Api\\Argent.Api.csproj|solutionrelative:argent.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F6C3E7A1-B44D-0AE3-5E55-311EA8D3CF8E}|Argent.Api\\Argent.Api.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api\\controllers\\accountingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F6C3E7A1-B44D-0AE3-5E55-311EA8D3CF8E}|Argent.Api\\Argent.Api.csproj|solutionrelative:argent.api\\controllers\\accountingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|c:\\projects\\argent\\argent\\argent.api\\argent.api.infrastructure\\core\\commands\\products\\createinsuranceproductcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8263A9D9-9AA5-1021-7E6F-7EF9EDABBFE9}|Argent.Api.Infrastructure\\Argent.Api.Infrastructure.csproj|solutionrelative:argent.api.infrastructure\\core\\commands\\products\\createinsuranceproductcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,15 +26,28 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "AccountingController.cs",
-              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api\\Controllers\\AccountingController.cs",
-              "RelativeDocumentMoniker": "Argent.Api\\Controllers\\AccountingController.cs",
-              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api\\Controllers\\AccountingController.cs",
-              "RelativeToolTip": "Argent.Api\\Controllers\\AccountingController.cs",
-              "ViewState": "AgIAACAAAAAAAAAAAAAAwBYAAAAoAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "GetProductPostingAccountsQueryHandler.cs",
+              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Core\\Queries\\Products\\GetProductPostingAccountsQueryHandler.cs",
+              "RelativeDocumentMoniker": "Argent.Api.Infrastructure\\Core\\Queries\\Products\\GetProductPostingAccountsQueryHandler.cs",
+              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Core\\Queries\\Products\\GetProductPostingAccountsQueryHandler.cs",
+              "RelativeToolTip": "Argent.Api.Infrastructure\\Core\\Queries\\Products\\GetProductPostingAccountsQueryHandler.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAqwBEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-12T09:55:07.006Z",
+              "WhenOpened": "2026-05-23T12:20:43.101Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GetLoanProductsQueryHandler.cs",
+              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Core\\Queries\\Products\\GetLoanProductsQueryHandler.cs",
+              "RelativeDocumentMoniker": "Argent.Api.Infrastructure\\Core\\Queries\\Products\\GetLoanProductsQueryHandler.cs",
+              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Core\\Queries\\Products\\GetLoanProductsQueryHandler.cs",
+              "RelativeToolTip": "Argent.Api.Infrastructure\\Core\\Queries\\Products\\GetLoanProductsQueryHandler.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAASwBAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-23T12:20:27.098Z",
               "EditorCaption": ""
             }
           ]
@@ -68,71 +69,19 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "AuthController.cs",
-              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api\\Controllers\\AuthController.cs",
-              "RelativeDocumentMoniker": "Argent.Api\\Controllers\\AuthController.cs",
-              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api\\Controllers\\AuthController.cs",
-              "RelativeToolTip": "Argent.Api\\Controllers\\AuthController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGAAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-12T07:43:03.512Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "OrganizationController.cs",
-              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api\\Controllers\\OrganizationController.cs",
-              "RelativeDocumentMoniker": "Argent.Api\\Controllers\\OrganizationController.cs",
-              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api\\Controllers\\OrganizationController.cs",
-              "RelativeToolTip": "Argent.Api\\Controllers\\OrganizationController.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAAEAAAAA8AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-12T09:11:31.959Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "BranchesController.cs",
-              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api\\Controllers\\BranchesController.cs",
-              "RelativeDocumentMoniker": "Argent.Api\\Controllers\\BranchesController.cs",
-              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api\\Controllers\\BranchesController.cs",
-              "RelativeToolTip": "Argent.Api\\Controllers\\BranchesController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAE4AAAAzAAAAAAAAAA==",
+              "Title": "CreateInsuranceProductCommand.cs",
+              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Core\\Commands\\Products\\CreateInsuranceProductCommand.cs",
+              "RelativeDocumentMoniker": "Argent.Api.Infrastructure\\Core\\Commands\\Products\\CreateInsuranceProductCommand.cs",
+              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api.Infrastructure\\Core\\Commands\\Products\\CreateInsuranceProductCommand.cs",
+              "RelativeToolTip": "Argent.Api.Infrastructure\\Core\\Commands\\Products\\CreateInsuranceProductCommand.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-12T09:19:29.259Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "UsersController.cs",
-              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api\\Controllers\\UsersController.cs",
-              "RelativeDocumentMoniker": "Argent.Api\\Controllers\\UsersController.cs",
-              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api\\Controllers\\UsersController.cs",
-              "RelativeToolTip": "Argent.Api\\Controllers\\UsersController.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAowGMAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-12T03:16:20.961Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "RolesController.cs",
-              "DocumentMoniker": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api\\Controllers\\RolesController.cs",
-              "RelativeDocumentMoniker": "Argent.Api\\Controllers\\RolesController.cs",
-              "ToolTip": "C:\\Projects\\Argent\\Argent\\Argent.Api\\Argent.Api\\Controllers\\RolesController.cs",
-              "RelativeToolTip": "Argent.Api\\Controllers\\RolesController.cs",
-              "ViewState": "AgIAAFkAAAAAAAAAAAAswH4AAABHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-12T11:53:26.574Z",
+              "WhenOpened": "2026-05-23T11:57:49.775Z",
               "EditorCaption": ""
             }
           ]

@@ -10,8 +10,7 @@ using Argent.Api.Infrastructure.Transactions;
 using MediatR;
 
 namespace Argent.Api.Infrastructure.Core.Commands.Kyc {
-    public class CreateGroupCommandHandler(
-        IUnitOfWork uow, ISystemConfigurationService config,
+    public class CreateGroupCommandHandler(IUnitOfWork uow, ISystemConfigurationService config,
         IUserContext userContext, IServiceLoggerFactory loggerFactory) : IRequestHandler<CreateGroupCommand, Result<GroupDto>> {
         private readonly IUnitOfWork _uow = uow;
         private readonly ISystemConfigurationService _config = config;

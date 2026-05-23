@@ -4,6 +4,7 @@ using Argent.Api.Infrastructure.Repositories;
 using Argent.Api.Infrastructure.Repositories.Access;
 using Argent.Api.Infrastructure.Repositories.Accounting;
 using Argent.Api.Infrastructure.Repositories.Kyc;
+using Argent.Api.Infrastructure.Repositories.Products;
 using Argent.Api.Infrastructure.Repositories.Settings;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -27,6 +28,7 @@ namespace Argent.Api.Infrastructure.Transactions {
         public IRoleGroupMemberRepository RoleGroupMembers => new RoleGroupMemberRepository(_context);
         public IPermissionRepository Permissions => new PermissionRepository(_context);
         public IAccountRepository Accounting => new AccountRepository(_context);
+        public IProductRepository Products => new ProductRepository(_context);
 
         public async Task BeginTransactionAsync(CancellationToken token = default)
             => _transaction = await _context.Database.BeginTransactionAsync(token);
